@@ -2,32 +2,33 @@
     <b-navbar>
         <template #brand>
             <b-navbar-item>
-                <h1 class="title is-4">DENTAL CLINIC</h1>
+                <h1 class="title is-4">TRABAHUNT LOGO</h1>
             </b-navbar-item>
         </template>
 
         <template #start>
+            <b-navbar-item href="/">
+                Hunt Talent
+            </b-navbar-item>
+            <b-navbar-item href="/">
+                Hunt Job
+            </b-navbar-item>
 
+            <b-navbar-item href="/">
+                About Us
+            </b-navbar-item>
 
         </template>
 
         <template #end>
-             <b-navbar-item href="/">
-                HOME
+            <b-navbar-item href="/">
+                FAQ
             </b-navbar-item>
-            <!-- <b-navbar-item href="/about">
-                ABOUT
-            </b-navbar-item> -->
-            <b-navbar-item href="/my-appointment" v-if="currentLogin">
-                MY APPOINTMENT
-            </b-navbar-item>
+     
             <b-navbar-item tag="div">
                 <div v-if="!currentLogin" class="buttons">
-                    <a class="button is-primary" href="/sign-up">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light" href="/login">
-                        Log in
+                    <a class="button is-primary is-rounded" href="/login">
+                        <strong>Login</strong>
                     </a>
                 </div>
                 <div v-else class="buttons">
