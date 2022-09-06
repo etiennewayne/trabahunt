@@ -1,5 +1,29 @@
 <template>
     <div>
+        <div class="section">
+            <div class="slogan">
+                Hunt the best job today!
+            </div>
+            <div class="slogan">
+                Hunt the best people for your job!
+            </div>
+        </div>
+
+
+        <div class="section">
+            <div class="">
+                <b-field position="is-centered">
+                    <b-input class="search-text" type="input" rounded size="is-large" icon-right="magnify" placeholder="Job Title, Company name.."></b-input>
+                    <b-input class="search-text" type="input" rounded size="is-large" icon-right="head-lightbulb-outline" placeholder="Job Type.."></b-input>
+                    <p class="control">
+                        <button class="button is-rounded is-primary is-large">Search</button>
+                    </p>
+                </b-field>
+            </div>
+            
+        </div>
+
+
         
 
     </div> <!--root div-->
@@ -31,6 +55,13 @@ export default {
 
 <style scoped>
 
+
+    .slogan{
+        font-weight: bold;
+        font-size: 3em;
+        color: rgb(0, 100, 0);
+        text-align: center;
+    }
    
 
     @media only screen and (max-width: 1024px) {

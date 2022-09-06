@@ -28,6 +28,11 @@ html body{
 }
 
 
+.navbar{
+    border-bottom: 0.5px solid green;
+    box-shadow: 0px 1px 10px rgb(224, 224, 224);
+}
+
 
 
 @media screen and (max-width: 1023px) {
@@ -101,38 +106,9 @@ html body{
 }
 
 
-
 .box{
     border: 1px solid rgb(228, 228, 228);
 }
-
-
-.tooth-chart {
-    width: 450px;
-}
-
-#Spots {
-
-    polygon,
-    path {
-        -webkit-transition: fill .25s;
-        transition: fill .25s;
-    }
-
-    polygon:hover,
-    polygon:active,
-    path:hover,
-    path:active {
-        fill: #dddddd !important;
-    }
-}
-
-
-.line{
-    height: 10px;
-    background-color: #3490dc;
-}
-
 
 
 //@import '~animate.css/animate';
@@ -142,7 +118,7 @@ html body{
 @import "~bulma/sass/utilities/_all";
 //
 ////Set your colors
-$primary: #3490dc;
+$primary: rgb(4, 109, 30);
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
@@ -222,6 +198,7 @@ $link-focus-border: $primary;
 $navbar-height: 5rem;
 $navbar-item-img-max-height: 4rem;
 
+$input-background-color: green;
 
 //$navbar-burger-color: white;
 //$navbar-item-color: #ffffff;

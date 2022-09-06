@@ -24,7 +24,7 @@
             <b-navbar-item href="/">
                 FAQ
             </b-navbar-item>
-     
+
             <b-navbar-item tag="div">
                 <div v-if="!currentLogin" class="buttons">
                     <a class="button is-primary is-rounded" href="/login">
@@ -36,6 +36,7 @@
                     </b-button>
                 </div>
             </b-navbar-item>
+            
         </template>
     </b-navbar>
 
