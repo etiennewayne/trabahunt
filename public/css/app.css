@@ -26679,6 +26679,10 @@ html body {
   border: 1px solid #e4e4e4;
 }
 
+.debug {
+  border: 1px solid red;
+}
+
 /* Bulma Utilities */
 .pagination-previous,
 .pagination-next,
@@ -29596,7 +29600,7 @@ a.tag:hover {
 
 /* Bulma Form */
 .select select, .taginput .taginput-container.is-focusable, .textarea, .input {
-  background-color: green;
+  background-color: #d9ffe6;
   border-color: #dbdbdb;
   border-radius: 4px;
   color: #363636;
@@ -38754,7 +38758,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   left: 0;
   right: 0;
   height: 0.375em;
-  background-color: green;
+  background-color: #d9ffe6;
   z-index: -1;
 }
 .field.is-floating-label .input:focus,

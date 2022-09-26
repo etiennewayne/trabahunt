@@ -110,7 +110,9 @@ html body{
     border: 1px solid rgb(228, 228, 228);
 }
 
-
+.debug{
+    border: 1px solid red;
+}
 //@import '~animate.css/animate';
 //npm install animate.css --save
 
@@ -198,7 +200,7 @@ $link-focus-border: $primary;
 $navbar-height: 5rem;
 $navbar-item-img-max-height: 4rem;
 
-$input-background-color: green;
+$input-background-color: rgb(217, 255, 230);
 
 //$navbar-burger-color: white;
 //$navbar-item-color: #ffffff;
