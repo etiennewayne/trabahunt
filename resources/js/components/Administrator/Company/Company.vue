@@ -3,9 +3,9 @@
         <div class="section">
 
             <div class="columns is-centered">
-                <div class="column is-6">
+                <div class="column is-10">
                     <div class="box">
-                        <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">LIST OF ITEMS</div>
+                        <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">COMPANIES</div>
 
                         <div class="level">
                             <div class="level-left">
@@ -28,7 +28,7 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                                 v-model="search.itemname" placeholder="Search Item"
+                                                 v-model="search.company" placeholder="Search Company"
                                                  @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                             <b-tooltip label="Search" type="is-success">
@@ -58,29 +58,25 @@
                             :default-sort-direction="defaultSortDirection"
                             @sort="onSort">
 
-                            <b-table-column field="item)id" label="ID" v-slot="props">
-                                {{ props.row.item_id }}
+                            <b-table-column field="company_id" label="ID" v-slot="props">
+                                {{ props.row.company_id }}
                             </b-table-column>
 
-                            <b-table-column field="item_name" label="Item Name" v-slot="props">
-                                {{ props.row.item_name }}
+                            <b-table-column field="company" label="Company Name" v-slot="props">
+                                {{ props.row.company }}
                             </b-table-column>
 
-                            <b-table-column field="item_type" label="Item Type" v-slot="props">
-                                {{ props.row.item_type }}
-                            </b-table-column>
-
-                            <b-table-column field="qty" label="Quantity" v-slot="props">
-                                {{ props.row.qty }}
+                            <b-table-column field="owner" label="Owner" v-slot="props">
+                                {{ props.row.owner }}
                             </b-table-column>
 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
-                                        <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.item_id)"></b-button>
+                                        <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.category_id)"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Delete" type="is-danger">
-                                        <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.item_id)"></b-button>
+                                        <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.category_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
@@ -112,7 +108,7 @@
             <form @submit.prevent="submit">
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">New/Update Dentist Item</p>
+                        <p class="modal-card-title">New/Update Category</p>
                         <button
                             type="button"
                             class="delete"
@@ -121,24 +117,17 @@
 
                     <section class="modal-card-body">
                         <div class="">
-                            <b-field label="Item Name"
-                                     :type="this.errors.item_name ? 'is-danger':''"
-                                     :message="this.errors.item_name ? this.errors.item_name[0] : ''">
-                                <b-input type="text" v-model="fields.item_name" placeholder="Lastname" required />
-                            </b-field>
-                            <b-field label="Item Type" expanded
-                                     :type="this.errors.item_type ? 'is-danger':''"
-                                     :message="this.errors.item_type ? this.errors.item_type[0] : ''">
-                                <b-select v-model="fields.item_type" placeholder="Item Type" expanded required>
-                                    <option value="ASSET">ASSET</option>
-                                    <option value="CONSUMABLE">CONSUMABLE</option>
-                                </b-select>
-                            </b-field>
-                            <b-field label="Quantity"
-                                     :type="this.errors.qty ? 'is-danger':''"
-                                     :message="this.errors.qty ? this.errors.qty[0] : ''">
-                                <b-numberinput min="0" v-model="fields.qty"  placeholder="Quantity"></b-numberinput>
-                            </b-field>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Category"
+                                             :type="this.errors.category ? 'is-danger':''"
+                                             :message="this.errors.category ? this.errors.category[0] : ''">
+                                        <b-input type="text" v-model="fields.category" placeholder="Category" required />
+                                    </b-field>
+                                </div>
+                            </div>
+
                         </div>
                     </section>
                     <footer class="modal-card-foot">
@@ -161,13 +150,13 @@
 
 <script>
 export default {
-    name: "AppointmentType",
+
     data(){
         return{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'item_id',
+            sortField: 'company_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 5,
@@ -177,15 +166,16 @@ export default {
             global_id : 0,
 
             search: {
-                itemname: '',
+                category: '',
             },
 
             isModalCreate: false,
 
             fields: {
-                item_name: null,
-                item_type: null,
-                qty: 0
+                service_id: 0,
+                service: '',
+                price: 0
+
             },
             errors: {},
 
@@ -205,13 +195,13 @@ export default {
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `lname=${this.search.itemname}`,
+                `category=${this.search.category}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-items?${params}`)
+            axios.get(`/admin/get-companies?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -253,8 +243,10 @@ export default {
 
         openModal(){
             this.isModalCreate=true;
-            this.clearFields();
+            this.fields = {};
             this.errors = {};
+
+
         },
 
 
@@ -272,7 +264,7 @@ export default {
         },
         //execute delete after confirming
         deleteSubmit(delete_id) {
-            axios.delete('/items/' + delete_id).then(res => {
+            axios.delete('/admin/companies/' + delete_id).then(res => {
                 this.loadAsyncData();
             }).catch(err => {
                 if (err.response.status === 422) {
@@ -289,16 +281,15 @@ export default {
 
 
             //nested axios for getting the address 1 by 1 or request by request
-            axios.get('/items/' + data_id).then(res=>{
+            axios.get('/admin/companies/' +data_id).then(res=>{
                 this.fields = res.data;
             });
         },
 
         clearFields(){
             this.fields = {
-                item_name: null,
-                item_type: null,
-                qty: 0
+                service: null,
+                price: null,
             };
         },
 
@@ -306,7 +297,7 @@ export default {
         submit: function(){
             if(this.global_id > 0){
                 //update
-                axios.put('/items/'+this.global_id, this.fields).then(res=>{
+                axios.put('/admin/companies/'+this.global_id, this.fields).then(res=>{
                     if(res.data.status === 'updated'){
                         this.$buefy.dialog.alert({
                             title: 'UPDATED!',
@@ -327,7 +318,7 @@ export default {
                 })
             }else{
                 //INSERT HERE
-                axios.post('/items', this.fields).then(res=>{
+                axios.post('/admin/companies', this.fields).then(res=>{
                     if(res.data.status === 'saved'){
                         this.$buefy.dialog.alert({
                             title: 'SAVED!',

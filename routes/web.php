@@ -63,7 +63,16 @@ Route::get('/get-user/{id}', [App\Http\Controllers\OpenUserController::class, 'g
 
 
 /*     ADMINSITRATOR          */
-Route::resource('/jobtypes', App\Http\Controllers\Administrator\JobTypeController::class);
+
+Route::resource('/admin/home', App\Http\Controllers\Administrator\AdminHomeController::class);
+
+
+Route::resource('/admin/job-types', App\Http\Controllers\Administrator\JobTypeController::class);
+Route::get('/admin/get-job-types', [App\Http\Controllers\Administrator\JobTypeController::class, 'getJobTypes']);
+
+
+Route::resource('/admin/categories', App\Http\Controllers\Administrator\CategoryController::class);
+Route::get('/admin/get-categories', [App\Http\Controllers\Administrator\CategoryController::class, 'getCategories']);
 
 
 

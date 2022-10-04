@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 
 
-class DentistMiddleware
+class EmployerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,7 +19,7 @@ class DentistMiddleware
     public function handle(Request $request, Closure $next)
     {
         $role = Auth::user()->role;
-        if($role === 'DENTIST'){
+        if($role === 'EMPLOYER'){
             return $next($request);
         }
 

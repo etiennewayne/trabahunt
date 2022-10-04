@@ -29600,7 +29600,7 @@ a.tag:hover {
 
 /* Bulma Form */
 .select select, .taginput .taginput-container.is-focusable, .textarea, .input {
-  background-color: #d9ffe6;
+  background-color: white;
   border-color: #dbdbdb;
   border-radius: 4px;
   color: #363636;
@@ -38758,7 +38758,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   left: 0;
   right: 0;
   height: 0.375em;
-  background-color: #d9ffe6;
+  background-color: white;
   z-index: -1;
 }
 .field.is-floating-label .input:focus,

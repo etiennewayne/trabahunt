@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Office extends Model
+class Category extends Model
 {
     use HasFactory;
 
-    protected $table = 'offices';
-    protected $primaryKey = 'office_id';
 
-    protected $fillable = ['office_name'];
+    protected $table = 'categories';
+    protected $primaryKey = 'category_id';
+
+    protected $fillable = ['category'];
 
 }

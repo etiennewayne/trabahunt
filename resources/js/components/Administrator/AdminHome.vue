@@ -2,10 +2,10 @@
     <div>
         <div class="section">
             <div class="columns is-centered">
-                <div class="column is-4">
+                <div>
                     <div class="box">
                         <div class="w-head-title">
-                            NO OF USERS
+                            WELCOME ADMINISTRATOR
                         </div>
                         <div class="w-content">
                             {{ info.user }}
@@ -13,30 +13,10 @@
                     </div>
                 </div>
 
-                <div class="column is-4">
-                    <div class="box">
-                        <div class="w-head-title">
-                            NO OF APPOINTMENTS
-                        </div>
-                        <div class="w-content">
-                            {{ info.appointment }}
-                        </div>
-                    </div>
-                </div>
+
             </div><!--cols-->
 
-            <div class="columns is-centered">
-                <div class="column is-4">
-                    <div class="box">
-                        <div class="w-head-title">
-                            NO OF PATIENT
-                        </div>
-                        <div class="w-content">
-                            {{ info.admit }}
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
         </div>
 
@@ -66,15 +46,6 @@ export default {
             })
         },
 
-        sendSMS: function(){
-            axios.post('http://192.168.88.231:1688/services/api/messaging?Message=smaple&To=09167789585&Slot=1',{},{
-                headers: {
-                    'Content-Type': 'text/plain' //void COR error
-                }
-            }).then(res=>{
-                console.log(res.data);
-            })
-        }
 	},
 
     mounted() {

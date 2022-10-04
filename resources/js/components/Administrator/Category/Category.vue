@@ -2,10 +2,10 @@
     <div>
         <div class="section">
 
-            <div class="columns">
-                <div class="column is-8 is-offset-2">
+            <div class="columns is-centered">
+                <div class="column is-10">
                     <div class="box">
-                        <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">MY APPOINTMENT TYPE</div>
+                        <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">CATEGORIES</div>
 
                         <div class="level">
                             <div class="level-left">
@@ -19,6 +19,7 @@
                                     <b-select v-model="sortOrder" @input="loadAsyncData">
                                         <option value="asc">ASC</option>
                                         <option value="desc">DESC</option>
+
                                     </b-select>
                                 </b-field>
                             </div>
@@ -27,17 +28,19 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                            v-model="search.type" placeholder="Search Appointment Type"
-                                            @keyup.native.enter="loadAsyncData"/>
+                                                 v-model="search.category" placeholder="Search Category"
+                                                 @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
-                                             <b-tooltip label="Search" type="is-success">
-                                            <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
-                                             </b-tooltip>
+                                            <b-tooltip label="Search" type="is-success">
+                                                <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
+                                            </b-tooltip>
                                         </p>
                                     </b-field>
                                 </div>
                             </div>
                         </div>
+
+
 
                         <b-table
                             :data="data"
@@ -55,58 +58,39 @@
                             :default-sort-direction="defaultSortDirection"
                             @sort="onSort">
 
-                            <b-table-column field="appointment_type_id" label="ID" v-slot="props">
-                                {{ props.row.appointment_type_id }}
+                            <b-table-column field="category_id" label="ID" v-slot="props">
+                                {{ props.row.category_id }}
                             </b-table-column>
 
-                            <b-table-column field="office_name" label="Office" v-slot="props">
-                                {{ props.row.office_name }}
+                            <b-table-column field="category" label="Category Name" v-slot="props">
+                                {{ props.row.category }}
                             </b-table-column>
 
-                            <b-table-column field="appointment_type" label="Appointment" v-slot="props">
-                                {{ props.row.appointment_type }}
-                            </b-table-column>
 
-                            <b-table-column field="cc_time" label="Time" v-slot="props">
-                                {{ props.row.cc_time }}
-                            </b-table-column>
-
-                            <b-table-column field="max_multiple" label="Max Multiple" v-slot="props">
-                                {{ props.row.max_multiple }}
-                            </b-table-column>
-
-                            <b-table-column field="is_active" label="Active" v-slot="props">
-                                <span style="font-weight: bold; color: green;" v-if="props.row.is_active === 1">ACTIVE</span>
-                                <span style="font-weight: bold; color: blue;" v-else>INACTIVE</span>
-                            </b-table-column>
 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
-                                    <b-tooltip label="Edit" type="is-primary">
-                                        <b-button class="button is-small is-primary mr-1" tag="a" icon-right="pencil" @click="update(props.row)"></b-button>
+                                    <b-tooltip label="Edit" type="is-warning">
+                                        <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.category_id)"></b-button>
                                     </b-tooltip>
-
-                                    <b-tooltip v-if="props.row.is_active === 0" label="Activate" type="is-link">
-                                        <b-button class="button is-small is-link mr-1" icon-right="account-reactivate" @click="confirmActivate(props.row.appointment_type_id)"></b-button>
+                                    <b-tooltip label="Delete" type="is-danger">
+                                        <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.category_id)"></b-button>
                                     </b-tooltip>
-                                    <b-tooltip v-else label="Deactivate" type="is-danger">
-                                        <b-button class="button is-small is-danger mr-1" icon-right="minus-circle" @click="confirmDeactivate(props.row.appointment_type_id)"></b-button>
-                                    </b-tooltip>
-
                                 </div>
                             </b-table-column>
 
                         </b-table>
-                        <div class="buttons mt-3">
-                            <b-button @click="openModal(0)" icon-right="account-arrow-up-outline" class="is-success">NEW</b-button>
-                        </div>
 
+                        <div class="buttons mt-3">
+                            <b-button @click="openModal" icon-right="account-arrow-up-outline" class="is-success">NEW</b-button>
+                        </div>
 
                     </div>
                 </div><!--close column-->
             </div>
-        </div><!--section div-->
 
+
+        </div><!--section div-->
 
 
 
@@ -122,7 +106,7 @@
             <form @submit.prevent="submit">
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Appointment Type</p>
+                        <p class="modal-card-title">New/Update Category</p>
                         <button
                             type="button"
                             class="delete"
@@ -134,36 +118,14 @@
 
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Appointment Type"
-                                             :type="this.errors.appointment_type ? 'is-danger':''"
-                                             :message="this.errors.appointment_type ? this.errors.appointment_type[0] : ''">
-                                        <b-input v-model="fields.appointment_type"
-                                                 placeholder="Appointment Type" required>
-                                        </b-input>
+                                    <b-field label="Category"
+                                             :type="this.errors.category ? 'is-danger':''"
+                                             :message="this.errors.category ? this.errors.category[0] : ''">
+                                        <b-input type="text" v-model="fields.category" placeholder="Category" required />
                                     </b-field>
                                 </div>
                             </div>
 
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Allocated Time(Minute(s))"
-                                             :type="this.errors.cc_time ? 'is-danger':''"
-                                             :message="this.errors.cc_time ? this.errors.cc_time[0] : ''">
-                                        <b-numberinput v-model="fields.cc_time" :controls="false"
-                                                       placeholder="" required>
-                                        </b-numberinput>
-                                    </b-field>
-                                </div>
-
-                                <div class="column">
-                                    <b-field label="No of multiple"
-                                             :type="this.errors.max_multiple ? 'is-danger':''"
-                                             :message="this.errors.max_multiple ? this.errors.max_multiple[0] : ''">
-                                        <b-numberinput v-model="fields.max_multiple" max="100" :controls="false" placeholder="No of multiple" required>
-                                        </b-numberinput>
-                                    </b-field>
-                                </div>
-                            </div>
                         </div>
                     </section>
                     <footer class="modal-card-foot">
@@ -181,33 +143,39 @@
         <!--close modal-->
 
 
-
-
-    </div> <!--root div -->
+    </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
+
+    data(){
+        return{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'appointment_type_id',
+            sortField: 'category_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 5,
             defaultSortDirection: 'asc',
 
+
+            global_id : 0,
+
             search: {
-                type: '',
+                category: '',
             },
 
             isModalCreate: false,
-            fields: {},
-            errors: {},
 
-            global_id: 0,
+            fields: {
+                service_id: 0,
+                service: '',
+                price: 0
+
+            },
+            errors: {},
 
             btnClass: {
                 'is-success': true,
@@ -217,22 +185,21 @@ export default {
 
         }
     },
+
     methods: {
         /*
         * Load async data
         */
         loadAsyncData() {
-
-        
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `type=${this.search.type}`,
+                `category=${this.search.category}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-my-appointment-type-list?${params}`)
+            axios.get(`/admin/get-categories?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -276,24 +243,59 @@ export default {
             this.isModalCreate=true;
             this.fields = {};
             this.errors = {};
+
+
         },
 
 
 
-        update(row){
-            this.fields = {};
-            this.global_id = row.appointment_type_id;
+        //alert box ask for deletion
+        confirmDelete(delete_id) {
+            this.$buefy.dialog.confirm({
+                title: 'DELETE!',
+                type: 'is-danger',
+                message: 'Are you sure you want to delete this data?',
+                cancelText: 'Cancel',
+                confirmText: 'Delete',
+                onConfirm: () => this.deleteSubmit(delete_id)
+            });
+        },
+        //execute delete after confirming
+        deleteSubmit(delete_id) {
+            axios.delete('/admin/categories/' + delete_id).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
+        },
+
+        //update code here
+        getData: function(data_id){
+            this.clearFields();
+            this.global_id = data_id;
             this.isModalCreate = true;
+
+
             //nested axios for getting the address 1 by 1 or request by request
-            axios.get('/get-my-appointment-type/'+ this.global_id).then(res=>{
+            axios.get('/admin/categories/' +data_id).then(res=>{
                 this.fields = res.data;
             });
         },
 
+        clearFields(){
+            this.fields = {
+                service: null,
+                price: null,
+            };
+        },
+
+
         submit: function(){
             if(this.global_id > 0){
                 //update
-                axios.put('/my-appointment-type/'+this.global_id, this.fields).then(res=>{
+                axios.put('/admin/categories/'+this.global_id, this.fields).then(res=>{
                     if(res.data.status === 'updated'){
                         this.$buefy.dialog.alert({
                             title: 'UPDATED!',
@@ -301,6 +303,7 @@ export default {
                             type: 'is-success',
                             onConfirm: () => {
                                 this.loadAsyncData();
+                                this.clearFields();
                                 this.global_id = 0;
                                 this.isModalCreate = false;
                             }
@@ -313,7 +316,7 @@ export default {
                 })
             }else{
                 //INSERT HERE
-                axios.post('/my-appointment-type', this.fields).then(res=>{
+                axios.post('/admin/categories', this.fields).then(res=>{
                     if(res.data.status === 'saved'){
                         this.$buefy.dialog.alert({
                             title: 'SAVED!',
@@ -323,6 +326,7 @@ export default {
                             onConfirm: () => {
                                 this.isModalCreate = false;
                                 this.loadAsyncData();
+                                this.clearFields();
                                 this.global_id = 0;
                             }
                         })
@@ -333,60 +337,17 @@ export default {
                     }
                 });
             }
-        },
-
-        //alert box ask for deletion
-        confirmDeactivate(dataId) {
-            this.$buefy.dialog.confirm({
-                title: 'Deactivate?',
-                type: 'is-danger',
-                message: 'Are you sure you want to deactivate this appointment type?',
-                cancelText: 'Cancel',
-                confirmText: 'Deactivate',
-                onConfirm: () => this.confirmSubmit(dataId)
-            });
-        },
-        //execute delete after confirming
-        confirmSubmit(dataId) {
-            axios.post('/my-appointment-type-deactivate/' + dataId).then(res => {
-                this.loadAsyncData();
-            }).catch(err => {
-                if (err.response.status === 422) {
-                    this.errors = err.response.data.errors;
-                }
-            });
-        },
-
-        //ACTIVATE
-        confirmActivate(dataId) {
-            this.$buefy.dialog.confirm({
-                title: 'Activate?',
-                type: 'is-link',
-                message: 'Are you sure you want to activate this appointment type?',
-                cancelText: 'Cancel',
-                confirmText: 'Activate',
-                onConfirm: () => this.confirmSubmitActivate(dataId)
-            });
-        },
-        //execute delete after confirming
-        confirmSubmitActivate(dataId) {
-            axios.post('/my-appointment-type-activate/' + dataId).then(res => {
-                this.loadAsyncData();
-            }).catch(err => {
-                if (err.response.status === 422) {
-                    this.errors = err.response.data.errors;
-                }
-            });
-        },
-
+        }
 
     },
+
     mounted() {
         this.loadAsyncData();
-
     }
+
 }
 </script>
+
 <style scoped>
 
 </style>
