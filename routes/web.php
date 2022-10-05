@@ -99,6 +99,8 @@ Route::resource('/employer/signup', App\Http\Controllers\Employer\EmployerSignUp
 Route::resource('/employer/dashboard', App\Http\Controllers\Employer\EmployerDashboardController::class);
 
 
+Route::resource('/employer/company', App\Http\Controllers\Employer\CompanyController::class);
+
 
 
 

@@ -18,6 +18,12 @@ class CreateCompaniesTable extends Migration
             $table->string('company')->nullable();
             $table->string('owner')->nullable();
             $table->string('history')->nullable();
+            $table->string('overview')->nullable();
+
+            $table->string('company_size')->nullable();
+            $table->string('industry')->nullable();
+            $table->string('benefits_others')->nullable();
+
             $table->string('phone_contact')->nullable();
             $table->string('fb_contact')->nullable();
             $table->string('twitter_contact')->nullable();
@@ -30,6 +36,8 @@ class CreateCompaniesTable extends Migration
             $table->string('city')->nullable();
             $table->string('barangay')->nullable();
             $table->string('street')->nullable();
+
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }

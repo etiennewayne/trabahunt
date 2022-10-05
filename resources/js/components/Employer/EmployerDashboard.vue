@@ -1,6 +1,11 @@
 <template>
     <div>
         <div class="section">
+
+            <div class="buttons">
+                <button class="button is-primary">ADD COMPANY</button>
+            </div>
+
             <div class="company-container">
                 <div class="company-box">
                     <div class="company-title">

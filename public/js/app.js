@@ -10034,7 +10034,7 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this4 = this;
 
-      axios.post('/sign-up', this.fields).then(function (res) {
+      axios.post('/employer/signup', this.fields).then(function (res) {
         if (res.data.status === 'saved') {
           _this4.$buefy.dialog.alert({
             title: "SAVED!",
@@ -36355,6 +36355,12 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", [
       _c("div", { staticClass: "section" }, [
+        _c("div", { staticClass: "buttons" }, [
+          _c("button", { staticClass: "button is-primary" }, [
+            _vm._v("ADD COMPANY"),
+          ]),
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "company-container" }, [
           _c("div", { staticClass: "company-box" }, [
             _c("div", { staticClass: "company-title" }, [

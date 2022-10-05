@@ -180,7 +180,7 @@ export default {
         },
 
         submit(){
-            axios.post('/sign-up', this.fields).then(res=>{
+            axios.post('/employer/signup', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
                         title: "SAVED!",
