@@ -17,6 +17,14 @@ class CreateCompaniesTable extends Migration
             $table->id('company_id');
             $table->string('company')->nullable();
             $table->string('owner')->nullable();
+            $table->string('history')->nullable();
+            $table->string('phone_contact')->nullable();
+            $table->string('fb_contact')->nullable();
+            $table->string('twitter_contact')->nullable();
+            $table->string('insta_contact')->nullable();
+            $table->string('viber_contact')->nullable();
+            $table->string('whatsapp_contact')->nullable();
+
             $table->text('desc')->nullable();
             $table->string('province')->nullable();
             $table->string('city')->nullable();
