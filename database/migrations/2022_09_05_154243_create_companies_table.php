@@ -37,7 +37,7 @@ class CreateCompaniesTable extends Migration
             $table->string('barangay')->nullable();
             $table->string('street')->nullable();
 
-            $table->string('avatar')->nullable();
+            $table->string('company_logo')->nullable();
             $table->timestamps();
         });
     }
