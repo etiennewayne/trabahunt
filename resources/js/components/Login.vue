@@ -4,24 +4,28 @@
 
             <form @submit.prevent="submit">
                 <div class="box">
-                    <div class="title is-4">
-                        TRABAHUNT SECURITY CHECK
+                    <div class="title is-4 is-centered">
+                        LOGIN TO TRABAHUNT
                     </div>
                     <hr class="hr-line">
 
                     <div class="panel-body">
-                        <b-field label="Username" label-position="on-border"
+                        <b-field class="login-input" label="Username" label-position="on-border"
                             :type="this.errors.username ? 'is-danger':''"
                             :message="this.errors.username ? this.errors.username[0] : ''">
-                            <b-input type="text" v-model="fields.username" placeholder="Username" />
+                            <b-input type="text" icon="account" rounded v-model="fields.username" placeholder="Username" />
                         </b-field>
 
                         <b-field label="Password" label-position="on-border">
-                            <b-input type="password" v-model="fields.password" password-reveal placeholder="Password" />
+                            <b-input type="password" rounded icon="lock" v-model="fields.password" password-reveal placeholder="Password" />
                         </b-field>
 
-                        <div class="buttons">
-                            <button class="button is-primary">LOGIN</button>
+                        <div class="buttons is-centered mt-4">
+                            <button class="button is-primary is-rounded">LOGIN</button>
+                            
+                        </div>
+                        <div style="text-align: center;">
+                            <a href="">Forgot Password</a>
                         </div>
                     </div>
                 </div>
@@ -83,14 +87,21 @@ export default {
 
     .login{
         width: 500px;
+        
     }
 
     .box{
+        padding: 50px 25px 50px 25px;
         border: 1px solid rgb(223, 223, 223);
+        border: 1px solid green;
     }
 
     .hr-line{
         background-color: green;
+    }
+
+    .login-input{
+        margin-bottom: 25px;
     }
 
 

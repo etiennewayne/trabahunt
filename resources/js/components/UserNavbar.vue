@@ -2,7 +2,8 @@
     <b-navbar>
         <template #brand>
             <b-navbar-item>
-                <h1 class="title is-4">TRABAHUNT LOGO</h1>
+                <img src="/img/trablogo.png" />
+                
             </b-navbar-item>
         </template>
 
