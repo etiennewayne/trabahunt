@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mynav">
-            <div class="mynav-brand">{{userRole}}</div>
+            <div class="mynav-brand"> <span v-if="userRole">{{ userRole }}</span></div>
             <div class="burger-button" @click="open = true">
                 <div class="burger-div"></div>
                 <div class="burger-div"></div>
@@ -101,7 +101,8 @@ export default {
 
     computed: {
         userRole(){
-            return this.user.role.toUpperCase();
+            return this.user.role.toUpperCase() + ' (' + this.user.lname.toUpperCase() + ', ' + this.user.fname.toUpperCase() + ')';
+
         }
     }
 }
@@ -139,6 +140,7 @@ export default {
     .mynav-brand{
         font-weight: bold;
         font-size: 1.2em;
+        
     }
 
   /* .hero{

@@ -5,9 +5,9 @@
             <form @submit.prevent="submit">
                 <div class="box">
                     <div class="title is-4">
-                        SECURITY CHECK
+                        TRABAHUNT SECURITY CHECK
                     </div>
-                    <hr>
+                    <hr class="hr-line">
 
                     <div class="panel-body">
                         <b-field label="Username" label-position="on-border"
@@ -87,6 +87,10 @@ export default {
 
     .box{
         border: 1px solid rgb(223, 223, 223);
+    }
+
+    .hr-line{
+        background-color: green;
     }
 
 

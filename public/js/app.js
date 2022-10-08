@@ -8788,7 +8788,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     userRole: function userRole() {
-      return this.user.role.toUpperCase();
+      return this.user.role.toUpperCase() + ' (' + this.user.lname.toUpperCase() + ', ' + this.user.fname.toUpperCase() + ')';
     }
   }
 });
@@ -29688,7 +29688,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.login-wrapper[data-v-6bdc8b8e]{\n    height: 100vh;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.login[data-v-6bdc8b8e]{\n    width: 500px;\n}\n.box[data-v-6bdc8b8e]{\n    border: 1px solid rgb(223, 223, 223);\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.login-wrapper[data-v-6bdc8b8e]{\n    height: 100vh;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.login[data-v-6bdc8b8e]{\n    width: 500px;\n}\n.box[data-v-6bdc8b8e]{\n    border: 1px solid rgb(223, 223, 223);\n}\n.hr-line[data-v-6bdc8b8e]{\n    background-color: green;\n}\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -33757,7 +33757,7 @@ var render = function () {
     [
       _c("div", { staticClass: "mynav" }, [
         _c("div", { staticClass: "mynav-brand" }, [
-          _vm._v(_vm._s(_vm.userRole)),
+          _vm.userRole ? _c("span", [_vm._v(_vm._s(_vm.userRole))]) : _vm._e(),
         ]),
         _vm._v(" "),
         _c(
@@ -35902,10 +35902,12 @@ var render = function () {
         [
           _c("div", { staticClass: "box" }, [
             _c("div", { staticClass: "title is-4" }, [
-              _vm._v("\n                    SECURITY CHECK\n                "),
+              _vm._v(
+                "\n                    TRABAHUNT SECURITY CHECK\n                "
+              ),
             ]),
             _vm._v(" "),
-            _c("hr"),
+            _c("hr", { staticClass: "hr-line" }),
             _vm._v(" "),
             _c(
               "div",
