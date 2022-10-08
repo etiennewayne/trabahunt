@@ -232,10 +232,8 @@
                                              :message="this.errors.role ? this.errors.role[0] : ''">
                                         <b-select v-model="fields.role" expanded>
                                             <option value="ADMIN">ADMINISTRATOR</option>
-                                            <option value="DENTIST">DENTIST</option>
-                                            <option value="STAFF">STAFF</option>
-                                            <option value="USER">USER</option>
-
+                                            <option value="DENTIST">USER</option>
+                                            <option value="STAFF">EMPLOYER</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -435,7 +433,7 @@ export default{
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-users?${params}`)
+            axios.get(`/admin/get-users?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -503,7 +501,7 @@ export default{
         submit: function(){
             if(this.global_id > 0){
                 //update
-                axios.put('/users/'+this.global_id, this.fields).then(res=>{
+                axios.put('/admin/users/'+this.global_id, this.fields).then(res=>{
                     if(res.data.status === 'updated'){
                         this.$buefy.dialog.alert({
                             title: 'UPDATED!',
@@ -524,7 +522,7 @@ export default{
                 })
             }else{
                 //INSERT HERE
-                axios.post('/users', this.fields).then(res=>{
+                axios.post('/admin/users', this.fields).then(res=>{
                     if(res.data.status === 'saved'){
                         this.$buefy.dialog.alert({
                             title: 'SAVED!',
@@ -563,7 +561,7 @@ export default{
         },
         //execute delete after confirming
         deleteSubmit(delete_id) {
-            axios.delete('/users/' + delete_id).then(res => {
+            axios.delete('/admin/users/' + delete_id).then(res => {
                 this.loadAsyncData();
             }).catch(err => {
                 if (err.response.status === 422) {
@@ -591,7 +589,7 @@ export default{
 
 
             //nested axios for getting the address 1 by 1 or request by request
-            axios.get('/users/'+data_id).then(res=>{
+            axios.get('/admin/users/'+data_id).then(res=>{
                 this.fields = res.data;
                 this.fields.office = res.data.office_id;
                 let tempData = res.data;

@@ -58,7 +58,7 @@ export default {
                 }
 
                 if(res.data.role === 'EMPLOYER'){
-                    window.location = '/emplpoyer/dashboard';
+                    window.location = '/employer/dashboard';
                 }
 
                //window.location = '/dashboard';

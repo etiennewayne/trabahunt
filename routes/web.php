@@ -62,6 +62,16 @@ Route::get('/get-user/{id}', [App\Http\Controllers\OpenUserController::class, 'g
 
 
 
+//ADDRESS
+Route::get('/load-provinces', [App\Http\Controllers\AddressController::class, 'loadProvinces']);
+Route::get('/load-cities', [App\Http\Controllers\AddressController::class, 'loadCities']);
+Route::get('/load-barangays', [App\Http\Controllers\AddressController::class, 'loadBarangays']);
+
+
+
+
+
+
 /*     ADMINSITRATOR          */
 
 Route::resource('/admin/home', App\Http\Controllers\Administrator\AdminHomeController::class);
@@ -75,6 +85,26 @@ Route::resource('/admin/categories', App\Http\Controllers\Administrator\Category
 Route::get('/admin/get-categories', [App\Http\Controllers\Administrator\CategoryController::class, 'getCategories']);
 
 
+
+Route::resource('/admin/users', App\Http\Controllers\Administrator\UserController::class);
+Route::get('/admin/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
+
+
+
+
+// EMPLOYER ROUTES
+
+Route::resource('/employer/signup', App\Http\Controllers\Employer\EmployerSignUpController::class);
+
+Route::resource('/employer/dashboard', App\Http\Controllers\Employer\EmployerDashboardController::class);
+
+
+Route::resource('/employer/company', App\Http\Controllers\Employer\CompanyController::class);
+
+
+
+
+// ------------------------------------------------------------------
 
 Route::get('/session', function(){
     return Session::all();

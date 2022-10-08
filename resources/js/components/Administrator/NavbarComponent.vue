@@ -32,7 +32,7 @@
 
                             <b-menu-item label="Categories" icon="account" tag="a" href="/admin/categories"></b-menu-item>
 
-
+                            <b-menu-item label="Users" icon="account" tag="a" href="/admin/users"></b-menu-item>
 
                             <b-menu-item icon="poll">
                                 <template #label="props">

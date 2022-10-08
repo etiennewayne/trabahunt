@@ -45,7 +45,7 @@
                             <div class="t-box-applicant-subtitle">Naghire ba ka?</div>
                         </div>
                         <div>
-                            <button class="applicant-button"><span>Register now!</span></button>
+                            <button class="applicant-button" @click="signup"><span>Register now!</span></button>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,9 @@ export default {
     },
 
     methods: {
-
+        signup: function(){
+            window.location = '/employer/signup'
+        }
     },
 
     mounted() {
