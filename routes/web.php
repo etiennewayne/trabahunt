@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 
 
 use App\Models\User;
-
+use App\Models\Category;
 
 
 /*
@@ -27,7 +27,10 @@ Route::get('/', function () {
     //     return view('welcome')
     //         ->with('user', $user->only(['lname', 'fname', 'mname', 'suffix', 'role', 'remark', 'office_id']));
     // }
-    return view('welcome');
+    $categories = Category::all();
+
+    return view('welcome')
+        ->with('categories', $categories);
 });
 
 

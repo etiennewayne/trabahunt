@@ -11506,19 +11506,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['propUser'],
+  props: ['propUser', 'propCategories'],
   data: function data() {
     return {
       locale: undefined,
-      isModalActive: false
+      isModalActive: false,
+      categories: {}
     };
   },
   methods: {
     signup: function signup() {
       window.location = '/employer/signup';
+    },
+    initData: function initData() {
+      this.categories = JSON.parse(this.propCategories);
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    this.initData();
+  }
 });
 
 /***/ }),
@@ -30059,7 +30065,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*    dere lang kubia ang panel color*/\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n\r\n\r\n\r\n/*    dere lang kubia ang panel color*/\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -30155,7 +30161,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.slogan[data-v-a4d20914]{\n        font-weight: bold;\n        font-size: 3em;\n        color: rgb(0, 100, 0);\n        text-align: center;\n}\n\n\n\n    /* APPLICANT EMPOYER SECTION */\n.t-box-container[data-v-a4d20914]{\n        display: flex;\n        justify-content: center;\n}\n.t-box-applicant[data-v-a4d20914]{\n        padding: 20px;\n        border-radius: 30px;\n        background-color: green;\n        color: white;\n        margin: 10px;\n}\n.t-box-title[data-v-a4d20914]{\n        font-weight: bold;\n        font-size: 1em;\n}\n.t-box-applicant-title[data-v-a4d20914]{\n        font-weight: bold;\n        font-size: 1.2em;\n}\n.t-box-applicant-subtitle[data-v-a4d20914]{\n        padding: 15px;\n}\n.applicant-button[data-v-a4d20914]{\n        padding: 15px;\n        border-radius: 30px;\n        border: 1px solid green;\n        font-weight: bold;\n        color:green;\n}\n\n    /* .applicant-button:hover{\n        background-color: rgb(179, 250, 165);\n        cursor: pointer;\n    } */\n.applicant-button[data-v-a4d20914]:active {\n        /* background-color: #3e8e41;\n        box-shadow: 0 5px #666; */\n        transform: translateY(4px);\n}\n.applicant-button[data-v-a4d20914] {\n        transition-duration: 0.4s;\n}\n.applicant-button span[data-v-a4d20914] {\n        cursor: pointer;\n        display: inline-block;\n        position: relative;\n        transition: 0.5s;\n}\n.applicant-button span[data-v-a4d20914]:after {\n        content: '\\00bb';\n        position: absolute;\n        opacity: 0;\n        top: 0;\n        right: -20px;\n        transition: 0.5s;\n}\n.applicant-button:hover span[data-v-a4d20914] {\n        padding-right: 25px;\n}\n.applicant-button:hover span[data-v-a4d20914]:after {\n        opacity: 1;\n        right: 0;\n}\n\n\n\n/* CATEGORY CONTAINER */\n.category-container[data-v-a4d20914]{\n        margin-top: 15px;\n}\n.category-box[data-v-a4d20914]{\n        background-color: green;\n        padding: 25px;\n        color: white;\n        width: 150px;\n        height: 150px;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n}\n.category-content[data-v-a4d20914]{\n        margin: auto;\n}\n.category-icon[data-v-a4d20914]{\n        margin: auto;\n        text-align: center;\n}\n.category-desc[data-v-a4d20914]{\n        font-weight: bold;\n        text-align: center;\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n.main-text-container[data-v-a4d20914]{\n            top: 230px;\n            width: 100%;\n            margin: 0;\n}\n}\n@media only screen and (max-width: 480px) {\n.main-text-container[data-v-a4d20914]{\n            padding: 15px;\n}\n.main-title[data-v-a4d20914]{\n            font-size: 1.2em;\n}\n.main-subtitle[data-v-a4d20914]{\n            font-size: .8em;\n}\n}\n\n\n\n\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.slogan[data-v-a4d20914]{\n        font-weight: bold;\n        font-size: 3em;\n        color: rgb(0, 100, 0);\n        text-align: center;\n}\n\n\n\n    /* APPLICANT EMPOYER SECTION */\n.t-box-container[data-v-a4d20914]{\n        display: flex;\n        justify-content: center;\n}\n.t-box-applicant[data-v-a4d20914]{\n        padding: 20px;\n        border-radius: 30px;\n        background-color: green;\n        color: white;\n        margin: 10px;\n}\n.t-box-title[data-v-a4d20914]{\n        font-weight: bold;\n        font-size: 1em;\n}\n.t-box-applicant-title[data-v-a4d20914]{\n        font-weight: bold;\n        font-size: 1.2em;\n}\n.t-box-applicant-subtitle[data-v-a4d20914]{\n        padding: 15px;\n}\n.applicant-button[data-v-a4d20914]{\n        padding: 15px;\n        border-radius: 30px;\n        border: 1px solid green;\n        font-weight: bold;\n        color:green;\n}\n\n    /* .applicant-button:hover{\n        background-color: rgb(179, 250, 165);\n        cursor: pointer;\n    } */\n.applicant-button[data-v-a4d20914]:active {\n        /* background-color: #3e8e41;\n        box-shadow: 0 5px #666; */\n        transform: translateY(4px);\n}\n.applicant-button[data-v-a4d20914] {\n        transition-duration: 0.4s;\n}\n.applicant-button span[data-v-a4d20914] {\n        cursor: pointer;\n        display: inline-block;\n        position: relative;\n        transition: 0.5s;\n}\n.applicant-button span[data-v-a4d20914]:after {\n        content: '\\00bb';\n        position: absolute;\n        opacity: 0;\n        top: 0;\n        right: -20px;\n        transition: 0.5s;\n}\n.applicant-button:hover span[data-v-a4d20914] {\n        padding-right: 25px;\n}\n.applicant-button:hover span[data-v-a4d20914]:after {\n        opacity: 1;\n        right: 0;\n}\n\n\n\n/* CATEGORY CONTAINER */\n.category-container[data-v-a4d20914]{\n        margin-top: 15px;\n        display: flex;\n        flex-wrap: wrap;\n}\n.category-box[data-v-a4d20914]{\n        background-color: green;\n        padding: 25px;\n        color: white;\n        width: 150px;\n        height: 150px;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        margin: 5px;\n}\n.category-content[data-v-a4d20914]{\n        margin: auto;\n}\n.category-icon[data-v-a4d20914]{\n        margin: auto;\n        text-align: center;\n}\n.category-desc[data-v-a4d20914]{\n        font-weight: bold;\n        text-align: center;\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n.main-text-container[data-v-a4d20914]{\n            top: 230px;\n            width: 100%;\n            margin: 0;\n}\n}\n@media only screen and (max-width: 480px) {\n.main-text-container[data-v-a4d20914]{\n            padding: 15px;\n}\n.main-title[data-v-a4d20914]{\n            font-size: 1.2em;\n}\n.main-subtitle[data-v-a4d20914]{\n            font-size: .8em;\n}\n}\n\n\n\n\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39532,28 +39538,35 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "columns is-centered" }, [
         _c("div", { staticClass: "column is-8" }, [
-          _c("div", { staticClass: "category-container" }, [
-            _c("div", { staticClass: "category-box" }, [
-              _c("div", { staticClass: "category-content" }, [
-                _c(
-                  "div",
-                  { staticClass: "category-icon" },
-                  [
-                    _c("b-icon", {
-                      attrs: { size: "is-large", icon: "account" },
-                    }),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "category-desc" }, [
-                  _vm._v(
-                    "\n                                SAMPLE DESC\n                            "
+          _c(
+            "div",
+            { staticClass: "category-container" },
+            _vm._l(_vm.categories, function (item, index) {
+              return _c("div", { key: index, staticClass: "category-box" }, [
+                _c("div", { staticClass: "category-content" }, [
+                  _c(
+                    "div",
+                    { staticClass: "category-icon" },
+                    [
+                      _c("b-icon", {
+                        attrs: { size: "is-large", icon: "account" },
+                      }),
+                    ],
+                    1
                   ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "category-desc" }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(item.category) +
+                        "\n                            "
+                    ),
+                  ]),
                 ]),
-              ]),
-            ]),
-          ]),
+              ])
+            }),
+            0
+          ),
         ]),
       ]),
     ]),

@@ -1,5 +1,5 @@
 @extends('layouts.user')
 
 @section('content')
-    <welcome-page></welcome-page>
+    <welcome-page prop-categories='@json($categories)'></welcome-page>
 @endsection

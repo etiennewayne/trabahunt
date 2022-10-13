@@ -62,13 +62,13 @@
             <div class="columns is-centered">
                 <div class="column is-8">
                     <div class="category-container">
-                        <div class="category-box">
+                        <div class="category-box" v-for="(item, index) in categories" :key="index">
                             <div class="category-content">
                                 <div class="category-icon">
                                     <b-icon size="is-large" icon="account"></b-icon>
                                 </div>
                                 <div class="category-desc">
-                                    SAMPLE DESC
+                                    {{ item.category }}
                                 </div>
                             </div>
                         </div>
@@ -85,11 +85,14 @@
 
 <script>
 export default {
-    props: ['propUser'],
+    props: ['propUser', 'propCategories'],
     data(){
         return{
             locale: undefined,
             isModalActive: false,
+
+            categories: {},
+
         }
 
     },
@@ -97,12 +100,15 @@ export default {
     methods: {
         signup: function(){
             window.location = '/employer/signup'
+        },
+
+        initData(){
+            this.categories = JSON.parse(this.propCategories);
         }
     },
 
     mounted() {
-
-
+        this.initData();
     },
 
 
@@ -203,6 +209,8 @@ export default {
 
     .category-container{
         margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
     }
     .category-box{
         background-color: green;
@@ -213,6 +221,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: 5px;
     }
 
     .category-content{
