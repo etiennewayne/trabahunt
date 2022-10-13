@@ -1,82 +1,66 @@
 <template>
     <section class="section">
         <div class="columns">
-            <div class="column is-8 is-offset-2">
+            <div class="column is-4 is-offset-2">
                 <form @submit.prevent="submit">
 
-                    <div class="panel">
-                        <div class="panel-heading">
-                            ACCOUNT REGISTRATION FOR EMPLOYER
-                        </div>
-
+                    <div class="box">
+                    
                         <div class="section">
+
+                            <div class="box-heading">
+                                START HIRING CANDIDATES
+                            </div>
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Username"
-                                             :type="this.errors.username ? 'is-danger':''"
-                                             :message="this.errors.username ? this.errors.username[0] : ''">
+                                            :type="this.errors.username ? 'is-danger':''"
+                                            :message="this.errors.username ? this.errors.username[0] : ''">
                                         <b-input type="text" v-model="fields.username" icon="account"></b-input>
                                     </b-field>
-                                </div>
-                            </div>
 
-                            <div class="columns">
-                                <div class="column">
                                     <b-field label="Password"
-                                             :type="this.errors.password ? 'is-danger':''"
-                                             :message="this.errors.password ? this.errors.password[0] : ''">
+                                            :type="this.errors.password ? 'is-danger':''"
+                                            :message="this.errors.password ? this.errors.password[0] : ''">
                                         <b-input type="password"  v-model="fields.password" icon="lock" password-reveal></b-input>
                                     </b-field>
-                                </div>
-                                <div class="column">
                                     <b-field label="Re-type Password">
                                         <b-input type="password" icon="lock" v-model="fields.password_confirmation" password-reveal></b-input>
                                     </b-field>
-                                </div>
-                            </div>
 
-                            <div class="columns">
-                                <div class="column">
+
                                     <b-field label="Email"
-                                             :type="this.errors.email ? 'is-danger':''"
-                                             :message="this.errors.email ? this.errors.email[0] : ''">
+                                            :type="this.errors.email ? 'is-danger':''"
+                                            :message="this.errors.email ? this.errors.email[0] : ''">
                                         <b-input type="email" v-model="fields.email" icon="email"></b-input>
                                     </b-field>
-                                </div>
-                                <div class="column">
                                     <b-field label="Contact No."
-                                             :type="this.errors.contact_no ? 'is-danger':''"
-                                             :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
+                                            :type="this.errors.contact_no ? 'is-danger':''"
+                                            :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
                                         <b-input type="text" v-model="fields.contact_no" icon=""></b-input>
                                     </b-field>
-                                </div>
-                            </div>
 
-                            <div class="columns">
-                                <div class="column">
+
                                     <b-field label="Last Name"
-                                             :type="this.errors.lname ? 'is-danger':''"
-                                             :message="this.errors.lname ? this.errors.lname[0] : ''" >
+                                            :type="this.errors.lname ? 'is-danger':''"
+                                            :message="this.errors.lname ? this.errors.lname[0] : ''" >
                                         <b-input icon="account" placeholder="First Lastname" v-model="fields.lname" type="text"></b-input>
                                     </b-field>
-                                </div>
-                                <div class="column">
                                     <b-field label="First Name"
-                                             :type="this.errors.fname ? 'is-danger':''"
-                                             :message="this.errors.fname ? this.errors.fname[0] : ''">
+                                            :type="this.errors.fname ? 'is-danger':''"
+                                            :message="this.errors.fname ? this.errors.fname[0] : ''">
                                         <b-input icon="account" v-model="fields.fname" placeholder="First Name" type="text"></b-input>
                                     </b-field>
-                                </div>
-                            </div>
-
-
-                            <div class="columns">
-                                <div class="column">
+                                 
                                     <b-field label="Middle Name">
                                         <b-input v-model="fields.mname" type="text" placeholder="Middle Name"></b-input>
                                     </b-field>
-                                </div>
 
+                                </div>
+                            </div>
+
+
+                            <div class="columns">
                                 <div class="column">
                                     <b-field label="Suffix">
                                         <b-input type="text" v-model="fields.suffix" placeholder="Suffix"></b-input>

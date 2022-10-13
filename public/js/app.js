@@ -9982,22 +9982,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -30065,7 +30049,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n\r\n\r\n\r\n\r\n/*    dere lang kubia ang panel color*/\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*    dere lang kubia ang panel color*/\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36483,7 +36467,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "section" }, [
     _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column is-8 is-offset-2" }, [
+      _c("div", { staticClass: "column is-4 is-offset-2" }, [
         _c(
           "form",
           {
@@ -36495,14 +36479,14 @@ var render = function () {
             },
           },
           [
-            _c("div", { staticClass: "panel" }, [
-              _c("div", { staticClass: "panel-heading" }, [
-                _vm._v(
-                  "\n                        ACCOUNT REGISTRATION FOR EMPLOYER\n                    "
-                ),
-              ]),
-              _vm._v(" "),
+            _c("div", { staticClass: "box" }, [
               _c("div", { staticClass: "section" }, [
+                _c("div", { staticClass: "box-heading" }, [
+                  _vm._v(
+                    "\n                            START HIRING CANDIDATES\n                        "
+                  ),
+                ]),
+                _vm._v(" "),
                 _c("div", { staticClass: "columns" }, [
                   _c(
                     "div",
@@ -36533,16 +36517,7 @@ var render = function () {
                         ],
                         1
                       ),
-                    ],
-                    1
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "columns" }, [
-                  _c(
-                    "div",
-                    { staticClass: "column" },
-                    [
+                      _vm._v(" "),
                       _c(
                         "b-field",
                         {
@@ -36572,14 +36547,7 @@ var render = function () {
                         ],
                         1
                       ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "column" },
-                    [
+                      _vm._v(" "),
                       _c(
                         "b-field",
                         { attrs: { label: "Re-type Password" } },
@@ -36605,16 +36573,7 @@ var render = function () {
                         ],
                         1
                       ),
-                    ],
-                    1
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "columns" }, [
-                  _c(
-                    "div",
-                    { staticClass: "column" },
-                    [
+                      _vm._v(" "),
                       _c(
                         "b-field",
                         {
@@ -36640,14 +36599,7 @@ var render = function () {
                         ],
                         1
                       ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "column" },
-                    [
+                      _vm._v(" "),
                       _c(
                         "b-field",
                         {
@@ -36673,16 +36625,7 @@ var render = function () {
                         ],
                         1
                       ),
-                    ],
-                    1
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "columns" }, [
-                  _c(
-                    "div",
-                    { staticClass: "column" },
-                    [
+                      _vm._v(" "),
                       _c(
                         "b-field",
                         {
@@ -36712,14 +36655,7 @@ var render = function () {
                         ],
                         1
                       ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "column" },
-                    [
+                      _vm._v(" "),
                       _c(
                         "b-field",
                         {
@@ -36749,16 +36685,7 @@ var render = function () {
                         ],
                         1
                       ),
-                    ],
-                    1
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "columns" }, [
-                  _c(
-                    "div",
-                    { staticClass: "column" },
-                    [
+                      _vm._v(" "),
                       _c(
                         "b-field",
                         { attrs: { label: "Middle Name" } },
@@ -36779,7 +36706,9 @@ var render = function () {
                     ],
                     1
                   ),
-                  _vm._v(" "),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "columns" }, [
                   _c(
                     "div",
                     { staticClass: "column" },
