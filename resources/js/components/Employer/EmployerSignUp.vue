@@ -8,9 +8,10 @@
                     
                         <div class="section">
 
-                            <div class="box-heading">
+                            <div class="sign-up-header">
                                 START HIRING CANDIDATES
                             </div>
+                            <hr>
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Username"
@@ -37,7 +38,7 @@
                                     <b-field label="Contact No."
                                             :type="this.errors.contact_no ? 'is-danger':''"
                                             :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
-                                        <b-input type="text" v-model="fields.contact_no" icon=""></b-input>
+                                        <b-input type="text" icon="cellphone" v-model="fields.contact_no"></b-input>
                                     </b-field>
 
 
@@ -53,7 +54,7 @@
                                     </b-field>
                                  
                                     <b-field label="Middle Name">
-                                        <b-input v-model="fields.mname" type="text" placeholder="Middle Name"></b-input>
+                                        <b-input v-model="fields.mname" type="text" icon="account" placeholder="Middle Name"></b-input>
                                     </b-field>
 
                                 </div>
@@ -71,7 +72,7 @@
                                     <b-field label="Sex" expanded
                                              :type="this.errors.sex ? 'is-danger':''"
                                              :message="this.errors.sex ? this.errors.sex[0] : ''">
-                                        <b-select placeholder="Sex" v-model="fields.sex" icon="account" expanded>
+                                        <b-select placeholder="Sex" v-model="fields.sex" icon="gender-male-female-variant" expanded>
                                             <option value="MALE">MALE</option>
                                             <option value="FEMALE">FEMALE</option>
                                         </b-select>
@@ -84,7 +85,7 @@
                                     <b-field label="Province" expanded
                                              :type="this.errors.province ? 'is-danger':''"
                                              :message="this.errors.province ? this.errors.province[0] : ''">
-                                        <b-select v-model="fields.province" expanded placeholder="Province" @input="loadCity">
+                                        <b-select v-model="fields.province" expanded placeholder="Province" icon="google-maps" @input="loadCity">
                                             <option v-for="(item, index) in provinces" :key="index" :value="item.provCode">{{ item.provDesc }}</option>
                                         </b-select>
                                     </b-field>
@@ -93,7 +94,7 @@
                                     <b-field label="City/Municipality" expanded
                                              :type="this.errors.city ? 'is-danger':''"
                                              :message="this.errors.city ? this.errors.city[0] : ''">
-                                        <b-select expanded v-model="fields.city" placeholder="City" @input="loadBarangay">
+                                        <b-select expanded v-model="fields.city" placeholder="City" icon="google-maps" @input="loadBarangay">
                                             <option v-for="(item, index) in cities" :key="index" :value="item.citymunCode">{{ item.citymunDesc }}</option>
                                         </b-select>
                                     </b-field>
@@ -105,14 +106,14 @@
                                     <b-field label="Barangay" expanded
                                              :type="this.errors.barangay ? 'is-danger':''"
                                              :message="this.errors.barangay ? this.errors.barangay[0] : ''">
-                                        <b-select v-model="fields.barangay" expanded placeholder="Barangay">
+                                        <b-select v-model="fields.barangay" expanded placeholder="Barangay" icon="google-maps">
                                             <option v-for="(item, index) in barangays" :key="index" :value="item.brgyCode">{{ item.brgyDesc }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
                                 <div class="column">
                                     <b-field label="House #. Street">
-                                        <b-input type="text"  v-model="fields.street"></b-input>
+                                        <b-input type="text" icon="map-search-outline"  v-model="fields.street"></b-input>
                                     </b-field>
                                 </div>
                             </div>
@@ -194,6 +195,10 @@ export default {
     .panel > .panel-heading{
         background-color: #e0fcda;
         color:rgb(0, 0, 0);
+    }
+
+    .sign-up-header{
+        font-weight: bold;
     }
 
 /*    dere lang kubia ang panel color*/

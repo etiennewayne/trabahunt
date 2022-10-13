@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="buttons">
-                        <button tag="a" class="button is-primary">VIEW COMPANY</button>
+                        <b-button tag="a" class="button is-primary" href="/employer/company/1">VIEW COMPANY</b-button>
                     </div>
                 </div>
             </div>

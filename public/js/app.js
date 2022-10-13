@@ -9982,6 +9982,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -29929,7 +29930,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.panel > .panel-heading[data-v-1d6275ac]{\n        background-color: #e0fcda;\n        color:rgb(0, 0, 0);\n}\n\n/*    dere lang kubia ang panel color*/\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.panel > .panel-heading[data-v-1d6275ac]{\n        background-color: #e0fcda;\n        color:rgb(0, 0, 0);\n}\n.sign-up-header[data-v-1d6275ac]{\n        font-weight: bold;\n}\n\n/*    dere lang kubia ang panel color*/\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36395,50 +36396,58 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "section" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "company-container" }, [
+        _c("div", { staticClass: "company-box" }, [
+          _c("div", { staticClass: "company-title" }, [
+            _vm._v("\n                    COMPANY TITLE\n                "),
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "company-desc" }, [
+            _vm._v(
+              "\n                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae quo cumque laboriosam autem accusantium vel quos quaerat voluptatum sunt adipisci?\n                "
+            ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "company-footer" }, [
+            _vm._v(
+              "\n                    ETIENNE WAYNE N. AMPARADO\n                "
+            ),
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "buttons" },
+            [
+              _c(
+                "b-button",
+                {
+                  staticClass: "button is-primary",
+                  attrs: { tag: "a", href: "/employer/company/1" },
+                },
+                [_vm._v("VIEW COMPANY")]
+              ),
+            ],
+            1
+          ),
+        ]),
+      ]),
+    ]),
+  ])
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "section" }, [
-        _c("div", { staticClass: "buttons" }, [
-          _c("button", { staticClass: "button is-primary" }, [
-            _vm._v("ADD COMPANY"),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "company-container" }, [
-          _c("div", { staticClass: "company-box" }, [
-            _c("div", { staticClass: "company-title" }, [
-              _vm._v("\n                    COMPANY TITLE\n                "),
-            ]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("div", { staticClass: "company-desc" }, [
-              _vm._v(
-                "\n                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae quo cumque laboriosam autem accusantium vel quos quaerat voluptatum sunt adipisci?\n                "
-              ),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "company-footer" }, [
-              _vm._v(
-                "\n                    ETIENNE WAYNE N. AMPARADO\n                "
-              ),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "buttons" }, [
-              _c(
-                "button",
-                { staticClass: "button is-primary", attrs: { tag: "a" } },
-                [_vm._v("VIEW COMPANY")]
-              ),
-            ]),
-          ]),
-        ]),
+    return _c("div", { staticClass: "buttons" }, [
+      _c("button", { staticClass: "button is-primary" }, [
+        _vm._v("ADD COMPANY"),
       ]),
     ])
   },
@@ -36481,11 +36490,13 @@ var render = function () {
           [
             _c("div", { staticClass: "box" }, [
               _c("div", { staticClass: "section" }, [
-                _c("div", { staticClass: "box-heading" }, [
+                _c("div", { staticClass: "sign-up-header" }, [
                   _vm._v(
                     "\n                            START HIRING CANDIDATES\n                        "
                   ),
                 ]),
+                _vm._v(" "),
+                _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "columns" }, [
                   _c(
@@ -36613,7 +36624,7 @@ var render = function () {
                         },
                         [
                           _c("b-input", {
-                            attrs: { type: "text", icon: "" },
+                            attrs: { type: "text", icon: "cellphone" },
                             model: {
                               value: _vm.fields.contact_no,
                               callback: function ($$v) {
@@ -36691,7 +36702,11 @@ var render = function () {
                         { attrs: { label: "Middle Name" } },
                         [
                           _c("b-input", {
-                            attrs: { type: "text", placeholder: "Middle Name" },
+                            attrs: {
+                              type: "text",
+                              icon: "account",
+                              placeholder: "Middle Name",
+                            },
                             model: {
                               value: _vm.fields.mname,
                               callback: function ($$v) {
@@ -36754,7 +36769,7 @@ var render = function () {
                             {
                               attrs: {
                                 placeholder: "Sex",
-                                icon: "account",
+                                icon: "gender-male-female-variant",
                                 expanded: "",
                               },
                               model: {
@@ -36804,7 +36819,11 @@ var render = function () {
                           _c(
                             "b-select",
                             {
-                              attrs: { expanded: "", placeholder: "Province" },
+                              attrs: {
+                                expanded: "",
+                                placeholder: "Province",
+                                icon: "google-maps",
+                              },
                               on: { input: _vm.loadCity },
                               model: {
                                 value: _vm.fields.province,
@@ -36853,7 +36872,11 @@ var render = function () {
                           _c(
                             "b-select",
                             {
-                              attrs: { expanded: "", placeholder: "City" },
+                              attrs: {
+                                expanded: "",
+                                placeholder: "City",
+                                icon: "google-maps",
+                              },
                               on: { input: _vm.loadBarangay },
                               model: {
                                 value: _vm.fields.city,
@@ -36904,7 +36927,11 @@ var render = function () {
                           _c(
                             "b-select",
                             {
-                              attrs: { expanded: "", placeholder: "Barangay" },
+                              attrs: {
+                                expanded: "",
+                                placeholder: "Barangay",
+                                icon: "google-maps",
+                              },
                               model: {
                                 value: _vm.fields.barangay,
                                 callback: function ($$v) {
@@ -36941,7 +36968,7 @@ var render = function () {
                         { attrs: { label: "House #. Street" } },
                         [
                           _c("b-input", {
-                            attrs: { type: "text" },
+                            attrs: { type: "text", icon: "map-search-outline" },
                             model: {
                               value: _vm.fields.street,
                               callback: function ($$v) {
