@@ -1,15 +1,25 @@
 <template>
     <section class="section">
-        <div class="columns">
-            <div class="column is-4 is-offset-2">
+        <div class="columns is-centered is-gapless">
+            <div class="column is-4">
+                <div class="left-container">
+                    <div class="left-slogan">
+                        Find the best candidate for your company by creating account.
+                    </div>
+                </div>
+            </div>
+            <div class="column is-4">
                 <form @submit.prevent="submit">
 
-                    <div class="box">
+                    <div class="reg-box">
                     
                         <div class="section">
 
                             <div class="sign-up-header">
                                 START HIRING CANDIDATES
+                            </div>
+                            <div class="sign-up-header">
+                                CREATE AN ACCOUNT
                             </div>
                             <hr>
                             <div class="columns">
@@ -200,6 +210,26 @@ export default {
     .sign-up-header{
         font-weight: bold;
     }
+    .reg-box{
+        border: 1px solid green;
+    }
 
-/*    dere lang kubia ang panel color*/
+
+    .left-container{
+        height:100%; 
+        background-color: green;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left-slogan{
+        margin: 15px;
+        font-weight: bold;
+        color: white;
+        font-size: 2em;;
+        
+    }
+
+    /*    dere lang kubia ang panel color*/
 </style>

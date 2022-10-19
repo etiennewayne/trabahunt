@@ -10016,6 +10016,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -29963,7 +29973,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.panel > .panel-heading[data-v-1d6275ac]{\n        background-color: #e0fcda;\n        color:rgb(0, 0, 0);\n}\n.sign-up-header[data-v-1d6275ac]{\n        font-weight: bold;\n}\n\n/*    dere lang kubia ang panel color*/\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.panel > .panel-heading[data-v-1d6275ac]{\n    background-color: #e0fcda;\n    color:rgb(0, 0, 0);\n}\n.sign-up-header[data-v-1d6275ac]{\n    font-weight: bold;\n}\n.reg-box[data-v-1d6275ac]{\n    border: 1px solid green;\n}\n.left-container[data-v-1d6275ac]{\n    height:100%; \n    background-color: green;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.left-slogan[data-v-1d6275ac]{\n    margin: 15px;\n    font-weight: bold;\n    color: white;\n    font-size: 2em;\n}\n\n/*    dere lang kubia ang panel color*/\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36552,8 +36562,10 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "section" }, [
-    _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column is-4 is-offset-2" }, [
+    _c("div", { staticClass: "columns is-centered is-gapless" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "column is-4" }, [
         _c(
           "form",
           {
@@ -36565,11 +36577,17 @@ var render = function () {
             },
           },
           [
-            _c("div", { staticClass: "box" }, [
+            _c("div", { staticClass: "reg-box" }, [
               _c("div", { staticClass: "section" }, [
                 _c("div", { staticClass: "sign-up-header" }, [
                   _vm._v(
                     "\n                            START HIRING CANDIDATES\n                        "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "sign-up-header" }, [
+                  _vm._v(
+                    "\n                            CREATE AN ACCOUNT\n                        "
                   ),
                 ]),
                 _vm._v(" "),
@@ -37062,7 +37080,7 @@ var render = function () {
                   ),
                 ]),
                 _vm._v(" "),
-                _vm._m(0),
+                _vm._m(1),
               ]),
             ]),
           ]
@@ -37072,6 +37090,20 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "column is-4" }, [
+      _c("div", { staticClass: "left-container" }, [
+        _c("div", { staticClass: "left-slogan" }, [
+          _vm._v(
+            "\n                    Find the best candidate for your company by creating account.\n                "
+          ),
+        ]),
+      ]),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
