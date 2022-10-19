@@ -1,59 +1,44 @@
 <template>
     <div>
-        <div class="mynav">
-            <div class="mynav-brand"> <span v-if="userRole">{{ userRole }}</span></div>
-            <div class="burger-button" @click="open = true">
-                <div class="burger-div"></div>
-                <div class="burger-div"></div>
-                <div class="burger-div"></div>
-            </div>
-        </div>
 
-            <b-sidebar
-                :mobile="mobile"
-                type="is-light"
-                :fullheight="fullheight"
-                :fullwidth="fullwidth"
-                :overlay="overlay"
-                :expand-on-hover="expandOnHover"
-                :reduce="reduce"
-                :right="right"
-                v-model="open">
-                <div class="p-4">
-                    <h3 class="title is-4"></h3>
+        <b-navbar>
+            <template #brand>
+                <b-navbar-item>
+                    <span v-if="userRole">{{ userRole }}</span>
+                </b-navbar-item>
+            </template>
+            <template #start>
+                
+            </template>
 
-                    <b-menu class="is-custom-mobile">
-
-                        <b-menu-list label="Menu">
-
-                            <b-menu-item icon="home" label="Home" tag="a" href="/admin/home"></b-menu-item>
-
-                            <b-menu-item label="Job Types" icon="account" tag="a" href="/admin/job-types"></b-menu-item>
-
-                            <b-menu-item label="Categories" icon="account" tag="a" href="/admin/categories"></b-menu-item>
-
-                            <b-menu-item label="Users" icon="account" tag="a" href="/admin/users"></b-menu-item>
-
-                            <b-menu-item icon="poll">
-                                <template #label="props">
-                                    Report
-                                    <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-down' : 'menu-up'"></b-icon>
-                                </template>
-                                <b-menu-item icon="text-box-outline" label="Inventory" tag="a" href="/report/inventory"></b-menu-item>
-                                <b-menu-item icon="text-box-outline" label="Appointment" tag="a" href="/report/appointment"></b-menu-item>
-
-<!--                                <b-menu-item icon="cash-multiple" label="Payments" disabled></b-menu-item>-->
-                            </b-menu-item>
-
-                        </b-menu-list>
-
-
-                        <b-menu-list label="Actions">
-                            <b-menu-item @click="logout" label="Logout"></b-menu-item>
-                        </b-menu-list>
-                    </b-menu>
-                </div>
-            </b-sidebar>
+            <template #end>
+                <b-navbar-item href="/admin/home">
+                    Home
+                </b-navbar-item>
+                <b-navbar-item href="/admin/job-types">
+                    Documentation
+                </b-navbar-item>
+                <b-navbar-dropdown label="Settings">
+                    <b-navbar-item href="/admin/job-types">
+                        Job Type
+                    </b-navbar-item>
+                    <b-navbar-item href="/admin/categories">
+                        Category
+                    </b-navbar-item>
+                </b-navbar-dropdown>
+                <b-navbar-item href="/admin/users">
+                    Users
+                </b-navbar-item>
+                
+                <b-navbar-item tag="div">
+                    <div class="buttons">
+                        <b-button @click="logout" class="is-danger">
+                            Log out
+                        </b-button>
+                    </div>
+                </b-navbar-item>
+            </template>
+        </b-navbar>
 
     </div>
 

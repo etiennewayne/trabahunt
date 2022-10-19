@@ -102,10 +102,9 @@ Route::resource('/employer/signup', App\Http\Controllers\Employer\EmployerSignUp
 Route::resource('/employer/dashboard', App\Http\Controllers\Employer\EmployerDashboardController::class);
 
 
-Route::resource('/employer/company/{cid}', App\Http\Controllers\Employer\EmployerFeedsController::class);
+Route::get('/employer/company/{cid}', [App\Http\Controllers\Employer\EmployerFeedsController::class, 'index']);
 
-
-Route::resource('/employer/company', App\Http\Controllers\Employer\CompanyController::class);
+Route::get('/employer/company-add-edit', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'create']);
 
 
 

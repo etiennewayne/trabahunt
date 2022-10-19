@@ -3,7 +3,7 @@
         <div class="section">
 
             <div class="buttons">
-                <button class="button is-primary">ADD COMPANY</button>
+                <a class="button is-primary" tag="a" href="/employer/company-add-edit">ADD COMPANY</a>
             </div>
 
             <div class="company-container">
