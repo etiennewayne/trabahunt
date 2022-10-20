@@ -7,16 +7,16 @@
             </div>
 
             <div class="company-container">
-                <div class="company-box">
+                <div class="company-box" v-for="(item, index) in companies" :key="index">
                     <div class="company-title">
-                        COMPANY TITLE
+                        {{ item.company }}
                     </div>
                     <hr>
                     <div class="company-desc">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae quo cumque laboriosam autem accusantium vel quos quaerat voluptatum sunt adipisci?
+                        {{ item.overview }}
                     </div>
                     <div class="company-footer">
-                        ETIENNE WAYNE N. AMPARADO
+                         {{ item.owner_account.lname }}, {{ item.owner_account.fname }} {{ item.owner_account.middlename }}
                     </div>
 
                     <div class="buttons">
@@ -28,7 +28,29 @@
     </div>
 </template>
 
+<script>
+import axios from 'axios';
 
+export default {
+    data() {
+        return {
+            companies: []
+        }
+    },
+
+    methods: {
+        loadCompanies(){
+            axios.get('/employer/get-my-companies').then(res=>{
+                this.companies = res.data;
+            })
+        }
+    },
+
+    mounted(){
+        this.loadCompanies();
+    }
+}
+</script>
 <style scoped>
     .company-container{
         display: flex;
@@ -38,6 +60,7 @@
         width: 300px;
         border: 1px solid gray;
         padding: 15px;
+        margin: 10px;
     }
 
     .company-title{

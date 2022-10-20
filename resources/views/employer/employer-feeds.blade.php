@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-employer')
 
 @section('content')
     <employer-feeds>

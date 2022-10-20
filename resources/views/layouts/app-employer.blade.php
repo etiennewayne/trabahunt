@@ -23,7 +23,7 @@
 
 <body>
     <div id="app">
-        <navbar-component></navbar-component>
+        <employer-navbar></employer-navbar>
 
         <div>
             @yield('content')

@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Company;
+
+use Auth;
+
 
 class EmployerCompanyController extends Controller
 {
@@ -17,18 +21,30 @@ class EmployerCompanyController extends Controller
         return view('employer.employer-dashboard');
     }
 
+    public function getMyCompanies(){
+        $id = Auth::user()->user_id;
+        return Company::with(['province', 'city', 'owner_account'])
+            ->where('user_id', $id)->get();
+
+    }
 
     public function create(){
         return view('employer.employer-company-add-edit');
     }
 
     public function store(Request $req){
+        $id = Auth::user()->user_id;
 
         $validate = $req->validate([
             'company' => ['required', 'string', 'max: 100'],
             'owner' => ['required'],
             //'company_logo' => ['required', 'mimes:jpg,png,bmp'],
             'overview' => ['required'],
+            'email' => ['required'],
+
+            'province' => ['required'],
+            'city' => ['required'],
+            'barangay' => ['required'],
 
         ], $message = [
             //'bhouse_img_path.mimes' => 'Type of the file must be jpg, png or bmp.',
@@ -44,6 +60,7 @@ class EmployerCompanyController extends Controller
         // }
 
         Company::create([
+            'user_id' => $id,
             'company' => strtoupper($req->company),
             'owner' => strtoupper($req->owner),
             'overview' => $req->overview,
@@ -59,7 +76,7 @@ class EmployerCompanyController extends Controller
             'insta_contact' => $req->insta_contact,
             'viber_contact' => $req->viber_contact,
             'whatsapp_contact' => $req->whatsapp_contact,
-            
+            'email' => $req->email,
            
 
             'province' => $req->province,

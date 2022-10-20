@@ -15,6 +15,11 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id('company_id');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
+
             $table->string('company')->nullable();
             $table->string('owner')->nullable();
             $table->text('overview')->nullable();
@@ -28,6 +33,7 @@ class CreateCompaniesTable extends Migration
             $table->string('insta_contact')->nullable();
             $table->string('viber_contact')->nullable();
             $table->string('whatsapp_contact')->nullable();
+            $table->string('email')->nullable();
 
             $table->string('province')->nullable();
             $table->string('city')->nullable();

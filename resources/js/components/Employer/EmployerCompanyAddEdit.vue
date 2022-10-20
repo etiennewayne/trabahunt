@@ -13,21 +13,27 @@
                             <form @submit.prevent="submit">
                                 <div class="columns">
                                     <div class="column">
-                                        <b-field label="Company Name">
-                                            <b-input type="text" placeholder="Company Name" v-model="fields.company_name"></b-input>
+                                        <b-field label="Company Name"
+                                            :type="this.errors.company ? 'is-danger':''"
+                                            :message="this.errors.company ? this.errors.company[0] : ''">
+                                            <b-input type="text" placeholder="Company Name" v-model="fields.company"  required></b-input>
                                         </b-field>
                                     </div>
                                     <div class="column">
-                                        <b-field label="Owner">
-                                            <b-input type="text" placeholder="Owner" v-model="fields.owner"></b-input>
+                                        <b-field label="Owner"
+                                            :type="this.errors.owner ? 'is-danger':''"
+                                            :message="this.errors.owner ? this.errors.owner[0] : ''">
+                                            <b-input type="text" placeholder="Owner" v-model="fields.owner" required></b-input>
                                         </b-field>
                                     </div>
                                 </div>
 
                                 <div class="columns">
                                     <div class="column">
-                                        <b-field label="Company Overview">
-                                            <b-input type="textarea" placeholder="Company Overview" v-model="fields.overview"></b-input>
+                                        <b-field label="Company Overview"
+                                            :type="this.errors.overview ? 'is-danger':''"
+                                            :message="this.errors.overview ? this.errors.overview[0] : ''">
+                                            <b-input type="textarea" placeholder="Company Overview" v-model="fields.overview" required></b-input>
                                         </b-field>
                                     </div>
                                 </div>
@@ -49,7 +55,7 @@
                                 </div>
 
                                 <hr>
-                                <div>
+                                <div class="form-section-title">
                                     Contact Information
                                 </div>
                                 <div class="columns">
@@ -90,9 +96,18 @@
                                         </b-field>
                                     </div>
                                 </div>
+                                <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Email"
+                                            :type="this.errors.email ? 'is-danger':''"
+                                            :message="this.errors.email ? this.errors.email[0] : ''">
+                                            <b-input type="email" placeholder="Email" v-model="fields.email" required></b-input>
+                                        </b-field>
+                                    </div>
+                                </div>
 
                                 <hr>
-                                <div>
+                                <div class="form-section-title">
                                     Address Information
                                 </div>
 
@@ -193,21 +208,18 @@ export default {
 
 
         submit: function(){
-            axios.post('/employer/company-add-edit').then(res=>{
+            axios.post('/employer/company-add-edit', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
                         this.$buefy.dialog.alert({
                             title: 'SAVED!',
-                            message: 'Successfully updated.',
+                            message: 'Successfully saved.',
                             type: 'is-success',
                             onConfirm: () => {
-                                this.loadAsyncData();
-                                this.clearFields();
-                                this.global_id = 0;
-                                this.isModalCreate = false;
+                               window.location = '/employer/dashboard';
                             }
                         })
                     }
-            }).catch(res=>{
+            }).catch(err=>{
                 if(err.response.status === 422){
                     this.errors = err.response.data.errors;
                 }
@@ -225,7 +237,9 @@ export default {
 
 <style scoped>
     .form-section-title{
-
+        font-weight: bold;
+        margin-bottom: 15px;
+        font-style: italic;
     }
 
 </style>

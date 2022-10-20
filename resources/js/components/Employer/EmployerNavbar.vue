@@ -11,23 +11,21 @@
             </template>
 
             <template #end>
-                <b-navbar-item href="/admin/home">
+                <b-navbar-item href="/employer/dashboard">
                     Home
                 </b-navbar-item>
-                <b-navbar-item href="/admin/job-types">
-                    Documentation
+                <b-navbar-item href="/employer/my-company">
+                    My Company
                 </b-navbar-item>
-                <b-navbar-dropdown label="Settings">
+                <!-- <b-navbar-dropdown label="Settings">
                     <b-navbar-item href="/admin/job-types">
                         Job Type
                     </b-navbar-item>
                     <b-navbar-item href="/admin/categories">
                         Category
                     </b-navbar-item>
-                </b-navbar-dropdown>
-                <b-navbar-item href="/admin/users">
-                    Users
-                </b-navbar-item>
+                </b-navbar-dropdown> -->
+               
                 
                 <b-navbar-item tag="div">
                     <div class="buttons">
@@ -93,45 +91,6 @@ export default {
 </script>
 
 <style scoped>
-
-
-    .logo{
-        padding: 0 30px 0 30px;
-        height: 90px;
-    }
-
-    .burger-div{
-        width: 20px;
-        height: 3px;
-        background-color: #696969;
-        margin: 0 0 3px 0;
-        margin-left: auto;
-        border-radius: 10px;
-    }
-
-    .burger-button{
-        display: flex;
-        flex-direction: column;
-        margin-left: auto;
-    }
-
-    .mynav{
-        padding: 25px;
-        border-bottom: 2px solid rgba(196, 196, 196, 0.53);
-        display: flex;
-    }
-
-    .mynav-brand{
-        font-weight: bold;
-        font-size: 1.2em;
-        
-    }
-
-  /* .hero{
-        background-image: url("/img/bg-hero.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-    } */
 
 
 </style>
