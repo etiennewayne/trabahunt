@@ -10027,7 +10027,29 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     submit: function submit() {
-      axios.post('/employer/company-add-edit').then(function (res) {})["catch"](function (res) {});
+      var _this4 = this;
+
+      axios.post('/employer/company-add-edit').then(function (res) {
+        if (res.data.status === 'saved') {
+          _this4.$buefy.dialog.alert({
+            title: 'SAVED!',
+            message: 'Successfully updated.',
+            type: 'is-success',
+            onConfirm: function onConfirm() {
+              _this4.loadAsyncData();
+
+              _this4.clearFields();
+
+              _this4.global_id = 0;
+              _this4.isModalCreate = false;
+            }
+          });
+        }
+      })["catch"](function (res) {
+        if (err.response.status === 422) {
+          _this4.errors = err.response.data.errors;
+        }
+      });
     }
   },
   mounted: function mounted() {

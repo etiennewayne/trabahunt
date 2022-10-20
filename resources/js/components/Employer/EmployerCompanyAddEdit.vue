@@ -194,9 +194,23 @@ export default {
 
         submit: function(){
             axios.post('/employer/company-add-edit').then(res=>{
-
+                if(res.data.status === 'saved'){
+                        this.$buefy.dialog.alert({
+                            title: 'SAVED!',
+                            message: 'Successfully updated.',
+                            type: 'is-success',
+                            onConfirm: () => {
+                                this.loadAsyncData();
+                                this.clearFields();
+                                this.global_id = 0;
+                                this.isModalCreate = false;
+                            }
+                        })
+                    }
             }).catch(res=>{
-                
+                if(err.response.status === 422){
+                    this.errors = err.response.data.errors;
+                }
             })
         }
 

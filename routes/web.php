@@ -105,6 +105,7 @@ Route::resource('/employer/dashboard', App\Http\Controllers\Employer\EmployerDas
 Route::get('/employer/company/{cid}', [App\Http\Controllers\Employer\EmployerFeedsController::class, 'index']);
 
 Route::get('/employer/company-add-edit', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'create']);
+Route::post('/employer/company-add-edit', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'store']);
 
 
 
