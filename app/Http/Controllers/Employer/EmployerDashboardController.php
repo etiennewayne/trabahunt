@@ -9,11 +9,13 @@ class EmployerDashboardController extends Controller
 {
     //
 
-    public function __constructor(){
+    public function __construct(){
         $this->middleware('auth');
     }
 
     public function index(){
         return view('employer.employer-dashboard');
     }
+
+
 }

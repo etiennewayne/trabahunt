@@ -169,6 +169,8 @@
 
 <script>
 export default {
+    props: ['propId'],
+
     data() {
         return{
             fields: {
@@ -181,6 +183,8 @@ export default {
             cities: [],
             barangays: [],
             street: '',
+        
+            id: 0,
 
         }
     },
@@ -208,28 +212,90 @@ export default {
 
 
         submit: function(){
-            axios.post('/employer/company-add-edit', this.fields).then(res=>{
-                if(res.data.status === 'saved'){
-                        this.$buefy.dialog.alert({
-                            title: 'SAVED!',
-                            message: 'Successfully saved.',
-                            type: 'is-success',
-                            onConfirm: () => {
-                               window.location = '/employer/dashboard';
-                            }
-                        })
+            if(this.id > 0){
+                axios.put('/employer/company-add-edit/'+ this.id, this.fields).then(res=>{
+                    if(res.data.status === 'updated'){
+                            this.$buefy.dialog.alert({
+                                title: 'UPDATED!',
+                                message: 'Successfully updated.',
+                                type: 'is-success',
+                                onConfirm: () => {
+                                window.location = '/employer/dashboard';
+                                }
+                            })
+                        }
+                }).catch(err=>{
+                    if(err.response.status === 422){
+                        this.errors = err.response.data.errors;
                     }
-            }).catch(err=>{
-                if(err.response.status === 422){
-                    this.errors = err.response.data.errors;
-                }
-            })
-        }
+                })
+            }else{
+                axios.post('/employer/company-add-edit', this.fields).then(res=>{
+                    if(res.data.status === 'saved'){
+                            this.$buefy.dialog.alert({
+                                title: 'SAVED!',
+                                message: 'Successfully saved.',
+                                type: 'is-success',
+                                onConfirm: () => {
+                                window.location = '/employer/dashboard';
+                                }
+                            })
+                        }
+                }).catch(err=>{
+                    if(err.response.status === 422){
+                        this.errors = err.response.data.errors;
+                    }
+                })
+            }
+            
+        },
+
+        initData(){
+            this.id = parseInt(this.propId);
+            
+            if(this.id > 0){
+                this.getData();
+            }
+        },
+        clearFields(){
+            this.fields = {
+                company_size: 0
+            };
+        },
+        
+        getData(){
+            this.clearFields();
+          
+            //nested axios for getting the address 1 by 1 or request by request
+            axios.get('/employer/company-show/'+ this.id).then(res=>{
+                this.fields = res.data;
+             
+                let tempData = res.data;
+
+                console.log(res.data)
+                //load city first
+                axios.get('/load-cities?prov=' + this.fields.province).then(res=>{
+                    //load barangay
+                    this.cities = res.data;
+                    axios.get('/load-barangays?prov=' + this.fields.province + '&city_code='+this.fields.city).then(res=>{
+                        this.barangays = res.data;
+                        this.fields = tempData;
+                    });
+                });
+            });
+        },
 
     },
 
     mounted(){
-        this.loadProvince();
+        this.$nextTick(function () {
+            // Code that will run only after the
+            // entire view has been rendered
+            this.initData();
+
+            this.loadProvince();
+        })
+        
     }
 }
 </script>

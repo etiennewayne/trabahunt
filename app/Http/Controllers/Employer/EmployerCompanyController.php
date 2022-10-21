@@ -21,6 +21,10 @@ class EmployerCompanyController extends Controller
         return view('employer.employer-dashboard');
     }
 
+    public function show($id){
+        return Company::find($id);
+    }
+
     public function getMyCompanies(){
         $id = Auth::user()->user_id;
         return Company::with(['province', 'city', 'owner_account'])
@@ -29,7 +33,13 @@ class EmployerCompanyController extends Controller
     }
 
     public function create(){
-        return view('employer.employer-company-add-edit');
+        return view('employer.employer-company-add-edit')
+            ->with('id', 0);
+    }
+
+    public function edit($id){
+        return view('employer.employer-company-add-edit')
+            ->with('id', $id);
     }
 
     public function store(Request $req){
@@ -66,8 +76,8 @@ class EmployerCompanyController extends Controller
             'overview' => $req->overview,
             'company_size' => $req->company_size,
             
-            'industry' => $req->industry,
-            'benefits_others' => $req->benefits_others,
+            'industry' => strtoupper($req->industry),
+            'benefits_others' => strtoupper($req->benefits_others),
 
 
             'phone_contact' => $req->phone_contact,
@@ -77,7 +87,6 @@ class EmployerCompanyController extends Controller
             'viber_contact' => $req->viber_contact,
             'whatsapp_contact' => $req->whatsapp_contact,
             'email' => $req->email,
-           
 
             'province' => $req->province,
             'city' => $req->city,
@@ -93,8 +102,70 @@ class EmployerCompanyController extends Controller
     }
 
 
+    public function update(Request $req, $id){
+        $validate = $req->validate([
+            'company' => ['required', 'string', 'max: 100', 'unique:companies,company,'. $id . ',company_id'],
+            'owner' => ['required'],
+            //'company_logo' => ['required', 'mimes:jpg,png,bmp'],
+            'overview' => ['required'],
+            'email' => ['required'],
+
+            'province' => ['required'],
+            'city' => ['required'],
+            'barangay' => ['required'],
+
+        ], $message = [
+            //'bhouse_img_path.mimes' => 'Type of the file must be jpg, png or bmp.',
+            //'bhouse_img_path.required' => 'Image is required.'
+        ]);
+       
+        // $company_logo = null;
+        // //upload image b house
+        // $company_logo = $req->file('company_logo');
+        // if($bhouseImg){
+        //     $pathFile = $company_logo->store('public/company'); //get path of the file
+        //     $companyLogoPath = explode('/', $pathFile); //split into array using /
+        // }
+
+        $data = Company::find($id);
+
+        $data->company = strtoupper($req->company);
+        $data->owner = strtoupper($req->owner);
+        $data->overview = $req->overview;
+
+        $data->company_size = $req->company_size;
+        $data->industry = strtoupper($req->industry);
+        $data->benefits_others = strtoupper($req->benefits_others);
+
+
+        $data->phone_contact = $req->phone_contact;
+        $data->fb_contact = $req->fb_contact;
+        $data->twitter_contact = $req->twitter_contact;
+        $data->insta_contact = $req->insta_contact;
+        $data->viber_contact = $req->viber_contact;
+        $data->whatsapp_contact = $req->whatsapp_contact;
+        $data->email = $req->email;
+
+        $data->province = $req->province;
+        $data->city = $req->city;
+        $data->barangay = $req->barangay;
+        $data->street = $req->street;
+        $data->save();
+
+        return response()->json([
+            'status' => 'updated'
+        ], 200);
+    }
+
+
       
     
+    public function destroy($id){
+        Company::destroy($id);
 
+        return response()->json([
+            'status' => 'deleted'
+        ], 200);
+    }
     
 }

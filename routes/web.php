@@ -102,7 +102,7 @@ Route::resource('/employer/signup', App\Http\Controllers\Employer\EmployerSignUp
 Route::resource('/employer/dashboard', App\Http\Controllers\Employer\EmployerDashboardController::class);
 
 
-Route::get('/employer/company/{cid}', [App\Http\Controllers\Employer\EmployerFeedsController::class, 'index']);
+Route::get('/employer/company-feed/{cid}', [App\Http\Controllers\Employer\EmployerFeedsController::class, 'index']);
 
 Route::get('/employer/get-my-companies', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'getMyCompanies']);
 
@@ -110,6 +110,10 @@ Route::get('/employer/get-my-companies', [App\Http\Controllers\Employer\Employer
 
 Route::get('/employer/company-add-edit', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'create']);
 Route::post('/employer/company-add-edit', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'store']);
+Route::put('/employer/company-add-edit/{id}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'update']);
+Route::get('/employer/company-add-edit/{id}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'edit']);
+Route::get('/employer/company-show/{cid}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'show']);
+Route::delete('/employer/company-delete/{id}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'destroy']);
 
 
 

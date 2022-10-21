@@ -9,9 +9,13 @@ class EmployerFeedsController extends Controller
 {
     //
 
+    public function __construct(){
+        $this->middleware('auth');
+    }
 
     public function index($companyId){
-
         return view('employer.employer-feeds');
     }
+
+
 }

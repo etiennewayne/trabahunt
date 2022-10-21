@@ -14,9 +14,9 @@
                 <b-navbar-item href="/employer/dashboard">
                     Home
                 </b-navbar-item>
-                <b-navbar-item href="/employer/my-company">
+                <!-- <b-navbar-item href="/employer/my-company">
                     My Company
-                </b-navbar-item>
+                </b-navbar-item> -->
                 <!-- <b-navbar-dropdown label="Settings">
                     <b-navbar-item href="/admin/job-types">
                         Job Type
