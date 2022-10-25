@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="buttons">
-                        <b-button tag="a" class="button is-primary" :href="`/employer/company-feed/${item.company_id}`">VIEW COMPANY</b-button>
+                        <b-button tag="a" class="button is-primary" :href="`/employer/company-job-post/${item.company_id}`">VIEW COMPANY</b-button>
                     </div>
                 </div>
             </div>

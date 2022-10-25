@@ -101,8 +101,10 @@ Route::resource('/employer/signup', App\Http\Controllers\Employer\EmployerSignUp
 
 Route::resource('/employer/dashboard', App\Http\Controllers\Employer\EmployerDashboardController::class);
 
+//JOB POST (FEEDS)
+Route::get('/employer/company-job-post/{cid}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'index']);
 
-Route::get('/employer/company-feed/{cid}', [App\Http\Controllers\Employer\EmployerFeedsController::class, 'index']);
+
 
 Route::get('/employer/get-my-companies', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'getMyCompanies']);
 
