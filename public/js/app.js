@@ -10253,8 +10253,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -10298,30 +10296,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['propCompanyId', 'propJobTypes', 'propCategories'],
   data: function data() {
     return {
-      companies: [],
+      categories: [],
       jobTypes: [],
       fields: {},
-      errors: {}
+      errors: {},
+      companyId: null,
+      jobPost: []
     };
   },
   methods: {
     loadCompanies: function loadCompanies() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/employer/get-my-companies').then(function (res) {
+      axios.get('/employer/get-my-companies').then(function (res) {
         _this.companies = res.data;
       });
     },
-    editCompany: function editCompany(id) {
-      window.location = '/employer/company-add-edit/' + id;
+    loadJobPost: function loadJobPost() {
+      var _this2 = this;
+
+      axios.get('/employer/get-job-post?cid=' + this.companyId).then(function (res) {
+        _this2.jobPost = res.data;
+      });
+    },
+    submit: function submit() {
+      var _this3 = this;
+
+      axios.post('/employer/company-job-post/' + this.companyId, this.fields).then(function (res) {
+        if (res.data.status === 'saved') {
+          _this3.$buefy.dialog.alert({
+            title: "SAVED!",
+            message: 'Register successfully',
+            type: 'is-success',
+            onConfirm: function onConfirm() {
+              return window.location = '/employer/company-job-post/' + _this3.companyId;
+            }
+          });
+        }
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this3.errors = err.response.data.errors;
+        }
+      });
     },
     //alert box ask for deletion
     confirmDelete: function confirmDelete(delete_id) {
-      var _this2 = this;
+      var _this4 = this;
 
       this.$buefy.dialog.confirm({
         title: 'DELETE!',
@@ -10330,24 +10377,33 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Delete',
         onConfirm: function onConfirm() {
-          return _this2.deleteSubmit(delete_id);
+          return _this4.deleteSubmit(delete_id);
         }
       });
     },
     //execute delete after confirming
     deleteSubmit: function deleteSubmit(delete_id) {
-      var _this3 = this;
+      var _this5 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('/employer/company-delete/' + delete_id).then(function (res) {
-        _this3.loadCompanies();
+      axios["delete"]('/employer/company-delete/' + delete_id).then(function (res) {
+        _this5.loadCompanies();
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this3.errors = err.response.data.errors;
+          _this5.errors = err.response.data.errors;
         }
       });
+    },
+    initData: function initData() {
+      this.jobTypes = this.propJobTypes;
+      this.categories = this.propCategories;
+      console.log(this.propCompanyId);
+      this.companyId = this.propCompanyId;
+      this.fields.company_id = this.companyId;
     }
   },
   mounted: function mounted() {
+    this.initData();
+    this.loadJobPost();
     this.loadCompanies();
   }
 });
@@ -38094,89 +38150,174 @@ var render = function () {
     _c("div", { staticClass: "section" }, [
       _c("div", { staticClass: "columns is-centered" }, [
         _c("div", { staticClass: "column is-8" }, [
-          _c("div", { staticClass: "box" }, [
-            _c("div", { staticClass: "post-heading has-text-weight-bold" }, [
-              _vm._v(
-                "\n                        POST JOB\n                    "
-              ),
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "mt-5" },
-              [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.submit.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "box" }, [
                 _c(
-                  "b-field",
-                  { attrs: { label: "JOB DESCRIPTION" } },
+                  "div",
+                  { staticClass: "post-heading has-text-weight-bold" },
                   [
-                    _c("b-input", {
-                      attrs: { type: "textarea" },
-                      model: {
-                        value: _vm.fields.job_desc,
-                        callback: function ($$v) {
-                          _vm.$set(_vm.fields, "job_desc", $$v)
-                        },
-                        expression: "fields.job_desc",
-                      },
-                    }),
-                  ],
-                  1
+                    _vm._v(
+                      "\n                            POST JOB\n                        "
+                    ),
+                  ]
                 ),
                 _vm._v(" "),
-                _c(
-                  "b-field",
-                  { attrs: { label: "Job Type" } },
-                  [
+                _c("div", { staticClass: "mt-5" }, [
+                  _c("div", { staticClass: "columns" }, [
                     _c(
-                      "b-select",
-                      {
-                        model: {
-                          value: _vm.fields.job_type,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.fields, "job_type", $$v)
-                          },
-                          expression: "fields.job_type",
-                        },
-                      },
-                      _vm._l(_vm.jobTypes, function (item, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: item.jobtype_id } },
-                          [_vm._v(_vm._s(item.jobtype))]
-                        )
-                      }),
-                      0
+                      "div",
+                      { staticClass: "column" },
+                      [
+                        _c(
+                          "b-field",
+                          { attrs: { label: "JOB DESCRIPTION" } },
+                          [
+                            _c("b-input", {
+                              attrs: { type: "textarea" },
+                              model: {
+                                value: _vm.fields.job_desc,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.fields, "job_desc", $$v)
+                                },
+                                expression: "fields.job_desc",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
                     ),
-                  ],
-                  1
-                ),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm._m(0),
-          ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "columns" }, [
+                    _c(
+                      "div",
+                      { staticClass: "column" },
+                      [
+                        _c(
+                          "b-field",
+                          { attrs: { label: "Category", expanded: "" } },
+                          [
+                            _c(
+                              "b-select",
+                              {
+                                attrs: { expanded: "" },
+                                model: {
+                                  value: _vm.fields.category,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "category", $$v)
+                                  },
+                                  expression: "fields.category",
+                                },
+                              },
+                              _vm._l(_vm.categories, function (item, index) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: index,
+                                    domProps: { value: item.category_id },
+                                  },
+                                  [_vm._v(_vm._s(item.category))]
+                                )
+                              }),
+                              0
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "column" },
+                      [
+                        _c(
+                          "b-field",
+                          { attrs: { label: "Job Type", expanded: "" } },
+                          [
+                            _c(
+                              "b-select",
+                              {
+                                attrs: { expanded: "" },
+                                model: {
+                                  value: _vm.fields.job_type,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "job_type", $$v)
+                                  },
+                                  expression: "fields.job_type",
+                                },
+                              },
+                              _vm._l(_vm.jobTypes, function (item, index) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: index,
+                                    domProps: { value: item.jobtype_id },
+                                  },
+                                  [_vm._v(_vm._s(item.jobtype))]
+                                )
+                              }),
+                              0
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "column" },
+                      [
+                        _c(
+                          "b-field",
+                          { attrs: { label: "Price (PESO)" } },
+                          [
+                            _c("b-input", {
+                              attrs: {
+                                type: "text",
+                                placeholder: "Price (PESO)",
+                              },
+                              model: {
+                                value: _vm.fields.price,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.fields, "price", $$v)
+                                },
+                                expression: "fields.price",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _vm._m(0),
+              ]),
+            ]
+          ),
         ]),
       ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "buttons" }, [
-        _c(
-          "a",
-          {
-            staticClass: "button is-primary is-small is-outlined",
-            attrs: { tag: "a", href: "/employer/company-add-edit" },
-          },
-          [
-            _c("b-icon", {
-              staticClass: "mr-2",
-              attrs: { icon: "plus-thick", type: "is-info" },
-            }),
-            _vm._v("\n                ADD COMPANY\n            "),
-          ],
-          1
-        ),
-      ]),
     ]),
+    _vm._v(" "),
+    _vm._m(1),
   ])
 }
 var staticRenderFns = [
@@ -38186,6 +38327,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "buttons mt-5" }, [
       _c("button", { staticClass: "button is-primary" }, [_vm._v("POST")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "columns is-centered" }, [
+      _c("div", { staticClass: "column is-8" }),
     ])
   },
 ]

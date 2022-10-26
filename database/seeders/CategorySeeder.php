@@ -17,36 +17,44 @@ class CategorySeeder extends Seeder
 
         $data = [
             [
-                'category' => 'SAMPLE CAT 01',
+                'category' => 'SALES CLERK',
             ],
             [
-                'category' => 'SAMPLE CAT 02',
+                'category' => 'CONSTRUCTION WORKERS',
             ],
             [
-                'category' => 'SAMPLE CAT 03',
+                'category' => 'DELIVERY SERVICES',
             ],
             [
-                'category' => 'SAMPLE CAT 04',
+                'category' => 'HOUSE WORKERS',
             ],
             [
-                'category' => 'SAMPLE CAT 05',
+                'category' => 'DRIVERS',
             ],
             [
-                'category' => 'SAMPLE CAT 06',
+                'category' => 'MECHANIC',
             ],
             [
-                'category' => 'SAMPLE CAT 07',
+                'category' => 'SERVICE CREW',
             ],
             [
-                'category' => 'SAMPLE CAT 08',
+                'category' => 'OFFICE CLERK',
             ],
             [
-                'category' => 'SAMPLE CAT 09',
+                'category' => 'FREELANCER',
             ],
             [
-                'category' => 'SAMPLE CAT 10',
+                'category' => 'UTILITY WORKERS',
             ],
-
+            [
+                'category' => 'CUSTOMER SERVICE',
+            ],
+            [
+                'category' => 'FARMERS',
+            ],
+            [
+                'category' => 'OTHERS',
+            ],
         ];
 
         \App\Models\Category::insertOrIgnore($data);
