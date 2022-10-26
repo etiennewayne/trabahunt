@@ -13,8 +13,15 @@
                             <div class="mt-5">
                                 <div class="columns">
                                     <div class="column">
-                                        <b-field label="JOB DESCRIPTION">
-                                            <b-input type="textarea" v-model="fields.job_desc"></b-input>
+                                        <b-field label="TITLE">
+                                            <b-input type="text" v-model="fields.title" placeholder="Title"></b-input>
+                                        </b-field>
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Job Description">
+                                            <b-input type="textarea" v-model="fields.job_desc" placeholder="Job description"></b-input>
                                         </b-field>
                                     </div>
                                 </div>
@@ -22,22 +29,22 @@
                                 <div class="columns">
                                     <div class="column">
                                         <b-field label="Category" expanded>
-                                            <b-select v-model="fields.category" expanded>
+                                            <b-select v-model="fields.category" expanded placeholder="Category">
                                                 <option v-for="(item, index) in categories" :key="index" :value="item.category_id">{{ item.category }}</option>
                                             </b-select>
                                         </b-field>
                                     </div>
                                     <div class="column">
                                         <b-field label="Job Type" expanded>
-                                            <b-select v-model="fields.job_type" expanded>
+                                            <b-select v-model="fields.job_type" expanded placeholder="Job Type">
                                                 <option v-for="(item, index) in jobTypes" :key="index" :value="item.jobtype_id">{{ item.jobtype }}</option>
                                             </b-select>
                                         </b-field>
                                     </div>
                                     <div class="column">
                                         
-                                        <b-field label="Price (PESO)">
-                                            <b-input type="text" v-model="fields.price" placeholder="Price (PESO)"></b-input>
+                                        <b-field label="Salary (PESO)">
+                                            <b-input type="text" v-model="fields.salary" placeholder="Salary (PESO)"></b-input>
                                         </b-field>
                                     </div>
          
@@ -45,7 +52,7 @@
                             </div>
     
                             <div class="buttons mt-5">
-                                <button class="button is-primary">POST</button>
+                                <button class="button is-primary">POSTS</button>
                             </div>
                         </div> <!--box-->
                     </form>
@@ -53,14 +60,52 @@
             </div>
 
         </div> <!--section -->
+        
+        <div class="section">
 
-        <div class="columns is-centered">
-            <div class="column is-8">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    
+                    <div class="box-post" v-for="(item, index) in jobPosts" :key="index">
+                        <div class="box-post-heading">
+                            {{ item.title }}
+                        </div>
+                        <div class="box-post-body">
+                            <div>
+                                {{ item.job_desc }}
+                            </div>
+                           
+                        </div>
+                        <div class="box-post-footer">
+                            <div>
+                                <span>JOB TYPE: </span>
+                                {{ item.jobtype.jobtype }}
+                            </div>
 
-
+                            <div>
+                                <span>SALARY: </span>
+                                {{ item.salary }}
+                            </div>
+                        </div>
+                    </div>
                 
+     
+                    <b-pagination
+                        :total="total"
+                        v-model="current"
+                       
+                        :per-page="perPage"
+                        :icon-prev="prevIcon"
+                        :icon-next="nextIcon"
+                        aria-next-label="Next page"
+                        aria-previous-label="Previous page"
+                        aria-page-label="Page"
+                        aria-current-label="Current page">
+                    </b-pagination>
+                    
+                </div>
             </div>
-        </div>
+        </div><!--section-->
     </div>
 </template>
 
@@ -79,7 +124,28 @@ export default {
 
             companyId: null,
 
-            jobPost: [],
+            jobPosts: [],
+
+
+            //pagination
+            total: 0,
+            current: 1,
+            page: 1,
+            perPage: 5,
+            //rangeBefore: 3,
+            //rangeAfter: 1,
+            //order: '',
+            //size: '',
+            //isSimple: false,
+           // isRounded: false,
+            //hasInput: false,
+            prevIcon: 'chevron-left',
+            nextIcon: 'chevron-right',
+            //inputPosition: '',
+            //inputDebounce: '',
+
+            sortField: 'job_post_id',
+            sortOrder: 'desc',
 
         }
     },
@@ -91,10 +157,36 @@ export default {
             })
         },
 
-        loadJobPost(){
-            axios.get('/employer/get-job-post?cid='+this.companyId).then(res=>{
-                this.jobPost = res.data;
-            })
+        loadJobPosts(){
+            const params = [
+                `sort_by=${this.sortField}.${this.sortOrder}`,
+                `cid=${this.companyId}`,
+                `perpage=${this.perPage}`,
+                `page=${this.page}`
+            ].join('&')
+
+            //this.loading = true
+            axios.get(`/employer/get-job-post?${params}`)
+                .then(({ data }) => {
+                    this.jobPosts = [];
+                    let currentTotal = data.total
+                    if (data.total / this.perPage > 1000) {
+                        currentTotal = this.perPage * 1000
+                    }
+
+                    this.total = currentTotal
+                    data.data.forEach((item) => {
+                        //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+                        this.jobPosts.push(item)
+                    })
+                    //this.loading = false
+                })
+                .catch((error) => {
+                    this.jobPosts = []
+                    this.total = 0
+                    this.loading = false
+                    throw error
+                })
         },
 
         submit(){
@@ -150,7 +242,7 @@ export default {
 
     mounted(){
         this.initData();
-        this.loadJobPost();
+        this.loadJobPosts();
         this.loadCompanies();
     }
 }
@@ -159,5 +251,22 @@ export default {
     .post-heading{
         margin-bottom: 10px;
         border-bottom: 1px solid gray;
+    }
+
+    .box-post{
+        border: 1px solid gray;
+        margin: 15px 0;
+    }
+
+    .box-post-heading{
+        padding: 15px;
+    }
+    .box-post-body{
+        padding: 15px;
+    }
+    .box-post-footer{
+        padding: 15px;
+        display: flex;
+        justify-content: space-evenly;
     }
 </style>

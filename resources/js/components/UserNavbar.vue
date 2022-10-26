@@ -26,6 +26,10 @@
                 FAQ
             </b-navbar-item>
 
+            <b-navbar-item v-if="user.role == 'EMPLOYER'" href="/employer/dashboard">
+                Employer
+            </b-navbar-item>
+
             <b-navbar-item tag="div">
                 <div v-if="!currentLogin" class="buttons">
                     <a class="button is-primary is-rounded" href="/login">

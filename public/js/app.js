@@ -8142,8 +8142,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10319,6 +10317,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propCompanyId', 'propJobTypes', 'propCategories'],
   data: function data() {
@@ -10328,7 +10371,25 @@ __webpack_require__.r(__webpack_exports__);
       fields: {},
       errors: {},
       companyId: null,
-      jobPost: []
+      jobPosts: [],
+      //pagination
+      total: 0,
+      current: 1,
+      page: 1,
+      perPage: 5,
+      //rangeBefore: 3,
+      //rangeAfter: 1,
+      //order: '',
+      //size: '',
+      //isSimple: false,
+      // isRounded: false,
+      //hasInput: false,
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
+      //inputPosition: '',
+      //inputDebounce: '',
+      sortField: 'job_post_id',
+      sortOrder: 'desc'
     };
   },
   methods: {
@@ -10339,11 +10400,30 @@ __webpack_require__.r(__webpack_exports__);
         _this.companies = res.data;
       });
     },
-    loadJobPost: function loadJobPost() {
+    loadJobPosts: function loadJobPosts() {
       var _this2 = this;
 
-      axios.get('/employer/get-job-post?cid=' + this.companyId).then(function (res) {
-        _this2.jobPost = res.data;
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "cid=".concat(this.companyId), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&'); //this.loading = true
+
+      axios.get("/employer/get-job-post?".concat(params)).then(function (_ref) {
+        var data = _ref.data;
+        _this2.jobPosts = [];
+        var currentTotal = data.total;
+
+        if (data.total / _this2.perPage > 1000) {
+          currentTotal = _this2.perPage * 1000;
+        }
+
+        _this2.total = currentTotal;
+        data.data.forEach(function (item) {
+          //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+          _this2.jobPosts.push(item);
+        }); //this.loading = false
+      })["catch"](function (error) {
+        _this2.jobPosts = [];
+        _this2.total = 0;
+        _this2.loading = false;
+        throw error;
       });
     },
     submit: function submit() {
@@ -10403,7 +10483,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.initData();
-    this.loadJobPost();
+    this.loadJobPosts();
     this.loadCompanies();
   }
 });
@@ -11605,6 +11685,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -30635,7 +30719,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.post-heading[data-v-631b77b9]{\n    margin-bottom: 10px;\n    border-bottom: 1px solid gray;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.post-heading[data-v-631b77b9]{\n    margin-bottom: 10px;\n    border-bottom: 1px solid gray;\n}\n.box-post[data-v-631b77b9]{\n    border: 1px solid gray;\n    margin: 15px 0;\n}\n.box-post-heading[data-v-631b77b9]{\n    padding: 15px;\n}\n.box-post-body[data-v-631b77b9]{\n    padding: 15px;\n}\n.box-post-footer[data-v-631b77b9]{\n    padding: 15px;\n    display: flex;\n    justify-content: space-evenly;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38111,7 +38195,7 @@ var render = function () {
                       href: "/employer/company-job-post/" + item.company_id,
                     },
                   },
-                  [_vm._v("VIEW COMPANY")]
+                  [_vm._v("VIEW FEEDS")]
                 ),
               ],
               1
@@ -38180,10 +38264,40 @@ var render = function () {
                       [
                         _c(
                           "b-field",
-                          { attrs: { label: "JOB DESCRIPTION" } },
+                          { attrs: { label: "TITLE" } },
                           [
                             _c("b-input", {
-                              attrs: { type: "textarea" },
+                              attrs: { type: "text", placeholder: "Title" },
+                              model: {
+                                value: _vm.fields.title,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.fields, "title", $$v)
+                                },
+                                expression: "fields.title",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "columns" }, [
+                    _c(
+                      "div",
+                      { staticClass: "column" },
+                      [
+                        _c(
+                          "b-field",
+                          { attrs: { label: "Job Description" } },
+                          [
+                            _c("b-input", {
+                              attrs: {
+                                type: "textarea",
+                                placeholder: "Job description",
+                              },
                               model: {
                                 value: _vm.fields.job_desc,
                                 callback: function ($$v) {
@@ -38212,7 +38326,10 @@ var render = function () {
                             _c(
                               "b-select",
                               {
-                                attrs: { expanded: "" },
+                                attrs: {
+                                  expanded: "",
+                                  placeholder: "Category",
+                                },
                                 model: {
                                   value: _vm.fields.category,
                                   callback: function ($$v) {
@@ -38251,7 +38368,10 @@ var render = function () {
                             _c(
                               "b-select",
                               {
-                                attrs: { expanded: "" },
+                                attrs: {
+                                  expanded: "",
+                                  placeholder: "Job Type",
+                                },
                                 model: {
                                   value: _vm.fields.job_type,
                                   callback: function ($$v) {
@@ -38285,19 +38405,19 @@ var render = function () {
                       [
                         _c(
                           "b-field",
-                          { attrs: { label: "Price (PESO)" } },
+                          { attrs: { label: "Salary (PESO)" } },
                           [
                             _c("b-input", {
                               attrs: {
                                 type: "text",
-                                placeholder: "Price (PESO)",
+                                placeholder: "Salary (PESO)",
                               },
                               model: {
-                                value: _vm.fields.price,
+                                value: _vm.fields.salary,
                                 callback: function ($$v) {
-                                  _vm.$set(_vm.fields, "price", $$v)
+                                  _vm.$set(_vm.fields, "salary", $$v)
                                 },
-                                expression: "fields.price",
+                                expression: "fields.salary",
                               },
                             }),
                           ],
@@ -38317,7 +38437,78 @@ var render = function () {
       ]),
     ]),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "section" }, [
+      _c("div", { staticClass: "columns is-centered" }, [
+        _c(
+          "div",
+          { staticClass: "column is-8" },
+          [
+            _vm._l(_vm.jobPosts, function (item, index) {
+              return _c("div", { key: index, staticClass: "box-post" }, [
+                _c("div", { staticClass: "box-post-heading" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(item.title) +
+                      "\n                    "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "box-post-body" }, [
+                  _c("div", [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(item.job_desc) +
+                        "\n                        "
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "box-post-footer" }, [
+                  _c("div", [
+                    _c("span", [_vm._v("JOB TYPE: ")]),
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(item.jobtype.jobtype) +
+                        "\n                        "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("span", [_vm._v("SALARY: ")]),
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(item.salary) +
+                        "\n                        "
+                    ),
+                  ]),
+                ]),
+              ])
+            }),
+            _vm._v(" "),
+            _c("b-pagination", {
+              attrs: {
+                total: _vm.total,
+                "per-page": _vm.perPage,
+                "icon-prev": _vm.prevIcon,
+                "icon-next": _vm.nextIcon,
+                "aria-next-label": "Next page",
+                "aria-previous-label": "Previous page",
+                "aria-page-label": "Page",
+                "aria-current-label": "Current page",
+              },
+              model: {
+                value: _vm.current,
+                callback: function ($$v) {
+                  _vm.current = $$v
+                },
+                expression: "current",
+              },
+            }),
+          ],
+          2
+        ),
+      ]),
+    ]),
   ])
 }
 var staticRenderFns = [
@@ -38326,15 +38517,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "buttons mt-5" }, [
-      _c("button", { staticClass: "button is-primary" }, [_vm._v("POST")]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "columns is-centered" }, [
-      _c("div", { staticClass: "column is-8" }),
+      _c("button", { staticClass: "button is-primary" }, [_vm._v("POSTS")]),
     ])
   },
 ]
@@ -40737,6 +40920,14 @@ var render = function () {
             _c("b-navbar-item", { attrs: { href: "/" } }, [
               _vm._v("\n            FAQ\n        "),
             ]),
+            _vm._v(" "),
+            _vm.user.role == "EMPLOYER"
+              ? _c(
+                  "b-navbar-item",
+                  { attrs: { href: "/employer/dashboard" } },
+                  [_vm._v("\n            Employer\n        ")]
+                )
+              : _vm._e(),
             _vm._v(" "),
             _c("b-navbar-item", { attrs: { tag: "div" } }, [
               !_vm.currentLogin

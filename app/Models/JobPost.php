@@ -13,7 +13,20 @@ class JobPost extends Model
     protected $table = 'job_posts';
     protected $primaryKey = 'job_post_id';
 
-    protected $fillable = ['company_id', 'jobtype_id', 'job_desc', 'category_id', 'salary'];
+    protected $fillable = ['company_id', 'jobtype_id', 'title', 'job_desc', 'category_id', 'salary'];
 
 
+    public function company(){
+        return $this->hasOne(Company::class, 'company_id', 'company_id');
+    }
+
+    public function jobtype(){
+        return $this->hasOne(Jobtype::class, 'jobtype_id', 'jobtype_id');
+    }
+
+    public function category(){
+        return $this->hasOne(Category::class, 'category_id', 'category_id');
+    }
+
+    
 }

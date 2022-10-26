@@ -20,7 +20,8 @@ class CreateJobPostsTable extends Migration
             $table->foreign('company_id')->references('company_id')->on('companies')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('job_desc')->nullable();
+            $table->string('title')->nullable();
+            $table->text('job_desc')->nullable();
 
             $table->unsignedBigInteger('jobtype_id')->nullable();
             $table->foreign('jobtype_id')->references('jobtype_id')->on('job_types')

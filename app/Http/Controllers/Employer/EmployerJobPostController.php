@@ -28,21 +28,25 @@ class EmployerJobPostController extends Controller
             ->with('categories', $categories);
     }
 
-    public function getJobPost(Request $req){
-        return JobPost::where('company_id', $req->cid)
-            ->get();
+    public function getJobPosts(Request $req){
+
+        return JobPost::with(['company', 'jobtype', 'category'])
+            ->where('company_id', $req->cid)
+            ->paginate($req->perpage);
     }
 
     public function store(Request $req){
         //return $req;
 
         $validate = $req->validate([
+            'title' => ['required'],
             'job_desc' => ['required'],
             'category' => ['required'],
             'job_type' => ['required'],
         ]);
 
         JobPost::create([
+            'title' => strtoupper($req->title),
             'company_id' => $req->company_id,
             'jobtype_id' => $req->job_type,
             'category_id' => $req->category,
