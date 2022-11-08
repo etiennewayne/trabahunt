@@ -25,10 +25,12 @@
             <b-navbar-item href="/">
                 FAQ
             </b-navbar-item>
-
-            <b-navbar-item v-if="user.role == 'EMPLOYER'" href="/employer/dashboard">
+          
+            <b-navbar-item v-if="currentLogin && user.role == 'EMPLOYER'" href="/employer/dashboard">
                 Employer
             </b-navbar-item>
+            
+            
 
             <b-navbar-item tag="div">
                 <div v-if="!currentLogin" class="buttons">

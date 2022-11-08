@@ -56,11 +56,15 @@ Route::get('/sample',[App\Http\Controllers\SampleController::class,'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/sign-up', [App\Http\Controllers\SignUpController::class, 'index']);
-Route::post('/sign-up', [App\Http\Controllers\SignUpController::class, 'store']);
+Route::get('/sign-up', [App\Http\Controllers\User\SignUpController::class, 'index']);
+Route::post('/sign-up', [App\Http\Controllers\User\SignUpController::class, 'store']);
 
 
 Route::get('/get-user/{id}', [App\Http\Controllers\OpenUserController::class, 'getUser']);
+
+
+
+Route::get('/get-open-categories', [App\Http\Controllers\OpenCategoryController::class, 'getCategories']);
 
 
 

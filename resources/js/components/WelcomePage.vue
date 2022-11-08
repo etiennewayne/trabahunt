@@ -32,7 +32,7 @@
                             <div class="t-box-applicant-subtitle">Nangita ka ug trabaho?</div>
                         </div>
                         <div>
-                            <button class="applicant-button"><span>Apply now!</span></button>
+                            <button @click="applyNow" class="applicant-button"><span>Apply now!</span></button>
                         </div>
                     </div>
                 </div>
@@ -104,6 +104,9 @@ export default {
 
         initData(){
             this.categories = JSON.parse(this.propCategories);
+        },
+        applyNow: function(){
+            window.location = '/sign-up';
         }
     },
 
