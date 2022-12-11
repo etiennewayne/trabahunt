@@ -16,4 +16,8 @@ class UserCategory extends Model
 
     protected $fillable = ['user_id', 'category_id', 'remarks'];
 
+
+    public function category(){
+        return $this->hasOne(Category::class, 'category_id', 'category_id');
+    }
 }

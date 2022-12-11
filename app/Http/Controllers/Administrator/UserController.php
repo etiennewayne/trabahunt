@@ -97,6 +97,7 @@ class UserController extends Controller
         $data->mname = strtoupper($req->mname);
         $data->sex = $req->sex;
         $data->email = $req->email;
+        $data->contact_no = $req->contact_no;
         $data->role = $req->role;
         $data->province = $req->province;
         $data->city = $req->city;
@@ -110,14 +111,6 @@ class UserController extends Controller
     }
 
 
-    public function getBrowseDentist(Request $req){
-
-        $data = User::where('lname', 'like', $req->lname . '%')
-            ->where('fname', 'like', $req->fname . '%')
-            ->where('role', 'DENTIST')
-            ->paginate($req->perpage);
-        return $data;
-    }
 
     public function resetPassword(Request $req, $id){
 

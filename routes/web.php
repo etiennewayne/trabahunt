@@ -54,7 +54,7 @@ Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logou
 
 Route::get('/sample',[App\Http\Controllers\SampleController::class,'index']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\Employee\HomeController::class, 'index'])->name('home');
 
 Route::get('/sign-up', [App\Http\Controllers\User\SignUpController::class, 'index']);
 Route::post('/sign-up', [App\Http\Controllers\User\SignUpController::class, 'store']);
@@ -77,6 +77,13 @@ Route::get('/load-barangays', [App\Http\Controllers\AddressController::class, 'l
 
 
 
+// ------------EMPLOYEE-----------------------
+Route::get('/employee/dashboard', [App\Http\Controllers\Employee\EmployeeDashboardController::class, 'index']);
+
+Route::get('/get-recommended-jobs', [App\Http\Controllers\Employee\EmployeeDashboardController::class, 'getRecommendedJob']);
+
+// ------------EMPLOYEE-----------------------
+
 
 
 /*     ADMINSITRATOR          */
@@ -92,18 +99,18 @@ Route::resource('/admin/categories', App\Http\Controllers\Administrator\Category
 Route::get('/admin/get-categories', [App\Http\Controllers\Administrator\CategoryController::class, 'getCategories']);
 
 
-
 Route::resource('/admin/users', App\Http\Controllers\Administrator\UserController::class);
 Route::get('/admin/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
-
+Route::post('/admin/reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
 
 
 // EMPLOYER ROUTES
-
 Route::resource('/employer/signup', App\Http\Controllers\Employer\EmployerSignUpController::class);
 
+
 Route::resource('/employer/dashboard', App\Http\Controllers\Employer\EmployerDashboardController::class);
+
 
 //JOB POST (FEEDS)
 Route::get('/employer/company-job-post/{cid}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'index']);

@@ -231,27 +231,16 @@
                                              :type="this.errors.role ? 'is-danger':''"
                                              :message="this.errors.role ? this.errors.role[0] : ''">
                                         <b-select v-model="fields.role" expanded>
-                                            <option value="ADMIN">ADMINISTRATOR</option>
-                                            <option value="DENTIST">USER</option>
-                                            <option value="STAFF">EMPLOYER</option>
+                                            <option value="ADMINISTRATOR">ADMINISTRATOR</option>
+                                            <option value="USER">USER</option>
+                                            <option value="EMPLOYER">EMPLOYER</option>
                                         </b-select>
                                     </b-field>
                                 </div>
 
                             </div>
 
-                            <div class="columns">
-                                <div class="column" v-if="fields.role === 'OFFICE'">
-                                    <b-field label="Office" label-position="on-border" expanded
-                                             :type="this.errors.office ? 'is-danger':''"
-                                             :message="this.errors.office ? this.errors.office[0] : ''">
-                                        <b-select v-model="fields.office" expanded>
-                                            <option v-for="(item, index) in offices" :key="index" :value="item.office_id">{{ item.office_name }}</option>
-                                        </b-select>
-                                    </b-field>
-                                </div>
 
-                            </div>
 
                             <div class="columns">
                                 <div class="column">
@@ -591,7 +580,6 @@ export default{
             //nested axios for getting the address 1 by 1 or request by request
             axios.get('/admin/users/'+data_id).then(res=>{
                 this.fields = res.data;
-                this.fields.office = res.data.office_id;
                 let tempData = res.data;
                 //load city first
                 axios.get('/load-cities?prov=' + this.fields.province).then(res=>{
@@ -619,8 +607,9 @@ export default{
             this.errors = {};
             this.global_id = dataId;
         },
+
         resetPassword(){
-            axios.post('/user-reset-password/' + this.global_id, this.fields).then(res=>{
+            axios.post('/admin/reset-password/' + this.global_id, this.fields).then(res=>{
 
                 if(res.data.status === 'changed'){
                     this.$buefy.dialog.alert({

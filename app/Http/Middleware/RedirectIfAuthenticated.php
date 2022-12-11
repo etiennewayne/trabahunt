@@ -32,8 +32,8 @@ class RedirectIfAuthenticated
                     return redirect('/employer/dashboard');
                 }
 
-                if($user->role === 'USER'){
-                    return redirect('/home');
+                if($user->role === 'USER' || $user->role === 'EMPLOYEE'){
+                    return redirect('/employee/dashboard');
                 }
 
                 //return redirect(RouteServiceProvider::HOME);

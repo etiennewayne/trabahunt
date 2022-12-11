@@ -22,7 +22,7 @@
 
                         <div class="buttons is-centered mt-4">
                             <button class="button is-primary is-rounded">LOGIN</button>
-                            
+
                         </div>
                         <div style="text-align: center;">
                             <a href="">Forgot Password</a>
@@ -57,8 +57,8 @@ export default {
                     window.location = '/admin/home';
                 }
 
-                if(res.data.role === 'USER'){
-                    window.location = '/home';
+                if(res.data.role === 'USER' || res.data.role === 'EMPLOYEE'){
+                    window.location = '/employee/dashboard';
                 }
 
                 if(res.data.role === 'EMPLOYER'){
@@ -87,7 +87,7 @@ export default {
 
     .login{
         width: 500px;
-        
+
     }
 
     .box{
