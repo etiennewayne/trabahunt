@@ -13,7 +13,7 @@ class Company extends Model
     protected $primaryKey = 'company_id';
 
     protected $fillable = [
-        'user_id', 'company', 
+        'user_id', 'company',
         'owner', 'overview',
         'company_size', 'industry',
         'benefits_others', 'phone_contact',
@@ -27,13 +27,17 @@ class Company extends Model
         return $this->hasOne(User::class, 'user_id', 'user_id');
     }
 
-    
+
     public function province(){
         return $this->hasOne(Province::class, 'provCode', 'province');
     }
 
     public function city(){
         return $this->hasOne(City::class, 'citymunCode', 'city');
+    }
+
+    public function barangay(){
+        return $this->hasOne(Barangay::class, 'brgyCode', 'barangay');
     }
 
 }

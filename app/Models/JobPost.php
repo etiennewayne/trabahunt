@@ -9,7 +9,7 @@ class JobPost extends Model
 {
     use HasFactory;
 
-    
+
     protected $table = 'job_posts';
     protected $primaryKey = 'job_post_id';
 
@@ -17,7 +17,8 @@ class JobPost extends Model
 
 
     public function company(){
-        return $this->hasOne(Company::class, 'company_id', 'company_id');
+        return $this->hasOne(Company::class, 'company_id', 'company_id')
+            ->with(['province', 'city', 'barangay']);
     }
 
     public function jobtype(){
@@ -28,5 +29,5 @@ class JobPost extends Model
         return $this->hasOne(Category::class, 'category_id', 'category_id');
     }
 
-    
+
 }

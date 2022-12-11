@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-employee')
 
 @section('content')
     <employee-dashboard prop-user='@json($user)'></employee-dashboard>

@@ -610,7 +610,6 @@ export default{
 
         resetPassword(){
             axios.post('/admin/reset-password/' + this.global_id, this.fields).then(res=>{
-
                 if(res.data.status === 'changed'){
                     this.$buefy.dialog.alert({
                         title: 'PASSWORD CHANGED',
@@ -625,7 +624,6 @@ export default{
                         }
                     });
                 }
-
             }).catch(err=>{
                 this.errors = err.response.data.errors;
             })

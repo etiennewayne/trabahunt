@@ -23,7 +23,7 @@ class User extends Authenticatable
         'username', 'lname', 'fname', 'mname', 'suffix', 'sex',
         'province', 'city', 'barangay', 'street',
         'email', 'contact_no', 'role', 'remark',
-        'password',
+        'password', 'avatar'
     ];
 
     /**
@@ -49,5 +49,16 @@ class User extends Authenticatable
     public function categories(){
         return $this->hasMany(UserCategory::class, 'user_id', 'user_id')
             ->with(['category']);
+    }
+
+    public function province(){
+        return $this->hasOne(Province::class, 'provCode', 'province');
+    }
+
+    public function city(){
+        return $this->hasOne(City::class, 'citymunCode', 'city');
+    }
+    public function barangay(){
+        return $this->hasOne(Barangay::class, 'brgyCode', 'barangay');
     }
 }

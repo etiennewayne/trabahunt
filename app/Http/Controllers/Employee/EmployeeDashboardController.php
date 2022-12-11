@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobPost;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,10 +29,17 @@ class EmployeeDashboardController extends Controller
     }
 
     public function getRecommendedJob(Request $req){
-        return $req;
         $categories = json_decode($req->categories);
 
-        return $categories;
+        $data = JobPost::with(['category', 'company', 'jobtype']);
+
+        $data->whereHas('category', function ($q) use ($categories){
+            $q->whereIn('category', $categories);
+        });
+
+        $data->orderBy('job_post_id', 'desc');
+
+        return $data->get();
     }
 
 

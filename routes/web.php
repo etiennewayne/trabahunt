@@ -61,7 +61,7 @@ Route::post('/sign-up', [App\Http\Controllers\User\SignUpController::class, 'sto
 
 
 Route::get('/get-user/{id}', [App\Http\Controllers\OpenUserController::class, 'getUser']);
-
+Route::get('/get-logged-user', [App\Http\Controllers\OpenUserController::class, 'getLoggedUser']);
 
 
 Route::get('/get-open-categories', [App\Http\Controllers\OpenCategoryController::class, 'getCategories']);
@@ -79,11 +79,24 @@ Route::get('/load-barangays', [App\Http\Controllers\AddressController::class, 'l
 
 // ------------EMPLOYEE-----------------------
 Route::get('/employee/dashboard', [App\Http\Controllers\Employee\EmployeeDashboardController::class, 'index']);
-
 Route::get('/get-recommended-jobs', [App\Http\Controllers\Employee\EmployeeDashboardController::class, 'getRecommendedJob']);
+
+
+Route::get('/employee/profile', [App\Http\Controllers\Employee\EmployeeProfileController::class, 'index']);
+Route::get('/employee/get-user/{id}', [App\Http\Controllers\Employee\EmployeeProfileController::class, 'getUser']);
+
 
 // ------------EMPLOYEE-----------------------
 
+
+
+
+//----------APPLY NOW API-----------------------
+
+Route::get('/apply-now/{id}', [App\Http\Controllers\ApplyNowController::class, 'applyNow']);
+Route::post('/apply-now-submit', [App\Http\Controllers\ApplyNowController::class, 'store']);
+
+//----------------------------------------------
 
 
 /*     ADMINSITRATOR          */
