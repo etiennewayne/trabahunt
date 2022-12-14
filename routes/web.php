@@ -83,6 +83,8 @@ Route::get('/get-recommended-jobs', [App\Http\Controllers\Employee\EmployeeDashb
 
 
 Route::get('/employee/profile', [App\Http\Controllers\Employee\EmployeeProfileController::class, 'index']);
+Route::post('/employee/profile-update/{id}', [App\Http\Controllers\Employee\EmployeeProfileController::class, 'update']);
+
 Route::get('/employee/get-user/{id}', [App\Http\Controllers\Employee\EmployeeProfileController::class, 'getUser']);
 
 

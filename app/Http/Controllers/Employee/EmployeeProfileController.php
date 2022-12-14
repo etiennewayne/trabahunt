@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Employee;
 
+
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Auth;
 Use App\Models\User;
@@ -27,6 +29,53 @@ class EmployeeProfileController extends Controller
     public function getUser($id){
         return User::with(['province', 'city', 'barangay'])
             ->where('user_id', $id)->first();
+    }
+
+    public function update(Request $req, $id){
+
+        //return $req;
+
+        $dob = date("Y-m-d", strtotime($req->bdate)); //convert to date format UNIX
+
+        $data = User::find($id);
+
+        $img = $req->file('file');
+        $path = '';
+
+        if($img){
+            //check the file and delete to update
+            if(Storage::exists('public/avatar/' .$data->avatar)) {
+                Storage::delete('public/avatar/' . $data->avatar);
+            }
+            $pathFile = $img->store('public/avatar'); //get path of the file
+            $imagePath = explode('/', $pathFile); //split into array using /
+            $path = $imagePath[2];
+        }
+
+        $data->lname = strtoupper($req->lname);
+        $data->fname = strtoupper($req->fname);
+        $data->mname = strtoupper($req->mname);
+        $data->suffix = strtoupper($req->suffix);
+        $data->sex = strtoupper($req->sex);
+        $data->bdate = $dob;
+        $data->email = $req->email;
+        $data->contact_no = $req->contact_no;
+        $data->province = $req->province;
+        $data->city = $req->city;
+
+        $data->barangay = $req->barangay;
+        $data->street = strtoupper($req->street);
+        
+        if($path != ''){
+            $data->avatar = $path; //update image if there is an image to upload
+        }
+       
+        $data->save();
+
+
+        return response()->json([
+            'status' => 'saved'
+        ], 200);
     }
 
     

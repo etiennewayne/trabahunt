@@ -2,20 +2,49 @@
     <div>
         <div class="section">
             <div class="columns is-centered">
-                <div class="column is-10-desktop is-10-tablet">
+                <div class="column is-8-desktop is-10-tablet">
                     <div class="box">
+
+                        <div class="buttons is-right">
+                            <b-dropdown aria-role="list">
+                                <template #trigger="{ active }">
+                                    <b-button
+                                        label="..."
+                                        type=""
+                                        :icon-right="active ? 'menu-up' : 'menu-down'" />
+                                </template>
+
+
+                                <b-dropdown-item aria-role="listitem">Change Password</b-dropdown-item>
+                                <!-- <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
+                                <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item> -->
+                            </b-dropdown>
+                        </div><!-- buttons-->
+                        
                         <div class="columns">
                             <div class="column is-4">
                                 <div class="image">
-                                    <img class="is-128x128" src="/storage/company/sample.jpg"/>
+                                    <img class="avatar" :src="avatarSrc"/>
                                 </div>
-                                <div class="buttons">
+
+                                <b-upload v-model="fields.file" class="file-label" expanded>
+                                    <a class="button is-primary is-fullwidth">
+                                        <b-icon icon="upload"></b-icon>
+                                        <span>Click to upload</span>
+                                    </a>
+                                </b-upload>
+                                <div class="file-name" expanded v-if="fields.file">
+                                    {{ fields.file.name }}
+                                </div>
+
+                                <!-- <div class="buttons">
                                     <b-button class="button is-success is-outlined is-fullwidth">Upload Avatar</b-button>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="column">
                                 <div class="profile-form">
+
                                     <div class="subtitle">Personal Information</div>
                                     
                                     <div class="columns">
@@ -44,6 +73,16 @@
                                         <div class="column">
                                             <b-field label="Suffix" label-position="on-border">
                                                 <b-input type="text" v-model="fields.suffix" placeholder="Suffix" />
+                                            </b-field>
+                                        </div>
+                                        <div class="column">
+                                            <b-field label="Birthdate" label-position="on-border">
+                                                <b-datepicker
+                                                    placeholder="Type or select your birthdate..."
+                                                    icon="calendar-today"
+                                                    v-model="fields.bdate"
+                                                    editable>
+                                                </b-datepicker>
                                             </b-field>
                                         </div>
                                         <div class="column">
@@ -110,7 +149,7 @@
                                     </div>
 
                                     <div class="butons">
-                                        <button class="button is-success is-outlined is-fullwidth">UPDATE PROFILE</button>
+                                        <button class="button is-success is-outlined is-fullwidth" @click="updateProfile">UPDATE PROFILE</button>
                                     </div>
 
                                 </div><!--profile form -->
@@ -133,7 +172,9 @@ export default {
         return{
             id: 0,
 
-            fields: {},
+            fields: {
+                avatar: ''
+            },
             errors: {},
 
             provinces: [],
@@ -175,7 +216,18 @@ export default {
                
             axios.get('/employee/get-user/'+ this.id).then(res=>{
              
-                this.fields = res.data;
+                this.fields.bdate = new Date(res.data.bdate);
+                //this.fields = res.data;
+                this.fields.lname = res.data.lname;
+                this.fields.fname = res.data.fname;
+                this.fields.mname = res.data.mname;
+                this.fields.suffix = res.data.suffix;
+                this.fields.sex = res.data.sex;
+                this.fields.email = res.data.email;
+                this.fields.contact_no = res.data.contact_no;
+                this.fields.avatar = res.data.avatar;
+
+                
                 this.fields.province = res.data.province.provCode;
 
                 let tempData = res.data;
@@ -189,10 +241,47 @@ export default {
                     axios.get('/load-barangays?prov=' + this.fields.province + '&city_code='+this.fields.city).then(res=>{
                         this.barangays = res.data;
                         this.fields.barangay = tempData.barangay.brgyCode
-                        console.log(tempData)
+                       
                     });
                 });
             });
+        },
+
+        updateProfile(){
+
+            let birthDate = new Date(this.fields.bdate);
+
+            birthDate = birthDate.getFullYear() + '-'+ (birthDate.getMonth() + 1) + '-' + birthDate.getDate();
+
+            let formData = new FormData();
+            formData.append('lname', this.fields.lname);
+            formData.append('fname', this.fields.fname);
+            formData.append('mname', this.fields.mname);
+            formData.append('suffix', this.fields.suffix);
+            formData.append('bdate', birthDate);
+            formData.append('sex', this.fields.sex);
+            formData.append('email', this.fields.email);
+            formData.append('contact_no', this.fields.contact_no);
+            formData.append('province', this.fields.province);
+            formData.append('city', this.fields.city);
+            formData.append('barangay', this.fields.barangay);
+            formData.append('street', this.fields.street);
+            formData.append('file', this.fields.file);
+
+            axios.post('/employee/profile-update/' + this.id, formData).then(res=>{
+                if(res.data.status === 'saved'){
+                    this.$buefy.dialog.alert({
+                        title: 'UPDATED!',
+                        message: 'Profile Successfully updated.',
+                        type: 'is-success',
+                        confirmText: 'OK',
+                        onConfirm: () => {
+                           window.location = '/employee/profile'
+                        }
+                    })
+                }
+            })
+
         },
 
         initData: function(){
@@ -207,6 +296,16 @@ export default {
         this.loadProvince()
         this.initData();
         
+    },
+
+    computed:{
+        avatarSrc(){
+            if(this.fields.avatar){
+                return '/storage/avatar/' + this.fields.avatar;
+            }else{
+                return '/';
+            }
+        }
     }
 }
 </script>
@@ -214,5 +313,17 @@ export default {
 <style scoped>
     .profile-form{
         margin: 25px 5px;
+    }
+    .avatar{
+        vertical-align: middle;
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 15px auto;
+    }
+
+    .image{
+        border: 1px solid gray;
     }
 </style>

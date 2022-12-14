@@ -10192,12 +10192,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUserId'],
   data: function data() {
     return {
       id: 0,
-      fields: {},
+      fields: {
+        avatar: ''
+      },
       errors: {},
       provinces: [],
       cities: [],
@@ -10241,7 +10282,16 @@ __webpack_require__.r(__webpack_exports__);
 
       //nested axios for getting the address 1 by 1 or request by request
       axios.get('/employee/get-user/' + this.id).then(function (res) {
-        _this5.fields = res.data;
+        _this5.fields.bdate = new Date(res.data.bdate); //this.fields = res.data;
+
+        _this5.fields.lname = res.data.lname;
+        _this5.fields.fname = res.data.fname;
+        _this5.fields.mname = res.data.mname;
+        _this5.fields.suffix = res.data.suffix;
+        _this5.fields.sex = res.data.sex;
+        _this5.fields.email = res.data.email;
+        _this5.fields.contact_no = res.data.contact_no;
+        _this5.fields.avatar = res.data.avatar;
         _this5.fields.province = res.data.province.provCode;
         var tempData = res.data; //load city first
 
@@ -10252,9 +10302,41 @@ __webpack_require__.r(__webpack_exports__);
           axios.get('/load-barangays?prov=' + _this5.fields.province + '&city_code=' + _this5.fields.city).then(function (res) {
             _this5.barangays = res.data;
             _this5.fields.barangay = tempData.barangay.brgyCode;
-            console.log(tempData);
           });
         });
+      });
+    },
+    updateProfile: function updateProfile() {
+      var _this6 = this;
+
+      var birthDate = new Date(this.fields.bdate);
+      birthDate = birthDate.getFullYear() + '-' + (birthDate.getMonth() + 1) + '-' + birthDate.getDate();
+      var formData = new FormData();
+      formData.append('lname', this.fields.lname);
+      formData.append('fname', this.fields.fname);
+      formData.append('mname', this.fields.mname);
+      formData.append('suffix', this.fields.suffix);
+      formData.append('bdate', birthDate);
+      formData.append('sex', this.fields.sex);
+      formData.append('email', this.fields.email);
+      formData.append('contact_no', this.fields.contact_no);
+      formData.append('province', this.fields.province);
+      formData.append('city', this.fields.city);
+      formData.append('barangay', this.fields.barangay);
+      formData.append('street', this.fields.street);
+      formData.append('file', this.fields.file);
+      axios.post('/employee/profile-update/' + this.id, formData).then(function (res) {
+        if (res.data.status === 'saved') {
+          _this6.$buefy.dialog.alert({
+            title: 'UPDATED!',
+            message: 'Profile Successfully updated.',
+            type: 'is-success',
+            confirmText: 'OK',
+            onConfirm: function onConfirm() {
+              window.location = '/employee/profile';
+            }
+          });
+        }
       });
     },
     initData: function initData() {
@@ -10265,6 +10347,15 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.loadProvince();
     this.initData();
+  },
+  computed: {
+    avatarSrc: function avatarSrc() {
+      if (this.fields.avatar) {
+        return '/storage/avatar/' + this.fields.avatar;
+      } else {
+        return '/';
+      }
+    }
   }
 });
 
@@ -30950,7 +31041,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.profile-form[data-v-3f9a27f6]{\n    margin: 25px 5px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.profile-form[data-v-3f9a27f6]{\n    margin: 25px 5px;\n}\n.avatar[data-v-3f9a27f6]{\n    vertical-align: middle;\n    width: 128px;\n    height: 128px;\n    border-radius: 50%;\n    -o-object-fit: cover;\n       object-fit: cover;\n    margin: 15px auto;\n}\n.image[data-v-3f9a27f6]{\n    border: 1px solid gray;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38245,28 +38336,103 @@ var render = function () {
   return _c("div", [
     _c("div", { staticClass: "section" }, [
       _c("div", { staticClass: "columns is-centered" }, [
-        _c("div", { staticClass: "column is-10-desktop is-10-tablet" }, [
+        _c("div", { staticClass: "column is-8-desktop is-10-tablet" }, [
           _c("div", { staticClass: "box" }, [
-            _c("div", { staticClass: "columns" }, [
-              _c("div", { staticClass: "column is-4" }, [
-                _vm._m(0),
-                _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "buttons is-right" },
+              [
                 _c(
-                  "div",
-                  { staticClass: "buttons" },
-                  [
-                    _c(
-                      "b-button",
+                  "b-dropdown",
+                  {
+                    attrs: { "aria-role": "list" },
+                    scopedSlots: _vm._u([
                       {
-                        staticClass:
-                          "button is-success is-outlined is-fullwidth",
+                        key: "trigger",
+                        fn: function (ref) {
+                          var active = ref.active
+                          return [
+                            _c("b-button", {
+                              attrs: {
+                                label: "...",
+                                type: "",
+                                "icon-right": active ? "menu-up" : "menu-down",
+                              },
+                            }),
+                          ]
+                        },
                       },
-                      [_vm._v("Upload Avatar")]
+                    ]),
+                  },
+                  [
+                    _vm._v(" "),
+                    _c(
+                      "b-dropdown-item",
+                      { attrs: { "aria-role": "listitem" } },
+                      [_vm._v("Change Password")]
                     ),
                   ],
                   1
                 ),
-              ]),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "columns" }, [
+              _c(
+                "div",
+                { staticClass: "column is-4" },
+                [
+                  _c("div", { staticClass: "image" }, [
+                    _c("img", {
+                      staticClass: "avatar",
+                      attrs: { src: _vm.avatarSrc },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-upload",
+                    {
+                      staticClass: "file-label",
+                      attrs: { expanded: "" },
+                      model: {
+                        value: _vm.fields.file,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.fields, "file", $$v)
+                        },
+                        expression: "fields.file",
+                      },
+                    },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "button is-primary is-fullwidth" },
+                        [
+                          _c("b-icon", { attrs: { icon: "upload" } }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Click to upload")]),
+                        ],
+                        1
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.fields.file
+                    ? _c(
+                        "div",
+                        { staticClass: "file-name", attrs: { expanded: "" } },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.fields.file.name) +
+                              "\n                            "
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "column" }, [
                 _c("div", { staticClass: "profile-form" }, [
@@ -38398,6 +38564,40 @@ var render = function () {
                                   _vm.$set(_vm.fields, "suffix", $$v)
                                 },
                                 expression: "fields.suffix",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "column" },
+                      [
+                        _c(
+                          "b-field",
+                          {
+                            attrs: {
+                              label: "Birthdate",
+                              "label-position": "on-border",
+                            },
+                          },
+                          [
+                            _c("b-datepicker", {
+                              attrs: {
+                                placeholder: "Type or select your birthdate...",
+                                icon: "calendar-today",
+                                editable: "",
+                              },
+                              model: {
+                                value: _vm.fields.bdate,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.fields, "bdate", $$v)
+                                },
+                                expression: "fields.bdate",
                               },
                             }),
                           ],
@@ -38696,7 +38896,17 @@ var render = function () {
                     ),
                   ]),
                   _vm._v(" "),
-                  _vm._m(1),
+                  _c("div", { staticClass: "butons" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "button is-success is-outlined is-fullwidth",
+                        on: { click: _vm.updateProfile },
+                      },
+                      [_vm._v("UPDATE PROFILE")]
+                    ),
+                  ]),
                 ]),
               ]),
             ]),
@@ -38706,31 +38916,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "image" }, [
-      _c("img", {
-        staticClass: "is-128x128",
-        attrs: { src: "/storage/company/sample.jpg" },
-      }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "butons" }, [
-      _c(
-        "button",
-        { staticClass: "button is-success is-outlined is-fullwidth" },
-        [_vm._v("UPDATE PROFILE")]
-      ),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
