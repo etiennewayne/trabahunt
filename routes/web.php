@@ -130,7 +130,11 @@ Route::resource('/employer/dashboard', App\Http\Controllers\Employer\EmployerDas
 //JOB POST (FEEDS)
 Route::get('/employer/company-job-post/{cid}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'index']);
 Route::post('/employer/company-job-post/{cid}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'store']);
-Route::get('/employer/get-job-post', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'getJobPosts']); //get job post per company
+Route::put('/employer/company-job-update/{id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'update']);
+Route::delete('/employer/company-job-post-delete/{id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'destroy']);
+
+Route::get('/employer/get-job-post/{id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'show']);
+Route::get('/employer/get-job-posts', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'getJobPosts']); //get job post per company
 
 
 

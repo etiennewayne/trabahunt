@@ -1,7 +1,7 @@
 <template>
     <section class="section">
         <div class="columns is-centered">
-            <div class="column is-6">
+            <div class="column is-6-widescreen is-8-desktop is-10-tablet">
                 <form @submit.prevent="submit">
 
                     <div class="box">

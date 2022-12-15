@@ -1,5 +1,12 @@
 // Fonts
 //@import url('https://fonts.googleapis.com/css?family=Tangerine');
+
+//@import url(https://fonts.googleapis.com/css?family=Product+Sans:300,400,500,700,300i,400i,500i,700i&display=swap);
+
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+@import 'animate.css';
+
 // Variables
 @import 'variables';
 @import '~@mdi/font/css/materialdesignicons.css';
@@ -12,7 +19,9 @@
 //npm i font-awesome
 //https://fontawesome.com/v4.7.0/
 html body {
-    font-family: 'Amaranth', sans-serif;
+    //font-family: 'Amaranth', sans-serif;
+    //font-family: Product Sans!important;
+    font-family: 'Open Sans', sans-serif;
     background: white;
 }
 

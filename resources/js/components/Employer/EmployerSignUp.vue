@@ -8,7 +8,7 @@
                     </div>
                 </div>
             </div>
-            <div class="column is-4">
+            <div class="column is-6-desktop is-4-widescreen">
                 <form @submit.prevent="submit">
 
                     <div class="reg-box">

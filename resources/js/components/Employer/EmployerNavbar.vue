@@ -7,7 +7,7 @@
                 </b-navbar-item>
             </template>
             <template #start>
-                
+
             </template>
 
             <template #end>
@@ -25,11 +25,11 @@
                         Category
                     </b-navbar-item>
                 </b-navbar-dropdown> -->
-               
-                
+
+
                 <b-navbar-item tag="div">
                     <div class="buttons">
-                        <b-button @click="logout" class="is-danger">
+                        <b-button @click="logout" class="is-danger" icon-right="logout">
                             Log out
                         </b-button>
                     </div>

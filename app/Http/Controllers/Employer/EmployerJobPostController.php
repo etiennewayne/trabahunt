@@ -28,6 +28,10 @@ class EmployerJobPostController extends Controller
             ->with('categories', $categories);
     }
 
+    public function show($id){
+        return JobPost::find($id);
+    }
+
     public function getJobPosts(Request $req){
 
         return JobPost::with(['company', 'jobtype', 'category'])
@@ -59,5 +63,35 @@ class EmployerJobPostController extends Controller
         ], 200);
     }
 
+    public function update(Request $req, $id){
 
+        $req->validate([
+            'title' => ['required'],
+            'job_desc' => ['required'],
+            'category_id' => ['required'],
+            'jobtype_id' => ['required'],
+        ]);
+
+        $data = JobPost::find($id);
+
+        $data->title = strtoupper($req->title);
+        $data->company_id = $req->company_id;
+        $data->jobtype_id = $req->jobtype_id;
+        $data->category_id = $req->category_id;
+        $data->job_desc = $req->job_desc;
+        $data->salary = $req->salary;
+        $data->save();
+
+        return response()->json([
+            'status' => 'updated'
+        ], 200);
+    }
+
+    public function destroy($id){
+        JobPost::destroy($id);
+
+        return response()->json([
+            'status' => 'deleted'
+        ], 200);
+    }
 }

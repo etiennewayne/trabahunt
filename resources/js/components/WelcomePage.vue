@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="section">
-            <div class="slogan">
+            <div class="slogan animate__animated animate__fadeInDown">
                 Hunt the best job today!
             </div>
-            <div class="slogan">
+            <div class="slogan animate__animated animate__fadeInDown">
                 Hunt the best people for your job!
             </div>
         </div>
