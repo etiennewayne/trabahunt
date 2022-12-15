@@ -3,7 +3,7 @@
         <div class="section">
             <div class="feeds-container">
                 <div class="feeds-title">NEWS FEED</div>
-
+                <div v-if="jobs.length < 1">No related job...</div>
                 <div class="card-container" v-for="(item, index) in jobs" :key="index">
                     <div class="card">
                         <div class="card-content">

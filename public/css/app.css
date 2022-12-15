@@ -33680,7 +33680,7 @@ a.tag:hover {
 .select select, .taginput .taginput-container.is-focusable, .textarea, .input {
   background-color: white;
   border-color: #dbdbdb;
-  border-radius: 20px;
+  border-radius: 0;
   color: #363636;
 }
 .select select::-moz-placeholder, .taginput .taginput-container.is-focusable::-moz-placeholder, .textarea::-moz-placeholder, .input::-moz-placeholder {
@@ -42758,14 +42758,14 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 .field.has-addons .control:first-child .control .button,
 .field.has-addons .control:first-child .control .input,
 .field.has-addons .control:first-child .control .select select {
-  border-bottom-left-radius: 20px;
-  border-top-left-radius: 20px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 .field.has-addons .control:last-child .control .button,
 .field.has-addons .control:last-child .control .input,
 .field.has-addons .control:last-child .control .select select {
-  border-bottom-right-radius: 20px;
-  border-top-right-radius: 20px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
 }
 .field.has-addons .control .control .button,
 .field.has-addons .control .control .input,
@@ -42820,8 +42820,8 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 .field.is-floating-label.has-addons > .label + .control .select select, .field.is-floating-in-label.has-addons > .label + .control .button,
 .field.is-floating-in-label.has-addons > .label + .control .input,
 .field.is-floating-in-label.has-addons > .label + .control .select select {
-  border-bottom-left-radius: 20px;
-  border-top-left-radius: 20px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 .field.is-floating-label .label {
   top: -0.775em;

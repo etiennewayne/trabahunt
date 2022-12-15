@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Jobtype;
 
 
 /*
@@ -28,11 +29,13 @@ Route::get('/', function () {
     //         ->with('user', $user->only(['lname', 'fname', 'mname', 'suffix', 'role', 'remark', 'office_id']));
     // }
     $categories = Category::all();
-
+    $jobTypes = JobType::all();
     return view('welcome')
-        ->with('categories', $categories);
+        ->with('categories', $categories)
+        ->with('jobTypes', $jobTypes);
 });
 
+Route::get('/get-jobs-hiring', [App\Http\Controllers\JobHiringController::class, 'getJobsHiring']);
 
 
 Auth::routes([
@@ -84,6 +87,7 @@ Route::get('/get-recommended-jobs', [App\Http\Controllers\Employee\EmployeeDashb
 
 Route::get('/employee/profile', [App\Http\Controllers\Employee\EmployeeProfileController::class, 'index']);
 Route::post('/employee/profile-update/{id}', [App\Http\Controllers\Employee\EmployeeProfileController::class, 'update']);
+Route::post('/employee/change-password', [App\Http\Controllers\Employee\EmployeeProfileController::class, 'changePassword']);
 
 Route::get('/employee/get-user/{id}', [App\Http\Controllers\Employee\EmployeeProfileController::class, 'getUser']);
 

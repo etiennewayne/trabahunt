@@ -15,12 +15,12 @@
                                 </template>
 
 
-                                <b-dropdown-item aria-role="listitem">Change Password</b-dropdown-item>
+                                <b-dropdown-item aria-role="listitem" @click="openModalChangePassword">Change Password</b-dropdown-item>
                                 <!-- <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
                                 <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item> -->
                             </b-dropdown>
                         </div><!-- buttons-->
-                        
+
                         <div class="columns">
                             <div class="column is-4">
                                 <div class="image">
@@ -46,7 +46,7 @@
                                 <div class="profile-form">
 
                                     <div class="subtitle">Personal Information</div>
-                                    
+
                                     <div class="columns">
                                         <div class="column">
                                             <b-field label="Last Name" label-position="on-border">
@@ -153,14 +153,75 @@
                                     </div>
 
                                 </div><!--profile form -->
-                                
+
                             </div><!--col-->
                         </div><!--cols-->
                     </div><!-- box-->
                 </div><!--col-->
             </div> <!--cols---->
-           
+
         </div><!--section-->
+
+
+        <!--modal create-->
+        <b-modal v-model="modalChangePassword" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <form @submit.prevent="submit">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Change Password</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="modalChangePassword = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+                            <b-field label="Old Password" label-position="on-border"
+                                     :type="this.changePassErrors.old_password ? 'is-danger':''"
+                                     :message="this.changePassErrors.old_password ? this.changePassErrors.old_password[0] : ''">
+                                <b-input type="password" v-model="changePass.old_password"
+                                         placeholder="Old Password" required>
+                                </b-input>
+                            </b-field>
+
+                            <b-field label="New Password" label-position="on-border"
+                                     :type="this.changePassErrors.password ? 'is-danger':''"
+                                     :message="this.changePassErrors.password ? this.changePassErrors.password[0] : ''">
+                                <b-input type="password" v-model="changePass.password"
+                                         placeholder="Password" required>
+                                </b-input>
+                            </b-field>
+
+                            <b-field label="Confirm Password" label-position="on-border"
+                                     :type="this.changePassErrors.password_confirmation ? 'is-danger':''"
+                                     :message="this.changePassErrors.password_confirmation ? this.changePassErrors.password_confirmation[0] : ''">
+                                <b-input type="password" v-model="changePass.password_confirmation"
+                                         placeholder="Confirm Password" required>
+                                </b-input>
+                            </b-field>
+
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+
+                        <b-button
+                            :class="btnClass"
+                            label="Save"
+                            type="is-success" @click="submitChangePass">SAVE</b-button>
+                    </footer>
+                </div>
+            </form><!--close form-->
+        </b-modal>
+        <!--close modal-->
+
+
     </div>
 </template>
 
@@ -175,12 +236,23 @@ export default {
             fields: {
                 avatar: ''
             },
+
+            changePass: {},
+            changePassErrors: {},
             errors: {},
 
             provinces: [],
             cities: [],
             barangays: [],
             categories: [],
+
+            modalChangePassword: false,
+            btnClass: {
+                'is-success': true,
+                'button': true,
+                'is-loading':false,
+            },
+
         }
     },
 
@@ -213,9 +285,9 @@ export default {
 
         getData: function(){
                  //nested axios for getting the address 1 by 1 or request by request
-               
+
             axios.get('/employee/get-user/'+ this.id).then(res=>{
-             
+
                 this.fields.bdate = new Date(res.data.bdate);
                 //this.fields = res.data;
                 this.fields.lname = res.data.lname;
@@ -227,7 +299,7 @@ export default {
                 this.fields.contact_no = res.data.contact_no;
                 this.fields.avatar = res.data.avatar;
 
-                
+
                 this.fields.province = res.data.province.provCode;
 
                 let tempData = res.data;
@@ -235,13 +307,13 @@ export default {
                 axios.get('/load-cities?prov=' + this.fields.province).then(res=>{
                     //load barangay
                     this.cities = res.data;
-                   
+
                     this.fields.city = tempData.city.citymunCode;
 
                     axios.get('/load-barangays?prov=' + this.fields.province + '&city_code='+this.fields.city).then(res=>{
                         this.barangays = res.data;
                         this.fields.barangay = tempData.barangay.brgyCode
-                       
+
                     });
                 });
             });
@@ -281,13 +353,36 @@ export default {
                     })
                 }
             })
-
         },
 
         initData: function(){
             this.id = this.propUserId;
-
             this.getData();
+        },
+
+        openModalChangePassword(){
+            this.modalChangePassword = true;
+        },
+        submitChangePass(){
+            axios.post('/employee/change-password', this.changePass).then(res=>{
+                if(res.data.status === 'changed'){
+                    this.$buefy.dialog.alert({
+                        title: 'UPDATED!',
+                        message: 'Password successfully changed.',
+                        type: 'is-success',
+                        confirmText: 'OK',
+                        onConfirm: ()=>{
+                            this.changePassErrors = {}
+                            this.changePass = {}
+                            this.modalChangePassword = false
+                        }
+                    })
+                }
+            }).catch(err=>{
+                if(err.response.status === 422){
+                    this.changePassErrors = err.response.data.errors;
+                }
+            })
         }
     },
 
@@ -295,7 +390,7 @@ export default {
     mounted(){
         this.loadProvince()
         this.initData();
-        
+
     },
 
     computed:{

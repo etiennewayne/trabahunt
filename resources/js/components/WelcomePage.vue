@@ -10,17 +10,52 @@
         </div>
 
 
-        <div class="section">
-            <div class="">
-                <b-field position="is-centered">
-                    <b-input class="search-text" type="input" rounded size="is-large" icon-right="magnify" placeholder="Job Title, Company name.."></b-input>
-                    <b-input class="search-text" type="input" rounded size="is-large" icon-right="head-lightbulb-outline" placeholder="Job Type.."></b-input>
-                    <p class="control">
-                        <button class="button is-rounded is-primary is-large">Search</button>
-                    </p>
-                </b-field>
+        <div class="section filter">
+            <div class="job-search-container">
+                <div class="columns">
+                    <div class="column">
+                        <b-field label-position="on-border" label="Job Title or Company Name">
+                            <b-input class="search-text" v-model="search.key"
+                                     @keydown.enter="loadJobHiring"
+                                     type="input" icon-right="magnify" placeholder="Job Title, Company name.."></b-input>
+
+                        </b-field>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <b-field label-position="on-border" label="Job Type" expanded>
+                            <b-select v-model="search.jobtype" expanded>
+                                <option selected value="">--NONE--</option>
+                                <option v-for="(item, index) in jobTypes"  :key="index" :value="item.jobtype">{{ item.jobtype }}</option>
+                            </b-select>
+                        </b-field>
+                    </div>
+
+                    <div class="column">
+                        <b-field label-position="on-border" label="Category" expanded>
+                            <b-select v-model="search.category" expanded>
+                                <option selected value="">--NONE--</option>
+                                <option v-for="(item, index) in categories"  :key="index" :value="item.category">{{ item.category }}</option>
+                            </b-select>
+                        </b-field>
+                    </div>
+                    <div class="column is-2">
+                        <div class="buttons is-centered">
+                            <button class="button is-primary is-fullwidth" @click="loadJobHiring">Search</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+
+        <div class="result-container">
+            <div v-for="(item, index) in jobs" :key="index">
+                <div></div>
+            </div>
+        </div>
+
 
         <div class="section">
             <div class="t-box-container">
@@ -78,21 +113,27 @@
         </div>
 
 
-        
+
 
     </div> <!--root div-->
 </template>
 
 <script>
 export default {
-    props: ['propUser', 'propCategories'],
+    props: ['propUser', 'propCategories', 'propJobTypes'],
     data(){
         return{
             locale: undefined,
             isModalActive: false,
 
-            categories: {},
-
+            search: {
+                jobtype: '',
+                category: '',
+                key: ''
+            },
+            categories: [],
+            jobTypes: [],
+            jobs: [],
         }
 
     },
@@ -102,12 +143,29 @@ export default {
             window.location = '/employer/signup'
         },
 
+        loadJobHiring(){
+            const params = [
+                `sort_by=${this.sortField}.${this.sortOrder}`,
+                `key=${this.search.key}`,
+                `jobtype=${this.search.jobtype}`,
+                `category=${this.search.category}`,
+                `perpage=${this.perPage}`,
+                `page=${this.page}`
+            ].join('&')
+
+            axios.get(`/get-jobs-hiring?${params}`).then(res=>{
+                this.jobs = res.data
+            })
+        },
+
         initData(){
             this.categories = JSON.parse(this.propCategories);
+            this.jobTypes = JSON.parse(this.propJobTypes);
         },
         applyNow: function(){
             window.location = '/sign-up';
         }
+
     },
 
     mounted() {
@@ -126,6 +184,20 @@ export default {
         font-size: 3em;
         color: rgb(0, 100, 0);
         text-align: center;
+    }
+
+    .filter{
+        background: #fffcfc;
+    }
+    .job-search-container{
+        max-width: 1024px;
+        /*border: 1px solid red;*/
+        margin: auto;
+    }
+    .result-container{
+        max-width: 1024px;
+        border: 1px solid red;
+        margin: auto;
     }
 
 

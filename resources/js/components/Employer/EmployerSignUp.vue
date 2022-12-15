@@ -6,15 +6,15 @@
                     <div class="left-slogan">
                         Find the best candidate for your company by creating account.
                     </div>
+                    <img class="model-img"
+                        src="/img/model-register-employee.png">
                 </div>
             </div>
             <div class="column is-6-desktop is-4-widescreen">
                 <form @submit.prevent="submit">
 
                     <div class="reg-box">
-                    
                         <div class="section">
-
                             <div class="sign-up-header">
                                 START HIRING CANDIDATES
                             </div>
@@ -62,7 +62,7 @@
                                             :message="this.errors.fname ? this.errors.fname[0] : ''">
                                         <b-input icon="account" v-model="fields.fname" placeholder="First Name" type="text"></b-input>
                                     </b-field>
-                                 
+
                                     <b-field label="Middle Name">
                                         <b-input v-model="fields.mname" type="text" icon="account" placeholder="Middle Name"></b-input>
                                     </b-field>
@@ -216,11 +216,12 @@ export default {
 
 
     .left-container{
-        height:100%; 
+        height:100%;
         background-color: green;
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
     }
 
     .left-slogan{
@@ -228,7 +229,21 @@ export default {
         font-weight: bold;
         color: white;
         font-size: 2em;;
-        
+        text-align: center;
+
+    }
+
+    .model-img{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+
+    @media only screen and (max-width: 740px) {
+        .model-img{
+           display: none;
+        }
     }
 
     /*    dere lang kubia ang panel color*/

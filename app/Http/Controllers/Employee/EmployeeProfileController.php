@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 Use App\Models\User;
 
@@ -65,11 +66,11 @@ class EmployeeProfileController extends Controller
 
         $data->barangay = $req->barangay;
         $data->street = strtoupper($req->street);
-        
+
         if($path != ''){
             $data->avatar = $path; //update image if there is an image to upload
         }
-       
+
         $data->save();
 
 
@@ -78,6 +79,35 @@ class EmployeeProfileController extends Controller
         ], 200);
     }
 
-    
+
+    public function changePassword(Request $req){
+
+        $old_password = $req->old_password;
+        $password = $req->password;
+
+        $user = Auth::user();
+
+        $req->validate([
+            'password' => ['required', 'max:20', 'confirmed']
+        ]);
+
+        if (! Hash::check($old_password, $user->password)) {
+            return response()->json([
+                'errors' => array(
+                    'old_password' => ['The provided password does not match our records.']
+                )
+            ], 422);
+        }
+
+        $data = User::find($user->user_id);
+        $data->password = Hash::make($password);
+        $data->save();
+
+        return response()->json([
+            'status' => 'changed'
+        ], 200);
+
+    }
+
 
 }
