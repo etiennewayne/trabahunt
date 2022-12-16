@@ -17,7 +17,7 @@ class CompanySeeder extends Seeder
 
         $data = [
             [
-                'user_id' => 3,
+                'user_id' => 4,
                 'company' => 'LEDA LAUNDRY SHOP',
                 'owner' => 'LEDA GRACE',
                 'overview' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus iusto repudiandae delectus. Esse officiis aspernatur, excepturi quaerat rem laboriosam ipsam?',

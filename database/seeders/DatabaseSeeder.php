@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             JobtypeSeeder::class,
             CompanySeeder::class,
-
+            QualificationSeeder::class
         ]);
     }
 }

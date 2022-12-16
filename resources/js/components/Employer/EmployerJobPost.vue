@@ -6,22 +6,50 @@
                 <div class="column is-8">
                     <form @submit.prevent="submit">
                         <div class="box">
-                            <div class="post-heading has-text-weight-bold">
+                            <div class="has-text-weight-bold">
                                 POST JOB
                             </div>
-
+                            <hr>
                             <div class="mt-5">
                                 <div class="columns">
                                     <div class="column">
                                         <b-field label="TITLE">
-                                            <b-input type="text" v-model="fields.title" placeholder="Title"></b-input>
+                                            <b-input type="text" v-model="fields.title" placeholder="Title" required></b-input>
                                         </b-field>
                                     </div>
                                 </div>
                                 <div class="columns">
                                     <div class="column">
-                                        <b-field label="Job Description">
-                                            <b-input type="textarea" v-model="fields.job_desc" placeholder="Job description"></b-input>
+                                        <b-field label="Job Description"
+                                            type="this.errors.job_desc ? 'is-danger':''"
+                                            :message="this.errors.job_desc ? this.errors.job_desc[0] : ''">
+                                            <quill-editor
+                                                ref="myQuillEditor"
+                                                v-model="fields.job_desc"
+                                                :options="editorOption"
+                                            />
+                                        </b-field>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Minimum Experience">
+                                            <b-select v-model="fields.minimum_experience" expanded>
+                                                <option value="Below 1 Year">Below 1 Year</option>
+                                                <option value="1 - 3 Years">1 - 3 Years</option>
+                                                <option value="3 - 5 Years">3 - 5 Years</option>
+                                                <option value="5 - 10 Years">5 - 10 Years</option>
+                                                <option value="Above 10 Years">Above 10 Years</option>
+                                            </b-select>
+                                        </b-field>
+                                    </div>
+                                    <div class="column">
+                                        <b-field label="Minimum Qualification">
+                                            <b-select v-model="fields.minimum_qualification">
+                                                <option v-for="(item, index) in qualifications" :key="index" :value="item.qualification">{{ item.qualification }}</option>
+                                            </b-select>
                                         </b-field>
                                     </div>
                                 </div>
@@ -41,16 +69,27 @@
                                             </b-select>
                                         </b-field>
                                     </div>
+                                </div> <!--cols-->
+
+                                <div class="columns">
                                     <div class="column">
                                         <b-field label="Salary (PESO)">
-                                            <b-input type="text" v-model="fields.salary" placeholder="Salary (PESO)"></b-input>
+                                            <b-numberinput v-model="fields.from_salary" 
+                                                placeholder="From" :controls="false"></b-numberinput>
+                                            <b-numberinput v-model="fields.to_salary" 
+                                                placeholder="To" :controls="false"></b-numberinput>
                                         </b-field>
                                     </div>
-                                </div> <!--cols-->
+                                </div>
                             </div>
-
-                            <div class="buttons mt-5">
-                                <button class="button is-primary">POSTS</button>
+                            <hr>
+                            <div class="buttons is-right mt-5">
+                                <button class="button is-primary">
+                                    POSTS
+                                    &nbsp;
+                                    &nbsp;
+                                    <b-icon icon="content-save-outline"></b-icon>
+                                </button>
                             </div>
                         </div> <!--box-->
                     </form>
@@ -77,7 +116,6 @@
 <!--                                            :icon-right="active ? 'menu-up' : 'menu-down'" />-->
                                         <div class="dots">...</div>
                                     </template>
-
 
                                     <b-dropdown-item aria-role="listitem" @click="modalUpdate(item.job_post_id)">Update</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="confirmDelete(item.job_post_id)">Delete</b-dropdown-item>
@@ -186,6 +224,7 @@
                     <b-button
                         type="is-primary"
                         label="Update"
+                        icon-right="content-save-outline"
                         @click="update"></b-button>
                 </footer>
             </div>
@@ -198,7 +237,7 @@
 <script>
 
 export default {
-    props: ['propCompanyId', 'propJobTypes', 'propCategories'],
+    props: ['propCompanyId', 'propJobTypes', 'propCategories', 'propQualifications'],
 
     data() {
         return {
@@ -212,6 +251,7 @@ export default {
             companyId: null,
 
             jobPosts: [],
+            qualifications: [],
 
             isModalActive: false,
 
@@ -235,6 +275,10 @@ export default {
 
             sortField: 'job_post_id',
             sortOrder: 'desc',
+
+            editorOption: {
+                // Some Quill options...
+            }
 
         }
     },
@@ -321,6 +365,8 @@ export default {
         initData(){
             this.jobTypes = this.propJobTypes;
             this.categories = this.propCategories;
+            this.qualifications = JSON.parse(this.propQualifications);
+
             console.log(this.propCompanyId);
             this.companyId = this.propCompanyId;
             this.fields.company_id = this.companyId;
@@ -353,14 +399,36 @@ export default {
                     });
                 }
             })
-        }
+        },
 
+
+        /* QUILL METHODS*/
+        onEditorBlur(quill) {
+            console.log('editor blur!', quill)
+        },
+        onEditorFocus(quill) {
+            console.log('editor focus!', quill)
+        },
+        onEditorReady(quill) {
+            console.log('editor ready!', quill)
+        },
+        onEditorChange({ quill, html, text }) {
+            console.log('editor change!', quill, html, text)
+            this.content = html
+        }
+        /* QUILL METHODS*/
     },
 
     mounted(){
         this.initData();
         this.loadJobPosts();
         this.loadCompanies();
+    },
+
+    computed: {
+        editor() {
+            return this.$refs.myQuillEditor.quill
+        }
     }
 }
 </script>

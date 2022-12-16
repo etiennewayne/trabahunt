@@ -50,7 +50,6 @@ Route::get('/load-user', function(){
 
 
 
-
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
 
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
@@ -116,6 +115,10 @@ Route::get('/admin/get-job-types', [App\Http\Controllers\Administrator\JobTypeCo
 
 Route::resource('/admin/categories', App\Http\Controllers\Administrator\CategoryController::class);
 Route::get('/admin/get-categories', [App\Http\Controllers\Administrator\CategoryController::class, 'getCategories']);
+
+Route::resource('/admin/qualifications', App\Http\Controllers\Administrator\QualificationController::class);
+Route::get('/admin/get-qualifications', [App\Http\Controllers\Administrator\QualificationController::class, 'getQualifications']);
+
 
 
 Route::resource('/admin/users', App\Http\Controllers\Administrator\UserController::class);

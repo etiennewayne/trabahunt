@@ -21,7 +21,11 @@ class CreateJobPostsTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('title')->nullable();
+            
             $table->text('job_desc')->nullable();
+
+            $table->string('minimum_qualification')->nullable();
+            $table->string('minimum_experience')->nullable();
 
             $table->unsignedBigInteger('jobtype_id')->nullable();
             $table->foreign('jobtype_id')->references('jobtype_id')->on('job_types')
@@ -31,7 +35,8 @@ class CreateJobPostsTable extends Migration
             $table->foreign('category_id')->references('category_id')->on('categories')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('salary')->nullable();
+            $table->string('from_salary')->nullable();
+            $table->string('to_salary')->nullable();
             
             $table->timestamps();
         });

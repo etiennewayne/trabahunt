@@ -24,6 +24,8 @@ class CreateCompaniesTable extends Migration
             $table->string('owner')->nullable();
             $table->text('overview')->nullable();
             $table->string('company_size')->nullable();
+            $table->string('website')->nullable();
+
             $table->string('industry')->nullable();
             $table->string('benefits_others')->nullable();
 

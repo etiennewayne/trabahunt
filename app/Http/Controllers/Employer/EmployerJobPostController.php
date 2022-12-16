@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Jobtype;
 use App\Models\Category;
 use App\Models\JobPost;
-
+use App\Models\Qualification;
 
 class EmployerJobPostController extends Controller
 {
@@ -20,12 +20,13 @@ class EmployerJobPostController extends Controller
     public function index($companyId){
         $jobTypes = Jobtype::orderBy('jobtype')->get();
         $categories = Category::orderBy('category')->get();
-
+        $qualifications = Qualification::orderBy('qualification_id')->get();
 
         return view('employer.employer-job-post')
             ->with('companyId', $companyId)
             ->with('jobtypes', $jobTypes)
-            ->with('categories', $categories);
+            ->with('categories', $categories)
+            ->with('qualifications', $qualifications);
     }
 
     public function show($id){
@@ -40,8 +41,7 @@ class EmployerJobPostController extends Controller
     }
 
     public function store(Request $req){
-        //return $req;
-
+       
         $validate = $req->validate([
             'title' => ['required'],
             'job_desc' => ['required'],
@@ -55,7 +55,10 @@ class EmployerJobPostController extends Controller
             'jobtype_id' => $req->job_type,
             'category_id' => $req->category,
             'job_desc' => $req->job_desc,
-            'salary' => $req->salary
+            'minimum_experience' => $req->minimum_experience,
+            'minimum_qualification' => $req->minimum_qualification,
+            'from_salary' => $req->from_salary,
+            'to_salary' => $req->to_salary
         ]);
 
         return response()->json([
