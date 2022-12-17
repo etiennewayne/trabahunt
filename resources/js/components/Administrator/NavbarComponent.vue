@@ -27,6 +27,9 @@
                     <b-navbar-item href="/admin/qualifications">
                         Qualification
                     </b-navbar-item>
+                    <b-navbar-item href="/admin/skills">
+                        Skills
+                    </b-navbar-item>
                 </b-navbar-dropdown>
                 <b-navbar-item href="/admin/users">
                     Users

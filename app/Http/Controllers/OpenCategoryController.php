@@ -11,9 +11,6 @@ class OpenCategoryController extends Controller
 
 
     public function getCategories(Request $req){
-
         return Category::orderBy('category', 'asc')->get();
-
-
     }
 }

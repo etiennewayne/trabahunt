@@ -13,7 +13,9 @@
                             <div class="mt-5">
                                 <div class="columns">
                                     <div class="column">
-                                        <b-field label="TITLE">
+                                        <b-field label="TITLE"
+                                            :type="this.errors.title ? 'is-danger':''"
+                                            :message="this.errors.title ? this.errors.title[0] : ''">
                                             <b-input type="text" v-model="fields.title" placeholder="Title" required></b-input>
                                         </b-field>
                                     </div>
@@ -21,7 +23,7 @@
                                 <div class="columns">
                                     <div class="column">
                                         <b-field label="Job Description"
-                                            type="this.errors.job_desc ? 'is-danger':''"
+                                            :type="this.errors.job_desc ? 'is-danger':''"
                                             :message="this.errors.job_desc ? this.errors.job_desc[0] : ''">
                                             <quill-editor
                                                 ref="myQuillEditor"
@@ -30,12 +32,14 @@
                                             />
                                         </b-field>
                                     </div>
-                                    
+
                                 </div>
 
                                 <div class="columns">
                                     <div class="column">
-                                        <b-field label="Minimum Experience">
+                                        <b-field label="Minimum Experience"
+                                            :type="this.errors.minimum_experience ? 'is-danger':''"
+                                            :message="this.errors.minimum_experience ? this.errors.minimum_experience[0] : ''">
                                             <b-select v-model="fields.minimum_experience" expanded>
                                                 <option value="Below 1 Year">Below 1 Year</option>
                                                 <option value="1 - 3 Years">1 - 3 Years</option>
@@ -46,7 +50,9 @@
                                         </b-field>
                                     </div>
                                     <div class="column">
-                                        <b-field label="Minimum Qualification">
+                                        <b-field label="Minimum Qualification"
+                                            :type="this.errors.minimum_qualification ? 'is-danger':''"
+                                            :message="this.errors.minimum_qualification ? this.errors.minimum_qualification[0] : ''">
                                             <b-select v-model="fields.minimum_qualification">
                                                 <option v-for="(item, index) in qualifications" :key="index" :value="item.qualification">{{ item.qualification }}</option>
                                             </b-select>
@@ -56,14 +62,18 @@
 
                                 <div class="columns">
                                     <div class="column">
-                                        <b-field label="Category" expanded>
+                                        <b-field label="Category" expanded
+                                            :type="this.errors.category ? 'is-danger':''"
+                                            :message="this.errors.category ? this.errors.category[0] : ''">
                                             <b-select v-model="fields.category" expanded placeholder="Category">
                                                 <option v-for="(item, index) in categories" :key="index" :value="item.category_id">{{ item.category }}</option>
                                             </b-select>
                                         </b-field>
                                     </div>
                                     <div class="column">
-                                        <b-field label="Job Type" expanded>
+                                        <b-field label="Job Type" expanded
+                                            :type="this.errors.job_type ? 'is-danger':''"
+                                            :message="this.errors.job_type ? this.errors.job_type[0] : ''">
                                             <b-select v-model="fields.job_type" expanded placeholder="Job Type">
                                                 <option v-for="(item, index) in jobTypes" :key="index" :value="item.jobtype_id">{{ item.jobtype }}</option>
                                             </b-select>
@@ -74,10 +84,32 @@
                                 <div class="columns">
                                     <div class="column">
                                         <b-field label="Salary (PESO)">
-                                            <b-numberinput v-model="fields.from_salary" 
+                                            <b-numberinput v-model="fields.from_salary"
                                                 placeholder="From" :controls="false"></b-numberinput>
-                                            <b-numberinput v-model="fields.to_salary" 
+                                            <b-numberinput v-model="fields.to_salary"
                                                 placeholder="To" :controls="false"></b-numberinput>
+                                        </b-field>
+                                    </div>
+                                </div>
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Skill(s)">
+                                            <b-taginput
+                                                v-model="fields.skills"
+                                                :data="filteredTags"
+                                                autocomplete
+                                                field="skill"
+                                                icon="label"
+                                                placeholder="Add a skill"
+                                                @typing="getFilteredTagSkills">
+                                                <template v-slot="props">
+                                                    {{props.option.skill}}
+                                                </template>
+                                                <template #empty>
+                                                    There are no items
+                                                </template>
+                                            </b-taginput>
                                         </b-field>
                                     </div>
                                 </div>
@@ -162,19 +194,17 @@
         </div><!--section-->
 
 
-        <b-modal v-model="this.isModalActive" has-modal-card
+        <b-modal v-model="isModalActive" has-modal-card
                  trap-focus scroll="keep" aria-role="dialog" aria-modal>
             <div class="modal-card card-width">
                 <header class="modal-card-head">
                     <p class="modal-card-title">JOB POST INFORMATION</p>
                     <button type="button" class="delete"
                             @click="isModalActive = false"/>
-
                 </header>
 
                 <section class="modal-card-body">
                     <div>
-
                         <div class="mt-5">
                             <div class="columns">
                                 <div class="column">
@@ -185,11 +215,42 @@
                             </div>
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Job Description">
-                                        <b-input type="textarea" v-model="modalFields.job_desc" placeholder="Job description"></b-input>
-                                    </b-field>
+                                    <b-field label="Job Description"
+                                        :type="this.errors.job_desc ? 'is-danger':''"
+                                        :message="this.errors.job_desc ? this.errors.job_desc[0] : ''">
+                                        <quill-editor
+                                            ref="myQuillEditor"
+                                            v-model="modalFields.job_desc"
+                                            :options="editorOption"
+                                        />
+                                        </b-field>
                                 </div>
                             </div>
+
+                            <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Minimum Experience"
+                                            :type="this.errors.minimum_experience ? 'is-danger':''"
+                                            :message="this.errors.minimum_experience ? this.errors.minimum_experience[0] : ''">
+                                            <b-select v-model="modalFields.minimum_experience" expanded>
+                                                <option value="Below 1 Year">Below 1 Year</option>
+                                                <option value="1 - 3 Years">1 - 3 Years</option>
+                                                <option value="3 - 5 Years">3 - 5 Years</option>
+                                                <option value="5 - 10 Years">5 - 10 Years</option>
+                                                <option value="Above 10 Years">Above 10 Years</option>
+                                            </b-select>
+                                        </b-field>
+                                    </div>
+                                    <div class="column">
+                                        <b-field label="Minimum Qualification"
+                                            :type="this.errors.minimum_qualification ? 'is-danger':''"
+                                            :message="this.errors.minimum_qualification ? this.errors.minimum_qualification[0] : ''">
+                                            <b-select v-model="modalFields.minimum_qualification">
+                                                <option v-for="(item, index) in qualifications" :key="index" :value="item.qualification">{{ item.qualification }}</option>
+                                            </b-select>
+                                        </b-field>
+                                    </div>
+                                </div>
 
                             <div class="columns">
                                 <div class="column">
@@ -206,12 +267,44 @@
                                         </b-select>
                                     </b-field>
                                 </div>
+                            </div> <!--cols-->
+
+                            <div class="columns">
                                 <div class="column">
                                     <b-field label="Salary (PESO)">
-                                        <b-input type="text" v-model="modalFields.salary" placeholder="Salary (PESO)"></b-input>
+                                        <b-numberinput v-model="modalFields.from_salary"
+                                            placeholder="From" :controls="false"></b-numberinput>
+                                        <b-numberinput v-model="modalFields.to_salary"
+                                            placeholder="To" :controls="false"></b-numberinput>
                                     </b-field>
                                 </div>
-                            </div> <!--cols-->
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Skill(s)">
+                                        <b-taginput
+                                            v-model="modalFields.skills"
+                                            :data="filteredTags"
+                                            autocomplete
+                                            field="skill"
+                                            @remove="removeTag"
+                                            icon="label"
+                                            type="is-warning"
+                                            placeholder="Add a skill"
+                                            @typing="getFilteredTagSkills">
+                                            <template v-slot="props">
+                                                {{props.option.skill}}
+                                            </template>
+                                            <template #empty>
+                                                There are no items
+                                            </template>
+                                        </b-taginput>
+                                    </b-field>
+                                </div>
+                            </div>
+
+
                         </div>
 
                     </div>
@@ -245,7 +338,17 @@ export default {
             jobTypes: [],
 
             fields: {},
-            modalFields: {},
+            modalFields: {
+                job_post_id: 0,
+                title: '',
+                job_desc: '',
+                minimum_experience: '',
+                minimum_qualification: '',
+                category_id: 0,
+                jobtype_id: 0,
+                from_salary: 0,
+                to_salary: 0
+            },
             errors: {},
 
             companyId: null,
@@ -278,7 +381,10 @@ export default {
 
             editorOption: {
                 // Some Quill options...
-            }
+            },
+
+            dataSkills: [],
+            filteredTags: [],
 
         }
     },
@@ -379,7 +485,25 @@ export default {
 
         getData: function(jobPostId){
             axios.get('/employer/get-job-post/' + jobPostId).then(res=>{
-                this.modalFields = res.data
+                //this.modalFields = res.data
+                this.modalFields.job_post_id = res.data.job_post_id;
+                this.modalFields.title = res.data.title;
+                this.modalFields.job_desc = res.data.job_desc;
+                this.modalFields.minimum_experience = res.data.minimum_experience;
+                this.modalFields.minimum_qualification = res.data.minimum_qualification;
+                this.modalFields.category_id = res.data.category_id;
+                this.modalFields.jobtype_id = res.data.jobtype_id;
+                this.modalFields.from_salary = parseFloat(res.data.from_salary);
+                this.modalFields.to_salary = parseFloat(res.data.to_salary);
+
+
+                let a = [];
+                res.data.skills.forEach(element => {
+                    a.push({
+                        'skill': element.job_post_skill
+                    })
+                });
+                this.modalFields.skills = a
             })
         },
 
@@ -415,14 +539,34 @@ export default {
         onEditorChange({ quill, html, text }) {
             console.log('editor change!', quill, html, text)
             this.content = html
-        }
+        },
         /* QUILL METHODS*/
+
+
+        loadSkills: function(){
+            axios.get('/get-open-skills').then(res=>{
+                this.dataSkills = res.data;
+            })
+        },
+        getFilteredTagSkills(text) {
+            this.filteredTags = this.dataSkills.filter((option) => {
+                return option.skill
+                    .toString()
+                    .toLowerCase()
+                    .indexOf(text.toLowerCase()) >= 0
+            })
+        },
+        removeTag(e){
+            console.log('test remove ' + e)
+        }
+
     },
 
     mounted(){
         this.initData();
         this.loadJobPosts();
         this.loadCompanies();
+        this.loadSkills();
     },
 
     computed: {

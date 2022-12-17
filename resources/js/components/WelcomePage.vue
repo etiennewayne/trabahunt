@@ -52,17 +52,23 @@
 
         <div class="result-container">
             <div class="w-card-container" v-for="(item, index) in jobs" :key="index">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-header-title">
+                <div class="w-card">
+                    <div class="w-card-header">
+                        <div class="w-card-header-title">
                             {{ item.title }}
                         </div>
                     </div>
-
-                    <div class="card-content">
-
+                    <div class="w-tag-container">
+                        <div class="tag-category">
+                            {{ item.category }}
+                        </div>
+                        <div class="tag-jobtype">
+                            {{ item.jobtype }}
+                        </div>
                     </div>
-                    
+                    <div class="w-address">
+                        {{ item.province }}
+                    </div>
                 </div>
             </div>
         </div>

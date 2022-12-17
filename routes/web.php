@@ -36,11 +36,13 @@ Route::get('/', function () {
 });
 
 Route::get('/get-jobs-hiring', [App\Http\Controllers\JobHiringController::class, 'getJobsHiring']);
+Route::get('/get-open-skills', [App\Http\Controllers\OpenSkillController::class, 'getOpenSkills']);
 
 
 Auth::routes([
     'login' => 'false'
 ]);
+
 
 Route::get('/load-user', function(){
     if(Auth::check()){
@@ -118,6 +120,9 @@ Route::get('/admin/get-categories', [App\Http\Controllers\Administrator\Category
 
 Route::resource('/admin/qualifications', App\Http\Controllers\Administrator\QualificationController::class);
 Route::get('/admin/get-qualifications', [App\Http\Controllers\Administrator\QualificationController::class, 'getQualifications']);
+
+Route::resource('/admin/skills', App\Http\Controllers\Administrator\SkillController::class);
+Route::get('/admin/get-skills', [App\Http\Controllers\Administrator\SkillController::class, 'getSkills']);
 
 
 

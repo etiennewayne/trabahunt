@@ -15,6 +15,8 @@ class JobHiringController extends Controller
             ->join('categories as b',  'a.category_id', 'b.category_id')
             ->join('job_types as c', 'a.jobtype_id', 'c.jobtype_id')
             ->join('companies as d', 'a.company_id', 'd.company_id')
+
+            
             ->where(function ($query) use ($req) {
                 $query->where('d.company', 'like', $req->key . '%')
                     ->orWhere('a.title', 'like', '%' . $req->key . '%');

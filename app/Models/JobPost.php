@@ -32,5 +32,8 @@ class JobPost extends Model
         return $this->hasOne(Category::class, 'category_id', 'category_id');
     }
 
+    public function skills(){
+        return $this->hasMany(jobPostSkill::class, 'job_post_id', 'job_post_id');
+    }
 
 }

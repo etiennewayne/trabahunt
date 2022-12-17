@@ -35,6 +35,8 @@ class CreateJobPostsTable extends Migration
             $table->foreign('category_id')->references('category_id')->on('categories')
                 ->onUpdate('cascade')->onDelete('cascade');
 
+            
+            
             $table->string('from_salary')->nullable();
             $table->string('to_salary')->nullable();
             
