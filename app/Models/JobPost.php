@@ -15,7 +15,8 @@ class JobPost extends Model
 
     protected $fillable = ['company_id', 'jobtype_id', 'title', 'job_desc', 
         'minimum_experience', 'minimum_qualification',
-        'category_id', 'from_salary', 'to_salary'
+        'category_id', 'from_salary', 'to_salary',
+        'province', 'city', 'barangay', 'street'
     ];
 
 
@@ -35,5 +36,20 @@ class JobPost extends Model
     public function skills(){
         return $this->hasMany(jobPostSkill::class, 'job_post_id', 'job_post_id');
     }
+
+
+
+    //addresses
+    public function province(){
+        return $this->hasOne(Province::class, 'provCode', 'province');
+    }
+
+    public function city(){
+        return $this->hasOne(City::class, 'citymunCode', 'city');
+    }
+    public function barangay(){
+        return $this->hasOne(Barangay::class, 'brgyCode', 'barangay');
+    }
+
 
 }

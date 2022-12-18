@@ -31,37 +31,49 @@ class EmployerJobPostController extends Controller
     }
 
     public function show($id){
-        return JobPost::with(['skills'])->find($id);
+        return JobPost::with(['skills', 'province', 'city', 'barangay'])->find($id);
     }
 
     public function getJobPosts(Request $req){
 
-        return JobPost::with(['company', 'jobtype', 'category'])
+        return JobPost::with(['company', 'jobtype', 'category', 'skills', 'province', 'city', 'barangay'])
             ->where('company_id', $req->cid)
+            ->orderBy('job_post_id', 'desc')
             ->paginate($req->perpage);
     }
 
     public function store(Request $req){
 
-        $validate = $req->validate([
+
+        $req->validate([
             'title' => ['required'],
             'job_desc' => ['required'],
-            'category' => ['required'],
+            'category_id' => ['required'],
             'minimum_experience' => ['required'],
             'minimum_qualification' => ['required'],
-            'job_type' => ['required'],
+            'jobtype_id' => ['required'],
+            'province' => ['required'],
+            'city' => ['required'],
+            'barangay' => ['required'],
+        ], $message = [
+            'jobtype_id.required' => 'Please select job type.',
+            'category_id.required' => 'Please select category'
         ]);
 
         $jobPost = JobPost::create([
             'title' => strtoupper($req->title),
             'company_id' => $req->company_id,
-            'jobtype_id' => $req->job_type,
-            'category_id' => $req->category,
+            'jobtype_id' => $req->jobtype_id,
+            'category_id' => $req->category_id,
             'job_desc' => $req->job_desc,
             'minimum_experience' => $req->minimum_experience,
             'minimum_qualification' => $req->minimum_qualification,
             'from_salary' => $req->from_salary,
-            'to_salary' => $req->to_salary
+            'to_salary' => $req->to_salary,
+            'province' => strtoupper($req->province),
+            'city' => strtoupper($req->city),
+            'barangay' => strtoupper($req->barangay),
+            'street' => strtoupper($req->street),
         ]);
 
 
@@ -90,6 +102,11 @@ class EmployerJobPostController extends Controller
             'job_desc' => ['required'],
             'category_id' => ['required'],
             'jobtype_id' => ['required'],
+            'minimum_experience' => ['required'],
+            'minimum_qualification' => ['required'],
+            'province' => ['required'],
+            'city' => ['required'],
+            'barangay' => ['required'],
         ]);
 
         $data = JobPost::find($id);
@@ -102,6 +119,10 @@ class EmployerJobPostController extends Controller
         $data->minimum_qualification = $req->minimum_qualification;
         $data->from_salary = $req->from_salary;
         $data->to_salary = $req->to_salary;
+        $data->province = strtoupper($req->province);
+        $data->city = strtoupper($req->city);
+        $data->barangay = strtoupper($req->barangay);
+        $data->street = strtoupper($req->street);
         $data->save();
 
 
@@ -118,8 +139,6 @@ class EmployerJobPostController extends Controller
             }
 
         }
-
-
         return response()->json([
             'status' => 'updated'
         ], 200);

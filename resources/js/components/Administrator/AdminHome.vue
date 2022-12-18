@@ -1,32 +1,17 @@
 <template>
     <div>
-        <div class="section">
-            <div class="columns is-centered">
-                <div>
-                    <div class="box">
-                        <div class="w-head-title">
-                            WELCOME ADMINISTRATOR
-                        </div>
-                        <div class="w-content">
-                            {{ info.user }}
-                        </div>
-                    </div>
+        <div class="home-container">
+            
+            <div class="box box-width">
+                <div class="w-head-title">
+                    WELCOME ADMINISTRATOR
                 </div>
-
-
-            </div><!--cols-->
-
-
+                <div class="w-content">
+                    {{ info.user }}
+                </div>
+            </div>
 
         </div>
-
-        <!-- <div class="section">
-            <div class="buttons">
-                <b-button type="is-info" @click="sendSMS" label="Send"></b-button>
-            </div>
-        </div> -->
-
-
     </div>
 </template>
 
@@ -40,23 +25,30 @@ export default {
 	},
 
 	methods:{
-        getDashboardInfo(){
-            axios.get('/get-dashboard-info').then(res=>{
-                this.info = res.data;
-            })
-        },
+
 
 	},
 
     mounted() {
-        this.getDashboardInfo();
+        
     }
 }
 </script>
 
 <style scoped>
+
+    .box-width{
+        max-width: 600px;
+    }
+    .home-container{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .w-head-title{
         font-weight: bold;
+        text-align: center;
     }
     .w-content{
         text-align: center;

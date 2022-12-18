@@ -60,7 +60,6 @@
                 </div>
             </div>
 
-
         </div>
 
     </div>
@@ -105,7 +104,7 @@ export default{
                         message: 'Application submitted successfully.',
                         confirmText: 'OK',
                         onConfirm: () => {
-                            window.location = '/employee/dashboard';
+                            window.location = '/';
                         }
                     });
                 }

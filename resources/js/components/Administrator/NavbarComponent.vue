@@ -14,9 +14,7 @@
                 <b-navbar-item href="/admin/home">
                     Home
                 </b-navbar-item>
-                <b-navbar-item href="/admin/job-types">
-                    Documentation
-                </b-navbar-item>
+              
                 <b-navbar-dropdown label="Settings">
                     <b-navbar-item href="/admin/job-types">
                         Job Type

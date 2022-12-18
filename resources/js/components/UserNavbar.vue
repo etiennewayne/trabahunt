@@ -8,7 +8,7 @@
         </template>
 
         <template #start>
-            <b-navbar-item href="/">
+            <!-- <b-navbar-item href="/">
                 Hunt Talent
             </b-navbar-item>
             <b-navbar-item href="/">
@@ -17,7 +17,7 @@
 
             <b-navbar-item href="/">
                 About Us
-            </b-navbar-item>
+            </b-navbar-item> -->
 
         </template>
 
@@ -26,10 +26,13 @@
                 FAQ
             </b-navbar-item>
           
-            <b-navbar-item v-if="currentLogin && user.role == 'EMPLOYER'" href="/employer/dashboard">
-                Employer
+            <b-navbar-item v-if="currentLogin && user.role == 'EMPLOYEE'" href="/">
+                Home
             </b-navbar-item>
             
+            <b-navbar-item href="/employee/profile">
+                {{ showName }}
+            </b-navbar-item>
             
 
             <b-navbar-item tag="div">

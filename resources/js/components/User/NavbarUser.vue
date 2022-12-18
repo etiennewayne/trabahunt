@@ -13,8 +13,8 @@
             </template>
 
             <template #end>
-                <b-navbar-item href="/employee/dashboard">
-                    Dashboard
+                <b-navbar-item href="/">
+                    Home
                 </b-navbar-item>
 
                 <b-navbar-item href="/employee/profile">
