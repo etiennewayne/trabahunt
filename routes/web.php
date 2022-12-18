@@ -135,23 +135,20 @@ Route::post('/admin/reset-password/{id}', [App\Http\Controllers\Administrator\Us
 // EMPLOYER ROUTES
 Route::resource('/employer/signup', App\Http\Controllers\Employer\EmployerSignUpController::class);
 
-
 Route::resource('/employer/dashboard', App\Http\Controllers\Employer\EmployerDashboardController::class);
-
 
 //JOB POST (FEEDS)
 Route::get('/employer/company-job-post/{cid}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'index']);
 Route::post('/employer/company-job-post/{cid}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'store']);
 Route::put('/employer/company-job-update/{id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'update']);
 Route::delete('/employer/company-job-post-delete/{id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'destroy']);
+Route::delete('/employer/job-post-skill-delete/{skill}/{job_post_id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'deleteSkill']); //delete skill using skill
 
 Route::get('/employer/get-job-post/{id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'show']);
 Route::get('/employer/get-job-posts', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'getJobPosts']); //get job post per company
 
 
-
 Route::get('/employer/get-my-companies', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'getMyCompanies']);
-
 
 
 Route::get('/employer/company-add-edit', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'create']);
@@ -160,8 +157,6 @@ Route::put('/employer/company-add-edit/{id}', [App\Http\Controllers\Employer\Emp
 Route::get('/employer/company-add-edit/{id}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'edit']);
 Route::get('/employer/company-show/{cid}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'show']);
 Route::delete('/employer/company-delete/{id}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'destroy']);
-
-
 
 
 // ------------------------------------------------------------------

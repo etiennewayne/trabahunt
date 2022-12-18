@@ -30715,6 +30715,30 @@ html body {
   box-shadow: 0px 1px 10px #e0e0e0;
 }
 
+.w-tag-container {
+  display: flex;
+}
+
+.w-tag-container > div {
+  margin: 10px;
+}
+
+.tag-category {
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.8em;
+  padding: 15px;
+  background-color: #ffd9ba;
+}
+
+.tag-jobtype {
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.8em;
+  padding: 15px;
+  background-color: #b5ccff;
+}
+
 @media screen and (max-width: 1023px) {
   .b-sidebar .sidebar-content.is-mini-mobile:not(.is-mini-expand) .menu-list li a span:nth-child(2), .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:not(:hover):not(.is-mini-delayed) .menu-list li a span:nth-child(2) {
     display: none;

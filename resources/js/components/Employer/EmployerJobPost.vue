@@ -158,10 +158,15 @@
                             {{ item.created_at | formatDateTime }}
                         </div>
                         <hr>
-                        <div class="box-post-body">
-                            <div>
-                                {{ item.job_desc }}
+                        <div class="w-tag-container">
+                            <div class="tag-category">
+                                {{ item.category.category }}
                             </div>
+                            <div class="tag-jobtype">
+                                {{ item.jobtype.jobtype }}
+                            </div>
+                        </div>
+                        <div class="box-post-body content" v-html="item.job_desc">
                         </div>
                         <hr>
                         <div class="box-post-footer">
@@ -288,7 +293,8 @@
                                             :data="filteredTags"
                                             autocomplete
                                             field="skill"
-                                            @remove="removeTag"
+                                            @remove="removeLedaTag"
+                                            :open-on-focus="true"
                                             icon="label"
                                             type="is-warning"
                                             placeholder="Add a skill"
@@ -496,14 +502,15 @@ export default {
                 this.modalFields.from_salary = parseFloat(res.data.from_salary);
                 this.modalFields.to_salary = parseFloat(res.data.to_salary);
 
-
                 let a = [];
                 res.data.skills.forEach(element => {
                     a.push({
+                        'job_post_id': element.job_post_id,
                         'skill': element.job_post_skill
                     })
                 });
                 this.modalFields.skills = a
+
             })
         },
 
@@ -556,8 +563,23 @@ export default {
                     .indexOf(text.toLowerCase()) >= 0
             })
         },
-        removeTag(e){
-            console.log('test remove ' + e)
+        removeLedaTag: function(data){
+            this.$buefy.dialog.confirm({
+                title: 'DELETE!',
+                type: 'is-danger',
+                message: 'Are you sure you want to delete this skill? This action cannot be undone.',
+                cancelText: 'Cancel',
+                confirmText: 'Delete',
+                onConfirm: () => {
+                    axios.delete('/employer/job-post-skill-delete/' + data.skill + '/' + data.job_post_id).then(res=>{
+                        this.$buefy.toast.open({
+                            message: 'Skill deleted successfully,',
+                            type: 'is-success'
+                        })
+                    })
+                }
+            });
+
         }
 
     },
@@ -604,6 +626,7 @@ export default {
     .box-post-body{
         padding: 15px;
     }
+
     .box-post-footer{
         padding: 15px;
         display: flex;

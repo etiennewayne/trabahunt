@@ -11902,6 +11902,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propCompanyId', 'propJobTypes', 'propCategories', 'propQualifications'],
   data: function data() {
@@ -12059,6 +12065,7 @@ __webpack_require__.r(__webpack_exports__);
         var a = [];
         res.data.skills.forEach(function (element) {
           a.push({
+            'job_post_id': element.job_post_id,
             'skill': element.job_post_skill
           });
         });
@@ -12117,8 +12124,24 @@ __webpack_require__.r(__webpack_exports__);
         return option.skill.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0;
       });
     },
-    removeTag: function removeTag(e) {
-      console.log('test remove ' + e);
+    removeLedaTag: function removeLedaTag(data) {
+      var _this9 = this;
+
+      this.$buefy.dialog.confirm({
+        title: 'DELETE!',
+        type: 'is-danger',
+        message: 'Are you sure you want to delete this skill? This action cannot be undone.',
+        cancelText: 'Cancel',
+        confirmText: 'Delete',
+        onConfirm: function onConfirm() {
+          axios["delete"]('/employer/job-post-skill-delete/' + data.skill + '/' + data.job_post_id).then(function (res) {
+            _this9.$buefy.toast.open({
+              message: 'Skill deleted successfully,',
+              type: 'is-success'
+            });
+          });
+        }
+      });
     }
   },
   mounted: function mounted() {
@@ -34613,7 +34636,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.slogan{\r\n        font-weight: bold;\r\n        font-size: 3em;\r\n        color: rgb(0, 100, 0);\r\n        text-align: center;\n}\n.filter{\r\n        background: #fffcfc;\n}\n.job-search-container{\r\n        max-width: 1024px;\r\n        /*border: 1px solid red;*/\r\n        margin: auto;\n}\n.result-container{\r\n        max-width: 1024px;\r\n        border: 1px solid red;\r\n        margin: auto;\n}\n.job-card{\r\n        padding: 10px;\n}\n.job-title{\r\n        font-weight: bold;\n}\r\n\r\n\r\n\r\n    /* APPLICANT EMPOYER SECTION */\n.t-box-container{\r\n        display: flex;\r\n        justify-content: center;\n}\n.t-box-applicant{\r\n        padding: 20px;\r\n        border-radius: 30px;\r\n        background-color: green;\r\n        color: white;\r\n        margin: 10px;\n}\n.t-box-title{\r\n        font-weight: bold;\r\n        font-size: 1em;\n}\n.t-box-applicant-title{\r\n        font-weight: bold;\r\n        font-size: 1.2em;\n}\n.t-box-applicant-subtitle{\r\n        padding: 15px;\n}\n.applicant-button{\r\n        padding: 15px;\r\n        border-radius: 30px;\r\n        border: 1px solid green;\r\n        font-weight: bold;\r\n        color:green;\n}\r\n\r\n    /* .applicant-button:hover{\r\n        background-color: rgb(179, 250, 165);\r\n        cursor: pointer;\r\n    } */\n.applicant-button:active {\r\n        /* background-color: #3e8e41;\r\n        box-shadow: 0 5px #666; */\r\n        transform: translateY(4px);\n}\n.applicant-button {\r\n        transition-duration: 0.4s;\n}\n.applicant-button span {\r\n        cursor: pointer;\r\n        display: inline-block;\r\n        position: relative;\r\n        transition: 0.5s;\n}\n.applicant-button span:after {\r\n        content: '\\00bb';\r\n        position: absolute;\r\n        opacity: 0;\r\n        top: 0;\r\n        right: -20px;\r\n        transition: 0.5s;\n}\n.applicant-button:hover span {\r\n        padding-right: 25px;\n}\n.applicant-button:hover span:after {\r\n        opacity: 1;\r\n        right: 0;\n}\r\n\r\n\r\n\r\n/* CATEGORY CONTAINER */\n.category-container{\r\n        margin-top: 15px;\r\n        display: flex;\r\n        flex-wrap: wrap;\n}\n.category-box{\r\n        background-color: green;\r\n        padding: 25px;\r\n        color: white;\r\n        width: 150px;\r\n        height: 150px;\r\n        display: flex;\r\n        align-items: center;\r\n        justify-content: center;\r\n        margin: 5px;\n}\n.category-content{\r\n        margin: auto;\n}\n.category-icon{\r\n        margin: auto;\r\n        text-align: center;\n}\n.category-desc{\r\n        font-weight: bold;\r\n        text-align: center;\n}\r\n\r\n\r\n    /* custom card */\n.w-card{\r\n        width: 400px;\r\n        border: 2px solid rgb(237, 250, 255);\r\n        border-radius: 2px;\n}\n.w-card-header{\r\n        margin: 15px;\n}\n.w-card-header-title{\r\n        font-weight: bold;\n}\n.w-tag-container{\r\n        display: flex;\n}\n.w-tag-container > div{\r\n        margin: 10px;\n}\n.tag-category{\r\n        border-radius: 10px;\r\n        font-weight: bold;\r\n        font-size: .8em;\r\n        padding: 15px;\r\n        background-color: rgb(255, 217, 186);\n}\n.tag-jobtype{\r\n        border-radius: 10px;\r\n        font-weight: bold;\r\n        font-size: .8em;\r\n        padding: 15px;\r\n        background-color: rgb(181, 204, 255);\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n.main-text-container{\r\n            top: 230px;\r\n            width: 100%;\r\n            margin: 0;\n}\n}\n@media only screen and (max-width: 480px) {\n.main-text-container{\r\n            padding: 15px;\n}\n.main-title{\r\n            font-size: 1.2em;\n}\n.main-subtitle{\r\n            font-size: .8em;\n}\n}\r\n\r\n\r\n\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.slogan{\n        font-weight: bold;\n        font-size: 3em;\n        color: rgb(0, 100, 0);\n        text-align: center;\n}\n.filter{\n        background: #fffcfc;\n}\n.job-search-container{\n        max-width: 1024px;\n        /*border: 1px solid red;*/\n        margin: auto;\n}\n.result-container{\n        max-width: 1024px;\n        border: 1px solid red;\n        margin: auto;\n}\n.job-card{\n        padding: 10px;\n}\n.job-title{\n        font-weight: bold;\n}\n\n\n\n    /* APPLICANT EMPOYER SECTION */\n.t-box-container{\n        display: flex;\n        justify-content: center;\n}\n.t-box-applicant{\n        padding: 20px;\n        border-radius: 30px;\n        background-color: green;\n        color: white;\n        margin: 10px;\n}\n.t-box-title{\n        font-weight: bold;\n        font-size: 1em;\n}\n.t-box-applicant-title{\n        font-weight: bold;\n        font-size: 1.2em;\n}\n.t-box-applicant-subtitle{\n        padding: 15px;\n}\n.applicant-button{\n        padding: 15px;\n        border-radius: 30px;\n        border: 1px solid green;\n        font-weight: bold;\n        color:green;\n}\n\n    /* .applicant-button:hover{\n        background-color: rgb(179, 250, 165);\n        cursor: pointer;\n    } */\n.applicant-button:active {\n        /* background-color: #3e8e41;\n        box-shadow: 0 5px #666; */\n        transform: translateY(4px);\n}\n.applicant-button {\n        transition-duration: 0.4s;\n}\n.applicant-button span {\n        cursor: pointer;\n        display: inline-block;\n        position: relative;\n        transition: 0.5s;\n}\n.applicant-button span:after {\n        content: '\\00bb';\n        position: absolute;\n        opacity: 0;\n        top: 0;\n        right: -20px;\n        transition: 0.5s;\n}\n.applicant-button:hover span {\n        padding-right: 25px;\n}\n.applicant-button:hover span:after {\n        opacity: 1;\n        right: 0;\n}\n\n\n\n/* CATEGORY CONTAINER */\n.category-container{\n        margin-top: 15px;\n        display: flex;\n        flex-wrap: wrap;\n}\n.category-box{\n        background-color: green;\n        padding: 25px;\n        color: white;\n        width: 150px;\n        height: 150px;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        margin: 5px;\n}\n.category-content{\n        margin: auto;\n}\n.category-icon{\n        margin: auto;\n        text-align: center;\n}\n.category-desc{\n        font-weight: bold;\n        text-align: center;\n}\n\n\n    /* custom card */\n.w-card{\n        width: 400px;\n        border: 2px solid rgb(237, 250, 255);\n        border-radius: 2px;\n}\n.w-card-header{\n        margin: 15px;\n}\n.w-card-header-title{\n        font-weight: bold;\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n.main-text-container{\n            top: 230px;\n            width: 100%;\n            margin: 0;\n}\n}\n@media only screen and (max-width: 480px) {\n.main-text-container{\n            padding: 15px;\n}\n.main-title{\n            font-size: 1.2em;\n}\n.main-subtitle{\n            font-size: .8em;\n}\n}\n\n\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -56550,15 +56573,28 @@ var render = function () {
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
-                  _c("div", { staticClass: "box-post-body" }, [
-                    _c("div", [
+                  _c("div", { staticClass: "w-tag-container" }, [
+                    _c("div", { staticClass: "tag-category" }, [
                       _vm._v(
                         "\n                                " +
-                          _vm._s(item.job_desc) +
+                          _vm._s(item.category.category) +
+                          "\n                            "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "tag-jobtype" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(item.jobtype.jobtype) +
                           "\n                            "
                       ),
                     ]),
                   ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "box-post-body content",
+                    domProps: { innerHTML: _vm._s(item.job_desc) },
+                  }),
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
@@ -56984,12 +57020,13 @@ var render = function () {
                                 data: _vm.filteredTags,
                                 autocomplete: "",
                                 field: "skill",
+                                "open-on-focus": true,
                                 icon: "label",
                                 type: "is-warning",
                                 placeholder: "Add a skill",
                               },
                               on: {
-                                remove: _vm.removeTag,
+                                remove: _vm.removeLedaTag,
                                 typing: _vm.getFilteredTagSkills,
                               },
                               scopedSlots: _vm._u([

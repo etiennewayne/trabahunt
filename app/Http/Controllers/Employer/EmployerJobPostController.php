@@ -132,4 +132,14 @@ class EmployerJobPostController extends Controller
             'status' => 'deleted'
         ], 200);
     }
+
+
+    public function deleteSkill($skill, $job_post_id){
+        JobPostSkill::where('job_post_skill', $skill)
+            ->where('job_post_id', $job_post_id)->delete();
+        return response()->json([
+            'status' => 'deleted'
+        ], 200);
+
+    }
 }

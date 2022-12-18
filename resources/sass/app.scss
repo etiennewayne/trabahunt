@@ -30,6 +30,37 @@ html body {
     box-shadow: 0px 1px 10px rgb(224, 224, 224);
 }
 
+
+//own style
+.w-tag-container{
+    display: flex;
+}
+.w-tag-container > div{
+    margin: 10px;
+}
+.tag-category{
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: .8em;
+    padding: 15px;
+    background-color: rgb(255, 217, 186);
+}
+.tag-jobtype{
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: .8em;
+    padding: 15px;
+    background-color: rgb(181, 204, 255);
+}
+
+
+
+
+
+
+
+
+
 @media screen and (max-width: 1023px) {
     .b-sidebar {
         .sidebar-content {
