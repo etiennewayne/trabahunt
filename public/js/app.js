@@ -44698,6 +44698,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propCompanyId', 'propJobTypes', 'propCategories', 'propQualifications'],
@@ -90405,7 +90407,7 @@ var render = function () {
                       },
                       [
                         _vm._v(
-                          "\n                                POSTS\n                                 \n                                 \n                                "
+                          "\n                                NEW POST\n                                 \n                                 \n                                "
                         ),
                         _c("b-icon", {
                           attrs: { icon: "content-save-outline" },
@@ -90462,6 +90464,18 @@ var render = function () {
                             ),
                           },
                           [
+                            _vm._v(" "),
+                            _c(
+                              "b-dropdown-item",
+                              {
+                                attrs: {
+                                  "aria-role": "listitem",
+                                  href:
+                                    "/employer/applicants/" + item.job_post_id,
+                                },
+                              },
+                              [_vm._v("Applicants")]
+                            ),
                             _vm._v(" "),
                             _c(
                               "b-dropdown-item",

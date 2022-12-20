@@ -16,7 +16,7 @@
 
                             <div class="buttons is-right mt-5">
                                 <b-button class="button is-primary" @click="jobPostModal(0)">
-                                    POSTS
+                                    NEW POST
                                     &nbsp;
                                     &nbsp;
                                     <b-icon icon="content-save-outline"></b-icon>
@@ -42,8 +42,10 @@
                                         <div class="dots">...</div>
                                     </template>
 
+                                    <b-dropdown-item aria-role="listitem" :href="`/employer/applicants/${item.job_post_id}`">Applicants</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="jobPostModal(item.job_post_id)">Update</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="confirmDelete(item.job_post_id)">Delete</b-dropdown-item>
+                                 
                                 </b-dropdown>
                             </div>
                         </div>
