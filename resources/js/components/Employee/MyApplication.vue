@@ -125,9 +125,6 @@ export default{
             this.clearFields();
             this.modalRating = true;
             this.job = item;
-
-
-            
         },
 
         submitRating(){
