@@ -93,6 +93,9 @@ Route::post('/employee/change-password', [App\Http\Controllers\Employee\Employee
 Route::get('/employee/get-user/{id}', [App\Http\Controllers\Employee\EmployeeProfileController::class, 'getUser']);
 
 
+Route::get('/employee/my-applications', [App\Http\Controllers\Employee\EmployeeMyApplicationController::class, 'index']);
+Route::get('/employee/get-my-applications', [App\Http\Controllers\Employee\EmployeeMyApplicationController::class, 'getMyApplications']);
+
 // ------------EMPLOYEE-----------------------
 
 
@@ -149,6 +152,13 @@ Route::get('/employer/get-job-posts', [App\Http\Controllers\Employer\EmployerJob
 
 Route::get('/employer/applicants/{job_post_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'index']); //get job post per company
 Route::get('/employer/get-applicants/{job_post_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'getApplicants']); //get job post per company
+Route::post('/employer/accept-applicant/{applicant_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'acceptApplicant']); //get job post per company
+Route::post('/employer/cancel-applicant/{applicant_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'cancelApplicant']); //get job post per company
+
+
+Route::get('/employer/display-resume/{applicant_id}', [App\Http\Controllers\Employer\ViewResumeController::class, 'viewResume']); //get job post per company
+Route::get('/employer/get-applicant-info/{applicant_id}', [App\Http\Controllers\Employer\ViewResumeController::class, 'getApplicantInfo']); //get job post per company
+
 
 
 Route::get('/employer/get-my-companies', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'getMyCompanies']);
@@ -160,6 +170,7 @@ Route::put('/employer/company-add-edit/{id}', [App\Http\Controllers\Employer\Emp
 Route::get('/employer/company-add-edit/{id}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'edit']);
 Route::get('/employer/company-show/{cid}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'show']);
 Route::delete('/employer/company-delete/{id}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'destroy']);
+
 
 
 // ------------------------------------------------------------------

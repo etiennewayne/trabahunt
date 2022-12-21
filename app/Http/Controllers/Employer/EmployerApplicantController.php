@@ -26,4 +26,24 @@ class EmployerApplicantController extends Controller
 
         return $data;
     }
+
+    public function acceptApplicant($appId){
+        $data = Applicant::find($appId);
+        $data->is_accepted = 1;
+        $data->save();
+
+        return response()->json([
+            'status' => 'accepted'
+        ], 200);
+    }
+
+    public function cancelApplicant($appId){
+        $data = Applicant::find($appId);
+        $data->is_accepted = 0;
+        $data->save();
+
+        return response()->json([
+            'status' => 'canceled'
+        ], 200);
+    }
 }

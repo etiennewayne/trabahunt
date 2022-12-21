@@ -3,7 +3,7 @@
         <footer class="footer">
             <div class="content has-text-centered">
                 <p>
-                    <strong>TRABAHUNT</strong> developed by E-Software Solution
+                    <strong>TRABAHUNT</strong> developed by L-Solution.
                 </p>
             </div>
         </footer>

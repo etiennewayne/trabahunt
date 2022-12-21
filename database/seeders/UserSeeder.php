@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
 
             //client
             [
-                'username' => 'user01',
+                'username' => 'mon',
                 'lname' => 'LUMAPAC',
                 'fname' => 'RAMONITO',
                 'mname' => 'P',
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
                 'street' => 'P-6',
                 'email' => 'neri@dev.com',
                 'contact_no' => '09167789585',
-                'role' => 'USER',
+                'role' => 'EMPLOYEE',
                 'password' => Hash::make('a')
             ],
 

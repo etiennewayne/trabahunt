@@ -22,9 +22,9 @@
         </template>
 
         <template #end>
-            <b-navbar-item href="/">
+            <!-- <b-navbar-item href="/">
                 FAQ
-            </b-navbar-item>
+            </b-navbar-item> -->
           
             <b-navbar-item v-if="currentLogin && user.role == 'EMPLOYEE'" href="/">
                 Home
@@ -32,6 +32,10 @@
             
             <b-navbar-item href="/employee/profile">
                 {{ showName }}
+            </b-navbar-item>
+
+            <b-navbar-item v-if="currentLogin && user.role == 'EMPLOYEE'" href="/employee/my-applications">
+                My Application
             </b-navbar-item>
             
 

@@ -14,11 +14,16 @@ class Applicant extends Model
 
     protected $fillable = [
         'pitch', 'job_post_id',
-        'user_id', 'resume_path'
+        'user_id', 'resume_path', 'is_accepted'
     ];
 
     public function applicant(){
         return $this->hasOne(User::class, 'user_id', 'user_id')
             ->with(['province', 'city', 'barangay']);
+    }
+
+    public function job_post(){
+        return $this->hasOne(JobPost::class, 'job_post_id', 'job_post_id')
+            ->with(['company']);
     }
 }
