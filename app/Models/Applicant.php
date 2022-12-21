@@ -17,4 +17,8 @@ class Applicant extends Model
         'user_id', 'resume_path'
     ];
 
+    public function applicant(){
+        return $this->hasOne(User::class, 'user_id', 'user_id')
+            ->with(['province', 'city', 'barangay']);
+    }
 }

@@ -19,7 +19,36 @@ class SkillSeeder extends Seeder
             [
                 'skill' => 'SOFTWARE ENGINEER',
             ],
-           
+            [
+                'skill' => 'PROGRAMMER',
+            ],
+            [
+                'skill' => 'MULTIMEDIA & ARTS',
+            ],
+            [
+                'skill' => 'CARPENTER',
+            ],
+            [
+                'skill' => 'MASON',
+            ],
+            [
+                'skill' => 'WASHER',
+            ],
+            [
+                'skill' => 'DRIVER',
+            ],
+            [
+                'skill' => 'BACKHOE OPERATOR',
+            ],
+            [
+                'skill' => 'DUMPTRUCK DRIVER',
+            ],
+            [
+                'skill' => 'ACCOUNTANT',
+            ],
+            [
+                'skill' => 'FINANCING',
+            ],
         ];
 
         \App\Models\Skill::insertOrIgnore($data);

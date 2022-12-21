@@ -147,6 +147,9 @@ Route::delete('/employer/job-post-skill-delete/{skill}/{job_post_id}', [App\Http
 Route::get('/employer/get-job-post/{id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'show']);
 Route::get('/employer/get-job-posts', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'getJobPosts']); //get job post per company
 
+Route::get('/employer/applicants/{job_post_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'index']); //get job post per company
+Route::get('/employer/get-applicants/{job_post_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'getApplicants']); //get job post per company
+
 
 Route::get('/employer/get-my-companies', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'getMyCompanies']);
 

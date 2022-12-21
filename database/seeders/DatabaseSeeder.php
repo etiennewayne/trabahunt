@@ -20,7 +20,9 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             JobtypeSeeder::class,
             CompanySeeder::class,
-            QualificationSeeder::class
+            QualificationSeeder::class,
+            SkillSeeder::class,
+            JobPostSeeder::class
         ]);
     }
 }

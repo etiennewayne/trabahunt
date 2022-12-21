@@ -21,7 +21,7 @@ class ApplyNowController extends Controller
     }
 
     public function store(Request $req){
-        
+
         $id = Auth::user()->user_id;
         $pdfPath = $req->file('dropFiles');
         $path = '';
