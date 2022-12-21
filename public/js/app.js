@@ -38473,6 +38473,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -38560,6 +38562,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -38571,20 +38574,38 @@ __webpack_require__.r(__webpack_exports__);
         'is-loading': false
       },
       fields: {},
-      errors: {}
+      errors: {},
+      job: {}
     };
   },
   methods: {
+    clearFields: function clearFields() {
+      this.fields = {
+        company_id: 0,
+        user_id: 0,
+        job_post_id: 0,
+        rating: 0
+      };
+    },
     loadMyApplications: function loadMyApplications() {
       var _this = this;
 
-      axios.get('/employee/get-my-applications').then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/employee/get-my-applications').then(function (res) {
         _this.myApplications = res.data;
       });
     },
-    openModalRating: function openModalRating() {
-      this.fields = {};
-      this.errors = {}, this.modalRating = true;
+    openModalRating: function openModalRating(item) {
+      this.clearFields();
+      this.modalRating = true;
+      this.job = item;
+    },
+    submitRating: function submitRating() {
+      this.fields.company_id = job.job_post.company_id;
+      this.fields.user_id = job.user_id;
+      this.fields.job_post_id = job.job_post_id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/employee/submit-rating', this.fields).then(function (res) {
+        if (res.data.status === 'submitted') {}
+      });
     }
   },
   mounted: function mounted() {
@@ -84831,7 +84852,11 @@ var render = function () {
                           "button",
                           {
                             staticClass: "is-info button",
-                            on: { click: _vm.openModalRating },
+                            on: {
+                              click: function ($event) {
+                                return _vm.openModalRating(item)
+                              },
+                            },
                           },
                           [_vm._v("Submit Rating")]
                         ),
@@ -84872,7 +84897,7 @@ var render = function () {
               on: {
                 submit: function ($event) {
                   $event.preventDefault()
-                  return _vm.submit.apply(null, arguments)
+                  return _vm.submitRating.apply(null, arguments)
                 },
               },
             },

@@ -32,7 +32,7 @@
 
                             <hr>
                             <div class="buttons" v-if="item.is_accepted === 1">
-                                <button class="is-info button" @click="openModalRating">Submit Rating</button>
+                                <button class="is-info button" @click="openModalRating(item)">Submit Rating</button>
                             </div>
                         </div>
                     </div><!--box-container-->
@@ -50,7 +50,7 @@
                  aria-modal
                  type = "is-link">
 
-            <form @submit.prevent="submit">
+            <form @submit.prevent="submitRating">
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Rating</p>
@@ -86,6 +86,7 @@
     </div><!--root div-->
 </template>
 <script>
+import axios from 'axios'
 export default{
     data(){
         return{
@@ -99,23 +100,46 @@ export default{
             },
 
             fields: {},
-            errors: {}
+            errors: {},
 
+            job: {},
         }
     },
 
     methods: {
+        clearFields(){
+            this.fields = {
+                company_id: 0,
+                user_id: 0,
+                job_post_id: 0,
+                rating: 0,
+            }
+        },
         loadMyApplications(){
             axios.get('/employee/get-my-applications').then(res=>{
                 this.myApplications = res.data;
             })
         },
 
-        openModalRating(){
-            this.fields = {};
-            this.errors = {},
+        openModalRating(item){
+            this.clearFields();
             this.modalRating = true;
+            this.job = item;
 
+
+            
+        },
+
+        submitRating(){
+            this.fields.company_id = job.job_post.company_id;
+            this.fields.user_id = job.user_id;
+            this.fields.job_post_id = job.job_post_id;
+
+            axios.post('/employee/submit-rating', this.fields).then(res=>{
+                if(res.data.status === 'submitted'){
+                    
+                }
+            })
         }
     },
 
