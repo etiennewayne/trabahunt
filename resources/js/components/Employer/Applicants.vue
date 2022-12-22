@@ -15,7 +15,8 @@
                                 </div>
 
                                 <div>
-                                    <strong>Rate: </strong> <b-rate></b-rate>
+                                    <strong>Rate: </strong> <b-rate v-model="applicant.user_total_rating"></b-rate>
+                                    <b-button label="Rate" @click="openRateModal(applicant)"></b-button>
                                 </div>
 
                                 <div>
@@ -52,8 +53,50 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> <!--section -->
+
+         <!--modal create-->
+         <b-modal v-model="rateModal" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal
+                 type = "is-link">
+
+            <form @submit.prevent="submitRate">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Rating</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="rateModal = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-rate custom-text="Rate here" v-model="fields.rating"></b-rate>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button
+                            :class="btnClass"
+                            label="Save"
+                            type="is-success">Submit</button>
+                    </footer>
+                </div>
+            </form><!--close form-->
+        </b-modal>
+        <!--close modal-->
+
+        
+    </div><!--root div -->
 </template>
 <script>
 export default{
@@ -62,6 +105,17 @@ export default{
         return {
             job_post_id: 0,
             applicants: [],
+
+            rateModal: false,
+            fields: {},
+
+            btnClass: {
+                'is-success': true,
+                'button': true,
+                'is-loading':false,
+            },
+
+            applicant: {},
         }
     },
 
@@ -73,6 +127,7 @@ export default{
         getApplicants(){
             axios.get('/employer/get-applicants/' + this.job_post_id).then(res=>{
                 this.applicants = res.data
+                //console.log(this.applicants);
             })
         },
 
@@ -123,10 +178,51 @@ export default{
                         type: 'is-success',
                         message: 'Canceled successfully.',
                     });
-
                     this.getApplicants();
                 }
             })
+        },
+
+        openRateModal(row){
+
+            this.clearFields();
+            this.rateModal = true;
+            this.applicant = row;
+        },
+
+        submitRate(){
+            this.fields.user_id = this.applicant.user_id;
+            this.fields.job_post_id = this.applicant.job_post_id;
+            this.fields.applicant_id = this.applicant.applicant_id;
+
+            axios.post('/employer/rate-employee', this.fields).then(res=>{
+                this.rateModal = false;
+                if(res.data.status === 'submitted'){
+                    this.$buefy.dialog.alert({
+                        title: 'Success',
+                        type: 'is-success',
+                        message: 'Submitted successfully.',
+                    });
+                }
+            }).catch(err=>{
+                if(err.response.data.status === 'exist'){
+                    this.rateModal = false;
+
+                    this.$buefy.dialog.alert({
+                        title: 'Exist!',
+                        type: 'is-danger',
+                        message: 'Already rated.',
+                    });
+                }
+            })
+        },
+
+        clearFields(){
+            this.fields = {
+                user_id: 0,
+                rating: 0,
+                job_post_id: 0,
+            };
         }
     },
 

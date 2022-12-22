@@ -50,5 +50,31 @@
     margin: 30px auto 0;
 }
 
+.report-head{
+    text-align: center;
+    font-weight: bold;
+    margin: 5px 0;
+}
+.report-body{
+
+}
+
+
+.report-table{
+    margin: auto;
+    border: 1px solid red;
+}
+.report-table > tr > th{
+    padding: 10px;
+}
+
+.report-table > tr{
+    border: 1px solid black;
+}
+
+.report-table > tr > td{
+    padding: 10px;
+}
+
 
 

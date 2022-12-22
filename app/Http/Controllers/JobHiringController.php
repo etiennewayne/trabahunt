@@ -34,7 +34,6 @@ class JobHiringController extends Controller
         //     ->get();
 
         $data = JobPost::select('*')
-           
             ->addSelect(['rating' => function ($q) use ($req){
                 $q->selectRaw('sum(rating)')
                 ->from('company_ratings')

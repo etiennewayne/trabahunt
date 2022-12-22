@@ -29,6 +29,16 @@
                         Skills
                     </b-navbar-item>
                 </b-navbar-dropdown>
+                
+
+                <b-navbar-dropdown label="Reports">
+                    <b-navbar-item href="/hired-list">
+                        Hired Llst
+                    </b-navbar-item>
+         
+                </b-navbar-dropdown>
+
+
                 <b-navbar-item href="/admin/users">
                     Users
                 </b-navbar-item>

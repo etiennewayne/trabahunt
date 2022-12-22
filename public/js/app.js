@@ -36058,6 +36058,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -36440,6 +36450,72 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.loadAsyncData();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/Report/HiredList.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/Report/HiredList.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['propData'],
+  data: function data() {
+    return {
+      data: []
+    };
+  },
+  methods: {
+    initData: function initData() {
+      this.data = JSON.parse(this.propData);
+    }
+  },
+  mounted: function mounted() {
+    this.initData();
   }
 });
 
@@ -38698,12 +38774,63 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propJobPostId'],
   data: function data() {
     return {
       job_post_id: 0,
-      applicants: []
+      applicants: [],
+      rateModal: false,
+      fields: {},
+      btnClass: {
+        'is-success': true,
+        'button': true,
+        'is-loading': false
+      },
+      applicant: {}
     };
   },
   methods: {
@@ -38714,7 +38841,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/employer/get-applicants/' + this.job_post_id).then(function (res) {
-        _this.applicants = res.data;
+        _this.applicants = res.data; //console.log(this.applicants);
       });
     },
     acceptApplicant: function acceptApplicant(appId) {
@@ -38775,6 +38902,46 @@ __webpack_require__.r(__webpack_exports__);
           _this5.getApplicants();
         }
       });
+    },
+    openRateModal: function openRateModal(row) {
+      this.clearFields();
+      this.rateModal = true;
+      this.applicant = row;
+    },
+    submitRate: function submitRate() {
+      var _this6 = this;
+
+      this.fields.user_id = this.applicant.user_id;
+      this.fields.job_post_id = this.applicant.job_post_id;
+      this.fields.applicant_id = this.applicant.applicant_id;
+      axios.post('/employer/rate-employee', this.fields).then(function (res) {
+        _this6.rateModal = false;
+
+        if (res.data.status === 'submitted') {
+          _this6.$buefy.dialog.alert({
+            title: 'Success',
+            type: 'is-success',
+            message: 'Submitted successfully.'
+          });
+        }
+      })["catch"](function (err) {
+        if (err.response.data.status === 'exist') {
+          _this6.rateModal = false;
+
+          _this6.$buefy.dialog.alert({
+            title: 'Exist!',
+            type: 'is-danger',
+            message: 'Already rated.'
+          });
+        }
+      });
+    },
+    clearFields: function clearFields() {
+      this.fields = {
+        user_id: 0,
+        rating: 0,
+        job_post_id: 0
+      };
     }
   },
   mounted: function mounted() {
@@ -76965,6 +77132,45 @@ component.options.__file = "resources/js/components/Administrator/Quallification
 
 /***/ }),
 
+/***/ "./resources/js/components/Administrator/Report/HiredList.vue":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/Administrator/Report/HiredList.vue ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _HiredList_vue_vue_type_template_id_2aedc180___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HiredList.vue?vue&type=template&id=2aedc180& */ "./resources/js/components/Administrator/Report/HiredList.vue?vue&type=template&id=2aedc180&");
+/* harmony import */ var _HiredList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HiredList.vue?vue&type=script&lang=js& */ "./resources/js/components/Administrator/Report/HiredList.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HiredList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HiredList_vue_vue_type_template_id_2aedc180___WEBPACK_IMPORTED_MODULE_0__.render,
+  _HiredList_vue_vue_type_template_id_2aedc180___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Administrator/Report/HiredList.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Administrator/Services/ServicesPage.vue":
 /*!*************************************************************************!*\
   !*** ./resources/js/components/Administrator/Services/ServicesPage.vue ***!
@@ -78107,6 +78313,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Administrator/Report/HiredList.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/Administrator/Report/HiredList.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HiredList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HiredList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/Report/HiredList.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HiredList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Administrator/Services/ServicesPage.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************!*\
   !*** ./resources/js/components/Administrator/Services/ServicesPage.vue?vue&type=script&lang=js& ***!
@@ -78849,6 +79071,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Qualification_vue_vue_type_template_id_ffee3ce4_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Qualification_vue_vue_type_template_id_ffee3ce4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Qualification.vue?vue&type=template&id=ffee3ce4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/Quallification/Qualification.vue?vue&type=template&id=ffee3ce4&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Administrator/Report/HiredList.vue?vue&type=template&id=2aedc180&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/Administrator/Report/HiredList.vue?vue&type=template&id=2aedc180& ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HiredList_vue_vue_type_template_id_2aedc180___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HiredList_vue_vue_type_template_id_2aedc180___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HiredList_vue_vue_type_template_id_2aedc180___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HiredList.vue?vue&type=template&id=2aedc180& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/Report/HiredList.vue?vue&type=template&id=2aedc180&");
 
 
 /***/ }),
@@ -80846,6 +81085,19 @@ var render = function () {
                   1
                 ),
                 _vm._v(" "),
+                _c(
+                  "b-navbar-dropdown",
+                  { attrs: { label: "Reports" } },
+                  [
+                    _c("b-navbar-item", { attrs: { href: "/hired-list" } }, [
+                      _vm._v(
+                        "\n                    Hired Llst\n                "
+                      ),
+                    ]),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
                 _c("b-navbar-item", { attrs: { href: "/admin/users" } }, [
                   _vm._v("\n                Users\n            "),
                 ]),
@@ -81349,6 +81601,103 @@ var render = function () {
   )
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/Report/HiredList.vue?vue&type=template&id=2aedc180&":
+/*!******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/Report/HiredList.vue?vue&type=template&id=2aedc180& ***!
+  \******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "printarea" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "report-head" }, [
+        _vm._v("\n            LIST OF HIRED EMPLOYEES\n        "),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "report-body" }, [
+        _c(
+          "table",
+          { staticClass: "report-table", attrs: { border: "1" } },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._l(_vm.data, function (item, index) {
+              return _c("tr", { key: index }, [
+                _c("td", [
+                  _vm._v(
+                    _vm._s(item.applicant.lname) +
+                      ", " +
+                      _vm._s(item.applicant.fname) +
+                      " " +
+                      _vm._s(item.applicant.mname)
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.applicant.sex))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.contact_no))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.email))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.job_post.company.company))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.date_hired))]),
+              ])
+            }),
+          ],
+          2
+        ),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "buttons" }, [
+      _c("a", { staticClass: "button", attrs: { href: "/admin/home" } }, [
+        _vm._v("BACK"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Sex")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Contact No.")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Email")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Company")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Date Hired")]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -85008,160 +85357,273 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "section" }, [
-      _c("div", { staticClass: "columns is-centered" }, [
-        _c(
-          "div",
-          { staticClass: "column is-10" },
-          _vm._l(_vm.applicants, function (applicant, index) {
-            return _c("div", { key: index, staticClass: "box-container" }, [
-              _c("div", { staticClass: "box" }, [
-                _c(
-                  "div",
-                  { staticClass: "applicant-info" },
-                  [
-                    applicant.is_accepted === 1
-                      ? _c("b-tag", { attrs: { type: "is-success" } }, [
-                          _vm._v("Accepted"),
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("Date Applied: ")]),
-                      _vm._v(
-                        _vm._s(_vm._f("formatDateTime")(applicant.created_at)) +
-                          "\n                            "
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      [
-                        _c("strong", [_vm._v("Rate: ")]),
-                        _vm._v(" "),
-                        _c("b-rate"),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("Name:")]),
-                      _vm._v(
-                        " " +
-                          _vm._s(applicant.applicant.lname) +
-                          ", " +
-                          _vm._s(applicant.applicant.fname) +
-                          " " +
-                          _vm._s(applicant.applicant.mname) +
-                          "\n                            "
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("Address:")]),
-                      _vm._v(
-                        " " +
-                          _vm._s(applicant.applicant.street) +
-                          ", " +
-                          _vm._s(applicant.applicant.barangay.brgyDesc) +
-                          " " +
-                          _vm._s(applicant.applicant.city.citymunDesc) +
-                          " " +
-                          _vm._s(applicant.applicant.province.provDesc) +
-                          "\n                            "
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("Contact No.: ")]),
-                      _vm._v(
-                        " " +
-                          _vm._s(applicant.applicant.contact_no) +
-                          "\n                            "
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("Email.: ")]),
-                      _vm._v(
-                        " " +
-                          _vm._s(applicant.applicant.email) +
-                          "\n                            "
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("Message:")]),
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "section" }, [
+        _c("div", { staticClass: "columns is-centered" }, [
+          _c(
+            "div",
+            { staticClass: "column is-10" },
+            _vm._l(_vm.applicants, function (applicant, index) {
+              return _c("div", { key: index, staticClass: "box-container" }, [
+                _c("div", { staticClass: "box" }, [
+                  _c(
+                    "div",
+                    { staticClass: "applicant-info" },
+                    [
+                      applicant.is_accepted === 1
+                        ? _c("b-tag", { attrs: { type: "is-success" } }, [
+                            _vm._v("Accepted"),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Date Applied: ")]),
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("formatDateTime")(applicant.created_at)
+                          ) + "\n                            "
+                        ),
+                      ]),
                       _vm._v(" "),
                       _c(
                         "div",
-                        { staticStyle: { margin: "5px 5px 5px 60px" } },
-                        [_vm._v(_vm._s(applicant.pitch))]
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("Resume: ")]),
-                      _vm._v(" "),
-                      applicant.resume_path
-                        ? _c(
-                            "a",
-                            {
-                              staticClass: "is-small button",
-                              attrs: {
-                                href:
-                                  "/storage/applications/" +
-                                  applicant.resume_path,
+                        [
+                          _c("strong", [_vm._v("Rate: ")]),
+                          _vm._v(" "),
+                          _c("b-rate", {
+                            model: {
+                              value: applicant.user_total_rating,
+                              callback: function ($$v) {
+                                _vm.$set(applicant, "user_total_rating", $$v)
+                              },
+                              expression: "applicant.user_total_rating",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("b-button", {
+                            attrs: { label: "Rate" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.openRateModal(applicant)
                               },
                             },
-                            [_vm._v("View")]
-                          )
-                        : _vm._e(),
-                    ]),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "buttons mt-5" }, [
-                  applicant.is_accepted === 0
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "button is-primary",
-                          on: {
-                            click: function ($event) {
-                              return _vm.acceptApplicant(applicant.applicant_id)
-                            },
-                          },
-                        },
-                        [_vm._v("Accept")]
-                      )
-                    : _vm._e(),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Name:")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(applicant.applicant.lname) +
+                            ", " +
+                            _vm._s(applicant.applicant.fname) +
+                            " " +
+                            _vm._s(applicant.applicant.mname) +
+                            "\n                            "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Address:")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(applicant.applicant.street) +
+                            ", " +
+                            _vm._s(applicant.applicant.barangay.brgyDesc) +
+                            " " +
+                            _vm._s(applicant.applicant.city.citymunDesc) +
+                            " " +
+                            _vm._s(applicant.applicant.province.provDesc) +
+                            "\n                            "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Contact No.: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(applicant.applicant.contact_no) +
+                            "\n                            "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Email.: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(applicant.applicant.email) +
+                            "\n                            "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Message:")]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticStyle: { margin: "5px 5px 5px 60px" } },
+                          [_vm._v(_vm._s(applicant.pitch))]
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("strong", [_vm._v("Resume: ")]),
+                        _vm._v(" "),
+                        applicant.resume_path
+                          ? _c(
+                              "a",
+                              {
+                                staticClass: "is-small button",
+                                attrs: {
+                                  href:
+                                    "/storage/applications/" +
+                                    applicant.resume_path,
+                                },
+                              },
+                              [_vm._v("View")]
+                            )
+                          : _vm._e(),
+                      ]),
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
-                  applicant.is_accepted === 1
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "button is-danger",
-                          on: {
-                            click: function ($event) {
-                              return _vm.cancelAccept(applicant.applicant_id)
+                  _c("div", { staticClass: "buttons mt-5" }, [
+                    applicant.is_accepted === 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "button is-primary",
+                            on: {
+                              click: function ($event) {
+                                return _vm.acceptApplicant(
+                                  applicant.applicant_id
+                                )
+                              },
                             },
                           },
-                        },
-                        [_vm._v("Cancel")]
-                      )
-                    : _vm._e(),
+                          [_vm._v("Accept")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    applicant.is_accepted === 1
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "button is-danger",
+                            on: {
+                              click: function ($event) {
+                                return _vm.cancelAccept(applicant.applicant_id)
+                              },
+                            },
+                          },
+                          [_vm._v("Cancel")]
+                        )
+                      : _vm._e(),
+                  ]),
+                ]),
+              ])
+            }),
+            0
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+            type: "is-link",
+          },
+          model: {
+            value: _vm.rateModal,
+            callback: function ($$v) {
+              _vm.rateModal = $$v
+            },
+            expression: "rateModal",
+          },
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.submitRate.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "modal-card" }, [
+                _c("header", { staticClass: "modal-card-head" }, [
+                  _c("p", { staticClass: "modal-card-title" }, [
+                    _vm._v("Rating"),
+                  ]),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "delete",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        _vm.rateModal = false
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("section", { staticClass: "modal-card-body" }, [
+                  _c("div", {}, [
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c("b-rate", {
+                            attrs: { "custom-text": "Rate here" },
+                            model: {
+                              value: _vm.fields.rating,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.fields, "rating", $$v)
+                              },
+                              expression: "fields.rating",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("footer", { staticClass: "modal-card-foot" }, [
+                  _c(
+                    "button",
+                    {
+                      class: _vm.btnClass,
+                      attrs: { label: "Save", type: "is-success" },
+                    },
+                    [_vm._v("Submit")]
+                  ),
                 ]),
               ]),
-            ])
-          }),
-          0
-        ),
-      ]),
-    ]),
-  ])
+            ]
+          ),
+        ]
+      ),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -102255,6 +102717,7 @@ var map = {
 	"./components/Administrator/JobType/JobType.vue": "./resources/js/components/Administrator/JobType/JobType.vue",
 	"./components/Administrator/NavbarComponent.vue": "./resources/js/components/Administrator/NavbarComponent.vue",
 	"./components/Administrator/Quallification/Qualification.vue": "./resources/js/components/Administrator/Quallification/Qualification.vue",
+	"./components/Administrator/Report/HiredList.vue": "./resources/js/components/Administrator/Report/HiredList.vue",
 	"./components/Administrator/Services/ServicesPage.vue": "./resources/js/components/Administrator/Services/ServicesPage.vue",
 	"./components/Administrator/Skill/Skills.vue": "./resources/js/components/Administrator/Skill/Skills.vue",
 	"./components/Administrator/User/UserPage.vue": "./resources/js/components/Administrator/User/UserPage.vue",

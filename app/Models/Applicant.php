@@ -14,7 +14,7 @@ class Applicant extends Model
 
     protected $fillable = [
         'pitch', 'job_post_id',
-        'user_id', 'resume_path', 'is_accepted'
+        'user_id', 'resume_path', 'is_accepted', 'date_hired'
     ];
 
     public function applicant(){

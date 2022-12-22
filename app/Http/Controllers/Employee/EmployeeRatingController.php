@@ -2,42 +2,38 @@
 
 namespace App\Http\Controllers\Employee;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\CompanyRating;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\EmployeeRating;
 
 class EmployeeRatingController extends Controller
 {
     //
+
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('employee');
     }
 
-    public function store(Request $req){
+    public function getEmployeeRating($user_id){
 
-        $exist = CompanyRating::where('company_id', $req->company_id)
-            ->where('user_id', $req->user_id)
-            ->where('job_post_id', $req->job_post_id)
-            ->exists();
-        if($exist){
-            return response()->json([
-                'status' => 'exist'
-            ], 422);
-        }
+        $data = EmployeeRating::select('*')
+            ->addSelect(['total_rating' => function ($q) use ($user_id){
+                $q->selectRaw('sum(rating)')
+                ->from('employee_ratings')
+                ->where('user_id', $user_id);
+            }])
+            ->addSelect(['total_raters' => function ($q) use ($user_id){
+                $q->selectRaw('count(*)')
+                ->from('employee_ratings')
+                ->where('user_id', $user_id);
+            }])
+           ->selectRaw('(select(total_rating) / (select count(*) from employee_ratings where user_id = ?)) as user_total_rating', [$user_id])
+            ->where('user_id', $user_id)
+            ->get();
 
-        CompanyRating::create([
-            'company_id' => $req->company_id,
-            'user_id' => $req->user_id,
-            'job_post_id' => $req->job_post_id,
-            'rating' => $req->rating,
-        ]);
-
-        return response()->json([
-            'status' => 'submitted'
-        ], 200);
-
+        return $data;
     }
 
-    
+
 }
