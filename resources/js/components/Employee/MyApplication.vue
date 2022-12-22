@@ -50,7 +50,7 @@
                  aria-modal
                  type = "is-link">
 
-            <form @submit.prevent="submitRating">
+            <form @submit.prevent="submit">
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Rating</p>
@@ -65,10 +65,9 @@
 
                             <div class="columns">
                                 <div class="column">
-                                    <b-rate custom-text="Rate here"></b-rate>
+                                    <b-rate custom-text="Rate here" v-model="fields.rating"></b-rate>
                                 </div>
                             </div>
-
                         </div>
                     </section>
                     <footer class="modal-card-foot">
@@ -86,7 +85,7 @@
     </div><!--root div-->
 </template>
 <script>
-import axios from 'axios'
+
 export default{
     data(){
         return{
@@ -127,15 +126,30 @@ export default{
             this.job = item;
         },
 
-        submitRating(){
-            this.fields.company_id = job.job_post.company_id;
-            this.fields.user_id = job.user_id;
-            this.fields.job_post_id = job.job_post_id;
+        submit(){
+            this.fields.company_id = this.job.job_post.company_id;
+            this.fields.user_id = this.job.user_id;
+            this.fields.job_post_id = this.job.job_post_id;
 
             axios.post('/employee/submit-rating', this.fields).then(res=>{
                 if(res.data.status === 'submitted'){
+                    this.modalRating = false;
+                    this.$buefy.dialog.alert({
+                        title: 'RATED!',
+                        type: 'is-success',
+                        message: 'Rating submitted successfully.',
+                    });
                     
                 }
+            }).catch(err=>{
+                if(err.response.data.status === 'exist'){
+                    this.$buefy.dialog.alert({
+                        title: 'RATED!',
+                        type: 'is-danger',
+                        message: 'Already rated this job post.',
+                    });
+                }
+                // if(err.response.status)
             })
         }
     },

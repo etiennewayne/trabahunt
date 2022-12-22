@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobPost;
+use App\Models\CompanyRating;
+
 use Illuminate\Http\Request;
 
 class JobHiringController extends Controller
@@ -31,13 +33,22 @@ class JobHiringController extends Controller
         //     ->where('c.jobtype', 'like', $req->jobtype . '%')
         //     ->get();
 
-        $data = JobPost::with(['category', 'jobtype', 'company', 'skills', 'province', 'city', 'barangay'])
+        $data = JobPost::select('*')
+           
+            ->addSelect(['rating' => function ($q) use ($req){
+                $q->selectRaw('sum(rating)')
+                ->from('company_ratings')
+                ->whereColumn('company_id', 'job_posts.company_id');
+            }])
+            ->selectRaw('(select(rating) / (select count(rating) from company_ratings where company_id = job_posts.company_id)) as company_rate')
+            ->with(['category', 'jobtype', 'company', 'skills', 'province', 'city', 'barangay'])
             ->whereHas('category', function($q) use ($req){
                 $q->where('category', 'like', $req->category . '%');
             })
             ->whereHas('jobtype', function($q) use ($req){
                 $q->where('jobtype', 'like', $req->jobtype . '%');
-            })->orderBy('job_post_id', 'desc');
+            })
+            ->orderBy('job_post_id', 'desc');
 
         return $data->get();
     }

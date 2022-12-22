@@ -38473,8 +38473,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -38561,8 +38559,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -38590,7 +38586,7 @@ __webpack_require__.r(__webpack_exports__);
     loadMyApplications: function loadMyApplications() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/employee/get-my-applications').then(function (res) {
+      axios.get('/employee/get-my-applications').then(function (res) {
         _this.myApplications = res.data;
       });
     },
@@ -38599,12 +38595,31 @@ __webpack_require__.r(__webpack_exports__);
       this.modalRating = true;
       this.job = item;
     },
-    submitRating: function submitRating() {
-      this.fields.company_id = job.job_post.company_id;
-      this.fields.user_id = job.user_id;
-      this.fields.job_post_id = job.job_post_id;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/employee/submit-rating', this.fields).then(function (res) {
-        if (res.data.status === 'submitted') {}
+    submit: function submit() {
+      var _this2 = this;
+
+      this.fields.company_id = this.job.job_post.company_id;
+      this.fields.user_id = this.job.user_id;
+      this.fields.job_post_id = this.job.job_post_id;
+      axios.post('/employee/submit-rating', this.fields).then(function (res) {
+        if (res.data.status === 'submitted') {
+          _this2.modalRating = false;
+
+          _this2.$buefy.dialog.alert({
+            title: 'RATED!',
+            type: 'is-success',
+            message: 'Rating submitted successfully.'
+          });
+        }
+      })["catch"](function (err) {
+        if (err.response.data.status === 'exist') {
+          _this2.$buefy.dialog.alert({
+            title: 'RATED!',
+            type: 'is-danger',
+            message: 'Already rated this job post.'
+          });
+        } // if(err.response.status)
+
       });
     }
   },
@@ -38626,6 +38641,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -41363,6 +41383,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -63674,7 +63697,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.slogan{\n        font-weight: bold;\n        font-size: 3em;\n        color: rgb(0, 100, 0);\n        text-align: center;\n}\n.filter{\n        background: #fffcfc;\n}\n.job-search-container{\n        max-width: 1024px;\n        /*border: 1px solid red;*/\n        margin: auto;\n}\n.result-container{\n        max-width: 1024px;\n        /* border: 1px solid red; */\n        margin: auto;\n}\n.result-content{\n        display: flex;\n}\n.job-card{\n        padding: 10px;\n}\n.job-title{\n        font-weight: bold;\n}\n\n\n\n    /* APPLICANT EMPOYER SECTION */\n.t-box-container{\n        display: flex;\n        justify-content: center;\n}\n.t-box-applicant{\n        padding: 20px;\n        border-radius: 30px;\n        background-color: green;\n        color: white;\n        margin: 10px;\n}\n.t-box-title{\n        font-weight: bold;\n        font-size: 1em;\n}\n.t-box-applicant-title{\n        font-weight: bold;\n        font-size: 1.2em;\n}\n.t-box-applicant-subtitle{\n        padding: 15px;\n}\n.applicant-button{\n        padding: 15px;\n        border-radius: 30px;\n        border: 1px solid green;\n        font-weight: bold;\n        color:green;\n}\n\n    /* .applicant-button:hover{\n        background-color: rgb(179, 250, 165);\n        cursor: pointer;\n    } */\n.applicant-button:active {\n        /* background-color: #3e8e41;\n        box-shadow: 0 5px #666; */\n        transform: translateY(4px);\n}\n.applicant-button {\n        transition-duration: 0.4s;\n}\n.applicant-button span {\n        cursor: pointer;\n        display: inline-block;\n        position: relative;\n        transition: 0.5s;\n}\n.applicant-button span:after {\n        content: '\\00bb';\n        position: absolute;\n        opacity: 0;\n        top: 0;\n        right: -20px;\n        transition: 0.5s;\n}\n.applicant-button:hover span {\n        padding-right: 25px;\n}\n.applicant-button:hover span:after {\n        opacity: 1;\n        right: 0;\n}\n\n\n\n/* CATEGORY CONTAINER */\n.category-container{\n        margin-top: 15px;\n        display: flex;\n        flex-wrap: wrap;\n}\n.category-box{\n        background-color: green;\n        padding: 25px;\n        color: white;\n        width: 150px;\n        height: 150px;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        margin: 5px;\n}\n.category-content{\n        margin: auto;\n}\n.category-icon{\n        margin: auto;\n        text-align: center;\n}\n.category-desc{\n        font-weight: bold;\n        text-align: center;\n}\n\n\n    /* custom card */\n.w-card{\n        max-width: 720px;\n        border: 2px solid rgb(211, 211, 211);\n        border-radius: 2px;\n        margin: 15px auto;\n}\n.w-card-header{\n        margin: 15px;\n}\n.w-card-header-title{\n        font-weight: bold;\n}\n.w-card-body{\n        margin: 15px;\n}\n.w-card-footer{\n        padding: 15px;\n}\n\n\n    /* Card Reult\n        CSS for result card when job click\n    */\n.card-result{\n        margin: 0 15px;\n        border: 1px solid rgb(230, 230, 230);\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n.main-text-container{\n            top: 230px;\n            width: 100%;\n            margin: 0;\n}\n}\n@media only screen and (max-width: 480px) {\n.main-text-container{\n            padding: 15px;\n}\n.main-title{\n            font-size: 1.2em;\n}\n.main-subtitle{\n            font-size: .8em;\n}\n}\n\n\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.slogan{\n        font-weight: bold;\n        font-size: 3em;\n        color: rgb(0, 100, 0);\n        text-align: center;\n}\n.filter{\n        background: #fffcfc;\n}\n.job-search-container{\n        max-width: 1024px;\n        /*border: 1px solid red;*/\n        margin: auto;\n}\n.result-container{\n        max-width: 1024px;\n        /* border: 1px solid red; */\n        margin: auto;\n}\n.result-content{\n        display: flex;\n}\n.job-card{\n        padding: 10px;\n}\n.job-title{\n        font-weight: bold;\n}\n\n\n\n    /* APPLICANT EMPOYER SECTION */\n.t-box-container{\n        display: flex;\n        justify-content: center;\n}\n.t-box-applicant{\n        padding: 20px;\n        border-radius: 30px;\n        background-color: green;\n        color: white;\n        margin: 10px;\n}\n.t-box-title{\n        font-weight: bold;\n        font-size: 1em;\n}\n.t-box-applicant-title{\n        font-weight: bold;\n        font-size: 1.2em;\n}\n.t-box-applicant-subtitle{\n        padding: 15px;\n}\n.applicant-button{\n        padding: 15px;\n        border-radius: 30px;\n        border: 1px solid green;\n        font-weight: bold;\n        color:green;\n}\n\n    /* .applicant-button:hover{\n        background-color: rgb(179, 250, 165);\n        cursor: pointer;\n    } */\n.applicant-button:active {\n        /* background-color: #3e8e41;\n        box-shadow: 0 5px #666; */\n        transform: translateY(4px);\n}\n.applicant-button {\n        transition-duration: 0.4s;\n}\n.applicant-button span {\n        cursor: pointer;\n        display: inline-block;\n        position: relative;\n        transition: 0.5s;\n}\n.applicant-button span:after {\n        content: '\\00bb';\n        position: absolute;\n        opacity: 0;\n        top: 0;\n        right: -20px;\n        transition: 0.5s;\n}\n.applicant-button:hover span {\n        padding-right: 25px;\n}\n.applicant-button:hover span:after {\n        opacity: 1;\n        right: 0;\n}\n\n\n\n/* CATEGORY CONTAINER */\n.category-container{\n        margin-top: 15px;\n        display: flex;\n        flex-wrap: wrap;\n}\n.category-box{\n        background-color: green;\n        padding: 25px;\n        color: white;\n        width: 150px;\n        height: 150px;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        margin: 5px;\n}\n.category-content{\n        margin: auto;\n}\n.category-icon{\n        margin: auto;\n        text-align: center;\n}\n.category-desc{\n        font-weight: bold;\n        text-align: center;\n}\n\n\n    /* custom card */\n.w-card{\n        max-width: 720px;\n        border: 2px solid rgb(211, 211, 211);\n        border-radius: 2px;\n        margin: 15px auto;\n}\n.w-card-header{\n        margin: 15px;\n}\n.w-card-header-title{\n        font-weight: bold;\n}\n.w-card-body{\n        margin: 15px;\n}\n.w-card-footer{\n        padding: 15px;\n}\n.company-rate{\n        font-weight: bold; \n        font-size: 12px; \n        color: rgb(145, 145, 145);\n        margin: 15px 0 0 0;\n}\n\n\n    /* Card Reult\n        CSS for result card when job click\n    */\n.card-result{\n        margin: 0 15px;\n        border: 1px solid rgb(230, 230, 230);\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n.main-text-container{\n            top: 230px;\n            width: 100%;\n            margin: 0;\n}\n}\n@media only screen and (max-width: 480px) {\n.main-text-container{\n            padding: 15px;\n}\n.main-title{\n            font-size: 1.2em;\n}\n.main-subtitle{\n            font-size: .8em;\n}\n}\n\n\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -84897,7 +84920,7 @@ var render = function () {
               on: {
                 submit: function ($event) {
                   $event.preventDefault()
-                  return _vm.submitRating.apply(null, arguments)
+                  return _vm.submit.apply(null, arguments)
                 },
               },
             },
@@ -84928,6 +84951,13 @@ var render = function () {
                         [
                           _c("b-rate", {
                             attrs: { "custom-text": "Rate here" },
+                            model: {
+                              value: _vm.fields.rating,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.fields, "rating", $$v)
+                              },
+                              expression: "fields.rating",
+                            },
                           }),
                         ],
                         1
@@ -85004,6 +85034,16 @@ var render = function () {
                           "\n                            "
                       ),
                     ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      [
+                        _c("strong", [_vm._v("Rate: ")]),
+                        _vm._v(" "),
+                        _c("b-rate"),
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     _c("div", [
                       _c("strong", [_vm._v("Name:")]),
@@ -89805,6 +89845,24 @@ var render = function () {
                     "\n                        "
                 ),
               ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "company-rate" },
+                [
+                  _vm._v("\n                            Company rate: "),
+                  _c("b-rate", {
+                    model: {
+                      value: item.company_rate,
+                      callback: function ($$v) {
+                        _vm.$set(item, "company_rate", $$v)
+                      },
+                      expression: "item.company_rate",
+                    },
+                  }),
+                ],
+                1
+              ),
             ]),
             _vm._v(" "),
             _c("hr"),

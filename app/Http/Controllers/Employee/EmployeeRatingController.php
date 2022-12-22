@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\CompanyRating;
 
 class EmployeeRatingController extends Controller
 {
@@ -15,6 +15,16 @@ class EmployeeRatingController extends Controller
     }
 
     public function store(Request $req){
+
+        $exist = CompanyRating::where('company_id', $req->company_id)
+            ->where('user_id', $req->user_id)
+            ->where('job_post_id', $req->job_post_id)
+            ->exists();
+        if($exist){
+            return response()->json([
+                'status' => 'exist'
+            ], 422);
+        }
 
         CompanyRating::create([
             'company_id' => $req->company_id,

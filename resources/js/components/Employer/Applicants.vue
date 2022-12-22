@@ -13,6 +13,11 @@
                                 <div>
                                     <strong>Date Applied: </strong>{{ applicant.created_at | formatDateTime }}
                                 </div>
+
+                                <div>
+                                    <strong>Rate: </strong> <b-rate></b-rate>
+                                </div>
+
                                 <div>
                                     <strong>Name:</strong> {{ applicant.applicant.lname }}, {{ applicant.applicant.fname }} {{ applicant.applicant.mname }}
                                 </div>

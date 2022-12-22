@@ -96,7 +96,7 @@ Route::get('/employee/get-user/{id}', [App\Http\Controllers\Employee\EmployeePro
 Route::get('/employee/my-applications', [App\Http\Controllers\Employee\EmployeeMyApplicationController::class, 'index']);
 Route::get('/employee/get-my-applications', [App\Http\Controllers\Employee\EmployeeMyApplicationController::class, 'getMyApplications']);
 
-Route::post('/employee/submit-rating', [App\Http\Controllers\Employee\EmployeeMyApplicationController::class, 'getMyApplications']);
+Route::post('/employee/submit-rating', [App\Http\Controllers\Employee\EmployeeRatingController::class, 'store']);
 
 
 

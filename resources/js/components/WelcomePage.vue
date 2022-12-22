@@ -56,6 +56,9 @@
                             <div class="w-card-header-title">
                                 {{ item.title }}
                             </div>
+                            <div class="company-rate">
+                                Company rate: <b-rate v-model="item.company_rate"></b-rate>
+                            </div>
                         </div>
                         <hr>
                         <div class="w-tag-container">
@@ -183,6 +186,7 @@ export default {
             categories: [],
             jobTypes: [],
             jobs: [],
+
         }
 
     },
@@ -215,8 +219,6 @@ export default {
             window.location = '/sign-up';
         },
 
-
-
         viewHiring(hiringData){
             console.log(hiringData)
         }
@@ -227,7 +229,8 @@ export default {
         this.initData();
         this.loadJobHiring();
     },
-  
+
+
 
 }
 </script>
