@@ -10,6 +10,8 @@ use App\Models\Category;
 use App\Models\JobPost;
 use App\Models\Qualification;
 use App\Models\JobPostSkill;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class EmployerJobPostController extends Controller
 {
@@ -44,7 +46,6 @@ class EmployerJobPostController extends Controller
 
     public function store(Request $req){
 
-
         $req->validate([
             'title' => ['required'],
             'job_desc' => ['required'],
@@ -60,39 +61,74 @@ class EmployerJobPostController extends Controller
             'category_id.required' => 'Please select category'
         ]);
 
-        $jobPost = JobPost::create([
-            'title' => strtoupper($req->title),
-            'company_id' => $req->company_id,
-            'jobtype_id' => $req->jobtype_id,
-            'category_id' => $req->category_id,
-            'job_desc' => $req->job_desc,
-            'minimum_experience' => $req->minimum_experience,
-            'minimum_qualification' => $req->minimum_qualification,
-            'from_salary' => $req->from_salary,
-            'to_salary' => $req->to_salary,
-            'province' => strtoupper($req->province),
-            'city' => strtoupper($req->city),
-            'barangay' => strtoupper($req->barangay),
-            'street' => strtoupper($req->street),
-        ]);
+        $users = DB::table('users as a')
+            ->join('user_categories as b', 'a.user_id', 'b.user_id')
+            ->where('b.category_id', $req->category_id)
+            ->get();
 
+        //return $users;
+        foreach($users as $user){
+            $msg = 'Hi '.$user->lname . ', ' . $user->fname . ', We have a vacant job related to your profile. Come and apply now.';
+            try{
+                Http::withHeaders([
+                    'Content-Type' => 'text/plain'
+                ])->post('http://'. env('IP_SMS_GATEWAY') .'/services/api/messaging?Message='.$msg.'&To='.$user->contact_no.'&Slot=1', []);
+            }catch(\Exception $e){} //just hide the error
+        }
 
-        if($req->skills){
-            $skills = [];
+        //return $users;
 
-            foreach($req->skills as $skill){
-                array_push($skills, [
-                    'job_post_id' => $jobPost->job_post_id,
-                    'job_post_skill' => $skill['skill']
+        try{
+
+            DB::transaction(function () use($req) {
+
+                $jobPost = JobPost::create([
+                    'title' => strtoupper($req->title),
+                    'company_id' => $req->company_id,
+                    'jobtype_id' => $req->jobtype_id,
+                    'category_id' => $req->category_id,
+                    'job_desc' => $req->job_desc,
+                    'minimum_experience' => $req->minimum_experience,
+                    'minimum_qualification' => $req->minimum_qualification,
+                    'from_salary' => $req->from_salary,
+                    'to_salary' => $req->to_salary,
+                    'province' => strtoupper($req->province),
+                    'city' => strtoupper($req->city),
+                    'barangay' => strtoupper($req->barangay),
+                    'street' => strtoupper($req->street),
                 ]);
-            }
-            JobPostSkill::insert($skills);
+
+
+                if ($req->skills) {
+                    $skills = [];
+
+                    foreach ($req->skills as $skill) {
+                        array_push($skills, [
+                            'job_post_id' => $jobPost->job_post_id,
+                            'job_post_skill' => $skill['skill']
+                        ]);
+                    }
+                    JobPostSkill::insert($skills);
+                }
+
+
+
+            });
+
+
+            return response()->json([
+                'status' => 'saved'
+            ], 200);
+
+        } catch(\Exception $e){
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 500);
         }
 
 
-        return response()->json([
-            'status' => 'saved'
-        ], 200);
+
+
     }
 
     public function update(Request $req, $id){

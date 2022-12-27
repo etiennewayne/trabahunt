@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\UserCategory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -28,13 +29,18 @@ class EmployeeProfileController extends Controller
     }
 
     public function getUser($id){
-        return User::with(['province', 'city', 'barangay'])
+        return User::with(['province', 'city', 'barangay', 'inline_categories'])
             ->where('user_id', $id)->first();
     }
 
     public function update(Request $req, $id){
+//
+//        $cats = json_encode($req->categories);
+//        $cat_d = json_decode($cats);
+//        $cat_dd = json_decode($cat_d[0]);
+//
+//        return $cat_dd->category_id;
 
-        //return $req;
 
         $dob = date("Y-m-d", strtotime($req->bdate)); //convert to date format UNIX
 
@@ -70,9 +76,17 @@ class EmployeeProfileController extends Controller
         if($path != ''){
             $data->avatar = $path; //update image if there is an image to upload
         }
-
         $data->save();
 
+        foreach ($req->categories as $cat){
+            $c = json_decode($cat);
+            UserCategory::updateOrCreate([
+                'user_id' => $id, 'category_id' => $c->category_id
+            ],
+            [
+                'user_id' => $id, 'category_id' => $c->category_id
+            ]);
+        }
 
         return response()->json([
             'status' => 'saved'

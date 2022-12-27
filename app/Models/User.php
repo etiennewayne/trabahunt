@@ -52,6 +52,11 @@ class User extends Authenticatable
             ->with(['category']);
     }
 
+    public function inline_categories(){
+        return $this->hasMany(UserCategory::class, 'user_id', 'user_id')
+            ->leftJoin('categories', 'categories.category_id', 'user_categories.category_id');
+    }
+
     public function province(){
         return $this->hasOne(Province::class, 'provCode', 'province');
     }

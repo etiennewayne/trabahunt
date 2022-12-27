@@ -19,4 +19,6 @@ class ReportHiredController extends Controller
         return view('administrator.report.hired-list')
             ->with('data', $data);
     }
+
+    
 }

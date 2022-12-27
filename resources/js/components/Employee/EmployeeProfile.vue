@@ -129,7 +129,7 @@
                                                 </b-select>
                                             </b-field>
                                         </div>
-                                    </div>
+                                   </div>
 
                                     <div class="columns">
                                         <div class="column">
@@ -144,6 +144,30 @@
                                         <div class="column">
                                             <b-field label="House #. Street" label-position="on-border">
                                                 <b-input type="text"></b-input>
+                                            </b-field>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="columns">
+                                        <div class="column">
+                                            <b-field label="Add categories">
+                                                <b-taginput
+                                                    v-model="fields.categories"
+                                                    :data="filteredTags"
+                                                    autocomplete
+                                                    field="category"
+                                                    icon="label"
+                                                    placeholder="Add a category"
+                                                    @typing="getFilteredTags">
+                                                    <template v-slot="props">
+                                                        <strong>{{props.option.category_id}}</strong>: {{props.option.category}}
+                                                    </template>
+                                                    <template #empty>
+                                                        There are no items
+                                                    </template>
+                                                </b-taginput>
                                             </b-field>
                                         </div>
                                     </div>
@@ -246,6 +270,10 @@ export default {
             barangays: [],
             categories: [],
 
+            dataCategories: [],
+            filteredTags: [],
+
+
             modalChangePassword: false,
             btnClass: {
                 'is-success': true,
@@ -258,6 +286,15 @@ export default {
 
     methods: {
 
+
+        getFilteredTags(text) {
+            this.filteredTags = this.dataCategories.filter((option) => {
+                return option.category
+                    .toString()
+                    .toLowerCase()
+                    .indexOf(text.toLowerCase()) >= 0
+            })
+        },
         //ADDRESS
         loadProvince: function(){
             axios.get('/load-provinces').then(res=>{
@@ -299,6 +336,8 @@ export default {
                 this.fields.contact_no = res.data.contact_no;
                 this.fields.avatar = res.data.avatar;
 
+                this.fields.categories = res.data.inline_categories;
+
 
                 this.fields.province = res.data.province.provCode;
 
@@ -338,6 +377,17 @@ export default {
             formData.append('city', this.fields.city);
             formData.append('barangay', this.fields.barangay);
             formData.append('street', this.fields.street);
+            formData.append('file', this.fields.file);
+
+            this.fields.categories.forEach((item, index) => {
+                formData.append(`categories[]`, JSON.stringify({
+                    'category_id' : item.category_id,
+                    'category': item.category
+                }));
+
+
+            })
+
             formData.append('file', this.fields.file);
 
             axios.post('/employee/profile-update/' + this.id, formData).then(res=>{
@@ -388,6 +438,8 @@ export default {
 
 
     mounted(){
+        this.loadCategories();
+
         this.loadProvince()
         this.initData();
 

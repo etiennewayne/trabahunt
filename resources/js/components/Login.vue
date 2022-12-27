@@ -25,7 +25,7 @@
 
                         </div>
                         <div style="text-align: center;">
-                            <a href="">Forgot Password</a>
+                            <a href="/sign-up">Registere here</a>
                         </div>
                     </div>
                 </div>

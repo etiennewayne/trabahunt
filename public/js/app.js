@@ -38374,6 +38374,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUserId'],
   data: function data() {
@@ -38389,6 +38413,8 @@ __webpack_require__.r(__webpack_exports__);
       cities: [],
       barangays: [],
       categories: [],
+      dataCategories: [],
+      filteredTags: [],
       modalChangePassword: false,
       btnClass: {
         'is-success': true,
@@ -38398,6 +38424,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    getFilteredTags: function getFilteredTags(text) {
+      this.filteredTags = this.dataCategories.filter(function (option) {
+        return option.category.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0;
+      });
+    },
     //ADDRESS
     loadProvince: function loadProvince() {
       var _this = this;
@@ -38443,6 +38474,7 @@ __webpack_require__.r(__webpack_exports__);
         _this5.fields.email = res.data.email;
         _this5.fields.contact_no = res.data.contact_no;
         _this5.fields.avatar = res.data.avatar;
+        _this5.fields.categories = res.data.inline_categories;
         _this5.fields.province = res.data.province.provCode;
         var tempData = res.data; //load city first
 
@@ -38475,6 +38507,13 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('city', this.fields.city);
       formData.append('barangay', this.fields.barangay);
       formData.append('street', this.fields.street);
+      formData.append('file', this.fields.file);
+      this.fields.categories.forEach(function (item, index) {
+        formData.append("categories[]", JSON.stringify({
+          'category_id': item.category_id,
+          'category': item.category
+        }));
+      });
       formData.append('file', this.fields.file);
       axios.post('/employee/profile-update/' + this.id, formData).then(function (res) {
         if (res.data.status === 'saved') {
@@ -38522,6 +38561,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    this.loadCategories();
     this.loadProvince();
     this.initData();
   },
@@ -84914,6 +84954,72 @@ var render = function () {
                       ),
                     ]),
                     _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            { attrs: { label: "Add categories" } },
+                            [
+                              _c("b-taginput", {
+                                attrs: {
+                                  data: _vm.filteredTags,
+                                  autocomplete: "",
+                                  field: "category",
+                                  icon: "label",
+                                  placeholder: "Add a category",
+                                },
+                                on: { typing: _vm.getFilteredTags },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "default",
+                                    fn: function (props) {
+                                      return [
+                                        _c("strong", [
+                                          _vm._v(
+                                            _vm._s(props.option.category_id)
+                                          ),
+                                        ]),
+                                        _vm._v(
+                                          ": " +
+                                            _vm._s(props.option.category) +
+                                            "\n                                                "
+                                        ),
+                                      ]
+                                    },
+                                  },
+                                  {
+                                    key: "empty",
+                                    fn: function () {
+                                      return [
+                                        _vm._v(
+                                          "\n                                                    There are no items\n                                                "
+                                        ),
+                                      ]
+                                    },
+                                    proxy: true,
+                                  },
+                                ]),
+                                model: {
+                                  value: _vm.fields.categories,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "categories", $$v)
+                                  },
+                                  expression: "fields.categories",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
                     _c("div", { staticClass: "butons" }, [
                       _c(
                         "button",
@@ -88265,7 +88371,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticStyle: { "text-align": "center" } }, [
-      _c("a", { attrs: { href: "" } }, [_vm._v("Forgot Password")]),
+      _c("a", { attrs: { href: "/sign-up" } }, [_vm._v("Registere here")]),
     ])
   },
 ]
