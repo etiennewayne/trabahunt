@@ -25,7 +25,7 @@ class CreateEmployeeRatingsTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->unsignedBigInteger('job_post_id');
-            $table->foreign('job_post_id')->references('usejob_post_idr_id')->on('job_posts')
+            $table->foreign('job_post_id')->references('job_post_id')->on('job_posts')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->double('rating')->default(0);

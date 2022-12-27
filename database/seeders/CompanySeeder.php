@@ -25,7 +25,11 @@ class CompanySeeder extends Seeder
                 'industry' => 'LAUNDRY',
                 'benefits_others' => 'SSS, PAGIBIG',
                 'phone_contact' => '091654675224',
-                'email' => 'employer@sample.com'
+                'email' => 'employer@sample.com',
+                'province' => 1042,
+                'city' => 104215,
+                'barangay' => 104215025,
+                'street' => 'p-bougainvilla'
             ]
           
         ];

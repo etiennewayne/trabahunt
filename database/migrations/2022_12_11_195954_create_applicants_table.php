@@ -26,6 +26,9 @@ class CreateApplicantsTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('resume_path')->nullable();
+
+            $table->date('date_hired')->nullable();
+
             $table->tinyInteger('is_accepted')->default(0);
 
             $table->timestamps();
