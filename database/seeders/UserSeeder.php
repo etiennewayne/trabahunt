@@ -29,6 +29,10 @@ class UserSeeder extends Seeder
                 'email' => 'admin@dev.com',
                 'contact_no' => '09167789585',
                 'role' => 'ADMINISTRATOR',
+                'province' => 1042,
+                'city' => 104215,
+                'barangay' => 104215025,
+                'street' => 'p-bougainvilla',
                 'password' => Hash::make('a')
             ],
 
@@ -46,6 +50,10 @@ class UserSeeder extends Seeder
                 'email' => 'neri@dev.com',
                 'contact_no' => '09167789585',
                 'role' => 'EMPLOYEE',
+                'province' => 1042,
+                'city' => 104215,
+                'barangay' => 104215025,
+                'street' => 'p-bougainvilla',
                 'password' => Hash::make('a')
             ],
 
@@ -62,6 +70,10 @@ class UserSeeder extends Seeder
                 'email' => 'sacan@dev.com',
                 'contact_no' => '09167789585',
                 'role' => 'EMPLOYER',
+                'province' => 1042,
+                'city' => 104215,
+                'barangay' => 104215025,
+                'street' => 'p-bougainvilla',
                 'password' => Hash::make('a')
             ],
 
@@ -78,6 +90,10 @@ class UserSeeder extends Seeder
                 'email' => 'leda@dev.com',
                 'contact_no' => '1234654654',
                 'role' => 'EMPLOYER',
+                'province' => 1042,
+                'city' => 104215,
+                'barangay' => 104215025,
+                'street' => 'p-bougainvilla',
                 'password' => Hash::make('a')
             ],
 
