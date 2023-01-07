@@ -40,7 +40,8 @@ Route::get('/get-open-skills', [App\Http\Controllers\OpenSkillController::class,
 
 
 Auth::routes([
-    'login' => 'false'
+    'login' => true,
+    'verify' => true
 ]);
 
 

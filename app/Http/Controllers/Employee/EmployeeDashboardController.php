@@ -15,6 +15,8 @@ class EmployeeDashboardController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('employee');
+        $this->middleware('verified');
+
     }
 
     public function index(){
