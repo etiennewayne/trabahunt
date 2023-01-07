@@ -53,12 +53,23 @@
             <div class="w-card-container" v-for="(item, index) in jobs" :key="index">
                     <div class="w-card">
                         <div class="w-card-header">
+                           
                             <div class="w-card-header-title">
                                 {{ item.title }}
                             </div>
+
                             <div class="company-rate">
-                                Company rate: <b-rate v-model="item.company_rate"></b-rate>
+                                Company Name: {{ item.company.company }}
                             </div>
+
+                            <div class="company-rate">
+                                Company rate: <b-rate 
+                                    show-score 
+                                    spaced
+                                    disabled 
+                                    v-model="item.company_rate"></b-rate>
+                            </div>
+                           
                         </div>
                         <hr>
                         <div class="w-tag-container">
@@ -97,7 +108,7 @@
                             
                             <div>
                                 <b-icon icon="office-building-marker"></b-icon>
-                                <span>{{ item.province.provDesc }}, {{ item.city.citymunDesc }}</span>
+                                <span>{{ item.province.provDesc }}, {{ item.city.citymunDesc }}, {{ item.barangay.brgyDesc }}</span>
                             </div>
 
                             <div class="buttons mt-4">

@@ -33,6 +33,10 @@
         display: none;
     }
 
+    .print-filter{
+        display: none;
+    }
+
 }
 
 .debug{
@@ -63,6 +67,7 @@
 .report-table{
     margin: auto;
     border: 1px solid red;
+    font-size: .8em;
 }
 .report-table > tr > th{
     padding: 10px;
@@ -76,5 +81,11 @@
     padding: 10px;
 }
 
+
+.print-filter{
+    width: 816px;
+    background-color: white;
+    margin: 25px auto;
+}
 
 

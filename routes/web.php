@@ -96,6 +96,7 @@ Route::get('/employee/get-user/{id}', [App\Http\Controllers\Employee\EmployeePro
 Route::get('/employee/my-applications', [App\Http\Controllers\Employee\EmployeeMyApplicationController::class, 'index']);
 Route::get('/employee/get-my-applications', [App\Http\Controllers\Employee\EmployeeMyApplicationController::class, 'getMyApplications']);
 
+
 Route::post('/employee/submit-rating', [App\Http\Controllers\Employee\CompanyRatingController::class, 'store']);
 Route::get('/employee/get-employee-rating/{user_id}', [App\Http\Controllers\Employee\EmployeeRatingController::class, 'getEmployeeRating']);
 
@@ -139,7 +140,7 @@ Route::post('/admin/reset-password/{id}', [App\Http\Controllers\Administrator\Us
 
 //REPORT Side for Administrator
 Route::get('/hired-list', [App\Http\Controllers\Administrator\Report\ReportHiredController::class, 'index']);
-
+Route::get('/get-applicant-report', [App\Http\Controllers\Administrator\Report\ReportHiredController::class, 'getApplicantReport']);
 
 
 // EMPLOYER ROUTES
@@ -163,10 +164,15 @@ Route::post('/employer/accept-applicant/{applicant_id}', [App\Http\Controllers\E
 Route::post('/employer/cancel-applicant/{applicant_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'cancelApplicant']); //get job post per company
 
 
+Route::get('/employer/applicant-list', [App\Http\Controllers\Employer\ApplicantListController::class, 'index']);
+Route::get('/employer/get-applicant-list', [App\Http\Controllers\Employer\ApplicantListController::class, 'getApplicantList']);
+Route::post('/employer/applicant-list-end-contract/{id}', [App\Http\Controllers\Employer\ApplicantListController::class, 'endContract']);
+
+
+
 Route::get('/employer/display-resume/{applicant_id}', [App\Http\Controllers\Employer\ViewResumeController::class, 'viewResume']); //get job post per company
 Route::get('/employer/get-applicant-info/{applicant_id}', [App\Http\Controllers\Employer\ViewResumeController::class, 'getApplicantInfo']); //get job post per company
 Route::get('/employer/get-applicant-info/{applicant_id}', [App\Http\Controllers\Employer\ViewResumeController::class, 'getApplicantInfo']); //get job post per company
-
 
 
 Route::get('/employer/get-my-companies', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'getMyCompanies']);
@@ -185,8 +191,6 @@ Route::delete('/employer/company-delete/{id}', [App\Http\Controllers\Employer\Em
 
 
 // ------------------------------------------------------------------
-
-
 
 
 

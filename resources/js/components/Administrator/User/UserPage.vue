@@ -22,6 +22,12 @@
                             <div class="level-right">
                                 <div class="level-item">
                                     <b-field label="Search">
+                                        <b-select v-model="search.role">
+                                            <option value="">SANA ALL</option>
+                                            <option value="ADMINISTRATOR">ADMINISTRATOR</option>
+                                            <option value="EMPLOYEE">EMPLOYEE</option>
+                                            <option value="EMPLOYER">EMPLOYER</option>
+                                        </b-select>
                                         <b-input type="text"
                                                  v-model="search.lname" placeholder="Search Lastname"
                                                  @keyup.native.enter="loadAsyncData"/>
@@ -232,7 +238,7 @@
                                              :message="this.errors.role ? this.errors.role[0] : ''">
                                         <b-select v-model="fields.role" expanded>
                                             <option value="ADMINISTRATOR">ADMINISTRATOR</option>
-                                            <option value="USER">USER</option>
+                                            <option value="EMPLOYEE">EMPLOYEE</option>
                                             <option value="EMPLOYER">EMPLOYER</option>
                                         </b-select>
                                     </b-field>
@@ -379,6 +385,7 @@ export default{
 
             search: {
                 lname: '',
+                role: '',
             },
 
             isModalCreate: false,
@@ -417,6 +424,7 @@ export default{
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
                 `lname=${this.search.lname}`,
+                `role=${this.search.role}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')

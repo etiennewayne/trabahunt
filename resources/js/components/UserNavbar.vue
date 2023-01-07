@@ -1,5 +1,5 @@
 <template>
-    <b-navbar>
+    <b-navbar fixed-top>
         <template #brand>
             <b-navbar-item>
                 <img src="/img/trablogo.png" />

@@ -36502,16 +36502,64 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propData'],
   data: function data() {
     return {
-      data: []
+      data: [],
+      search: {
+        company: '',
+        employer: '',
+        barangay: '',
+        date_hired: null
+      },
+      date_hired: null,
+      allow_date: false
     };
   },
   methods: {
-    initData: function initData() {
-      this.data = JSON.parse(this.propData);
+    initData: function initData() {//this.data = JSON.parse(this.propData)
+    },
+    loadReportData: function loadReportData() {
+      var _this = this;
+
+      var params;
+
+      if (this.allow_date == true) {
+        var ndate = new Date(this.date_hired);
+        this.search.date_hired = ndate.getFullYear() + '-' + (ndate.getMonth() + 1) + '-' + ndate.getDate();
+        params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "company=".concat(this.search.company), "employer=".concat(this.search.employer), "datehired=".concat(this.search.date_hired), "barangay=".concat(this.search.barangay)].join('&');
+      } else {
+        params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "company=".concat(this.search.company), "employer=".concat(this.search.employer), "barangay=".concat(this.search.barangay), "datehired="].join('&');
+      }
+
+      axios.get("get-applicant-report?".concat(params)).then(function (res) {
+        _this.data = res.data;
+      })["catch"](function (err) {});
     }
   },
   mounted: function mounted() {
@@ -37607,6 +37655,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -37620,7 +37674,8 @@ __webpack_require__.r(__webpack_exports__);
       defaultSortDirection: 'asc',
       global_id: 0,
       search: {
-        lname: ''
+        lname: '',
+        role: ''
       },
       isModalCreate: false,
       modalResetPassword: false,
@@ -37659,7 +37714,7 @@ __webpack_require__.r(__webpack_exports__);
     loadAsyncData: function loadAsyncData() {
       var _this = this;
 
-      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "lname=".concat(this.search.lname), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "lname=".concat(this.search.lname), "role=".concat(this.search.role), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
       this.loading = true;
       axios.get("/admin/get-users?".concat(params)).then(function (_ref) {
         var data = _ref.data;
@@ -38746,6 +38801,380 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      data: [],
+      total: 0,
+      loading: false,
+      sortField: 'category_id',
+      sortOrder: 'desc',
+      page: 1,
+      perPage: 5,
+      defaultSortDirection: 'asc',
+      global_id: 0,
+      search: {
+        category: ''
+      },
+      isModalCreate: false,
+      fields: {
+        service_id: 0,
+        service: '',
+        price: 0
+      },
+      errors: {},
+      btnClass: {
+        'is-success': true,
+        'button': true,
+        'is-loading': false
+      }
+    };
+  },
+  methods: {
+    /*
+    * Load async data
+    */
+    loadAsyncData: function loadAsyncData() {
+      var _this = this;
+
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "lname=".concat(this.search.lname), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      this.loading = true;
+      axios.get("/employer/get-applicant-list?".concat(params)).then(function (_ref) {
+        var data = _ref.data;
+        _this.data = [];
+        var currentTotal = data.total;
+
+        if (data.total / _this.perPage > 1000) {
+          currentTotal = _this.perPage * 1000;
+        }
+
+        _this.total = currentTotal;
+        data.data.forEach(function (item) {
+          //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+          _this.data.push(item);
+        });
+        _this.loading = false;
+      })["catch"](function (error) {
+        _this.data = [];
+        _this.total = 0;
+        _this.loading = false;
+        throw error;
+      });
+    },
+
+    /*
+    * Handle page-change event
+    */
+    onPageChange: function onPageChange(page) {
+      this.page = page;
+      this.loadAsyncData();
+    },
+    onSort: function onSort(field, order) {
+      this.sortField = field;
+      this.sortOrder = order;
+      this.loadAsyncData();
+    },
+    setPerPage: function setPerPage() {
+      this.loadAsyncData();
+    },
+    openModal: function openModal() {
+      this.isModalCreate = true;
+      this.fields = {};
+      this.errors = {};
+    },
+    //alert box ask for deletion
+    endContract: function endContract(rowId) {
+      var _this2 = this;
+
+      this.$buefy.dialog.confirm({
+        title: 'End contract?',
+        type: 'is-info',
+        message: 'Are you sure you want to end contract?',
+        cancelText: 'Cancel',
+        confirmText: 'End contract',
+        onConfirm: function onConfirm() {
+          return _this2.endContractSubmit(rowId);
+        }
+      });
+    },
+    //execute delete after confirming
+    endContractSubmit: function endContractSubmit(rowId) {
+      var _this3 = this;
+
+      axios.post('/employer/applicant-list-end-contract/' + rowId).then(function (res) {
+        _this3.loadAsyncData();
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this3.errors = err.response.data.errors;
+        }
+      });
+    },
+    //update code here
+    getData: function getData(data_id) {
+      var _this4 = this;
+
+      this.clearFields();
+      this.global_id = data_id;
+      this.isModalCreate = true; //nested axios for getting the address 1 by 1 or request by request
+
+      axios.get('/admin/categories/' + data_id).then(function (res) {
+        _this4.fields = res.data;
+      });
+    },
+    clearFields: function clearFields() {
+      this.fields = {
+        service: null,
+        price: null
+      };
+    },
+    submit: function submit() {
+      var _this5 = this;
+
+      if (this.global_id > 0) {
+        //update
+        axios.put('/admin/categories/' + this.global_id, this.fields).then(function (res) {
+          if (res.data.status === 'updated') {
+            _this5.$buefy.dialog.alert({
+              title: 'UPDATED!',
+              message: 'Successfully updated.',
+              type: 'is-success',
+              onConfirm: function onConfirm() {
+                _this5.loadAsyncData();
+
+                _this5.clearFields();
+
+                _this5.global_id = 0;
+                _this5.isModalCreate = false;
+              }
+            });
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this5.errors = err.response.data.errors;
+          }
+        });
+      } else {
+        //INSERT HERE
+        axios.post('/admin/categories', this.fields).then(function (res) {
+          if (res.data.status === 'saved') {
+            _this5.$buefy.dialog.alert({
+              title: 'SAVED!',
+              message: 'Successfully saved.',
+              type: 'is-success',
+              confirmText: 'OK',
+              onConfirm: function onConfirm() {
+                _this5.isModalCreate = false;
+
+                _this5.loadAsyncData();
+
+                _this5.clearFields();
+
+                _this5.global_id = 0;
+              }
+            });
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this5.errors = err.response.data.errors;
+          }
+        });
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.loadAsyncData();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/Applicants.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/Applicants.vue?vue&type=script&lang=js& ***!
@@ -38757,6 +39186,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -39712,6 +40151,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propCompanyId', 'propJobTypes', 'propCategories', 'propQualifications'],
@@ -40035,6 +40475,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -41590,6 +42034,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -63575,6 +64030,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.application-info > div[data-v-0b05b
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.ended[data-v-cebb6712]{\n    font-weight: bold;\n    color: rgb(153, 153, 153);\n    font-size: .8em;\n}\n.status[data-v-cebb6712]{\n    font-weight: bold;\n    color: rgb(153, 153, 153);\n    font-size: .8em;\n}\n.accepted[data-v-cebb6712]{\n    background: green;\n    color: white;\n    padding: 5px;\n}\n.pending[data-v-cebb6712]{\n    background: rgb(81, 81, 236);\n    color: white;\n    padding: 5px;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/Applicants.vue?vue&type=style&index=0&id=464d990a&scoped=true&lang=css&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/Applicants.vue?vue&type=style&index=0&id=464d990a&scoped=true&lang=css& ***!
@@ -76181,6 +76660,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ApplicantList_vue_vue_type_style_index_0_id_cebb6712_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ApplicantList_vue_vue_type_style_index_0_id_cebb6712_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ApplicantList_vue_vue_type_style_index_0_id_cebb6712_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/Applicants.vue?vue&type=style&index=0&id=464d990a&scoped=true&lang=css&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/Applicants.vue?vue&type=style&index=0&id=464d990a&scoped=true&lang=css& ***!
@@ -77492,6 +78001,47 @@ component.options.__file = "resources/js/components/Employee/MyApplication.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Employer/ApplicantList.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/Employer/ApplicantList.vue ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ApplicantList_vue_vue_type_template_id_cebb6712_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ApplicantList.vue?vue&type=template&id=cebb6712&scoped=true& */ "./resources/js/components/Employer/ApplicantList.vue?vue&type=template&id=cebb6712&scoped=true&");
+/* harmony import */ var _ApplicantList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ApplicantList.vue?vue&type=script&lang=js& */ "./resources/js/components/Employer/ApplicantList.vue?vue&type=script&lang=js&");
+/* harmony import */ var _ApplicantList_vue_vue_type_style_index_0_id_cebb6712_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css& */ "./resources/js/components/Employer/ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ApplicantList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ApplicantList_vue_vue_type_template_id_cebb6712_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ApplicantList_vue_vue_type_template_id_cebb6712_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "cebb6712",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Employer/ApplicantList.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Employer/Applicants.vue":
 /*!*********************************************************!*\
   !*** ./resources/js/components/Employer/Applicants.vue ***!
@@ -78481,6 +79031,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Employer/ApplicantList.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/Employer/ApplicantList.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ApplicantList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ApplicantList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ApplicantList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Employer/Applicants.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************!*\
   !*** ./resources/js/components/Employer/Applicants.vue?vue&type=script&lang=js& ***!
@@ -78840,6 +79406,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MyApplication_vue_vue_type_style_index_0_id_0b05bcee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MyApplication.vue?vue&type=style&index=0&id=0b05bcee&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employee/MyApplication.vue?vue&type=style&index=0&id=0b05bcee&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Employer/ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/Employer/ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ApplicantList_vue_vue_type_style_index_0_id_cebb6712_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=style&index=0&id=cebb6712&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -79247,6 +79826,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyApplication_vue_vue_type_template_id_0b05bcee_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyApplication_vue_vue_type_template_id_0b05bcee_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MyApplication.vue?vue&type=template&id=0b05bcee&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employee/MyApplication.vue?vue&type=template&id=0b05bcee&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Employer/ApplicantList.vue?vue&type=template&id=cebb6712&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/Employer/ApplicantList.vue?vue&type=template&id=cebb6712&scoped=true& ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ApplicantList_vue_vue_type_template_id_cebb6712_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ApplicantList_vue_vue_type_template_id_cebb6712_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ApplicantList_vue_vue_type_template_id_cebb6712_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ApplicantList.vue?vue&type=template&id=cebb6712&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=template&id=cebb6712&scoped=true&");
 
 
 /***/ }),
@@ -81664,47 +82260,154 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "printarea" }, [
+    _c("div", { staticClass: "print-filter" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "report-head" }, [
-        _vm._v("\n            LIST OF HIRED EMPLOYEES\n        "),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "report-body" }, [
+      _c("div", { staticClass: "columns" }, [
         _c(
-          "table",
-          { staticClass: "report-table", attrs: { border: "1" } },
+          "div",
+          { staticClass: "column" },
           [
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._l(_vm.data, function (item, index) {
-              return _c("tr", { key: index }, [
-                _c("td", [
-                  _vm._v(
-                    _vm._s(item.applicant.lname) +
-                      ", " +
-                      _vm._s(item.applicant.fname) +
-                      " " +
-                      _vm._s(item.applicant.mname)
-                  ),
-                ]),
+            _c(
+              "b-field",
+              [
+                _c("b-input", {
+                  attrs: { type: "text", placeholder: "Company" },
+                  model: {
+                    value: _vm.search.company,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.search, "company", $$v)
+                    },
+                    expression: "search.company",
+                  },
+                }),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.applicant.sex))]),
+                _c("b-input", {
+                  attrs: { type: "text", placeholder: "Employer" },
+                  model: {
+                    value: _vm.search.employer,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.search, "employer", $$v)
+                    },
+                    expression: "search.employer",
+                  },
+                }),
+              ],
+              1
+            ),
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "column" },
+          [
+            _c(
+              "b-field",
+              [
+                _c(
+                  "b-checkbox",
+                  {
+                    model: {
+                      value: _vm.allow_date,
+                      callback: function ($$v) {
+                        _vm.allow_date = $$v
+                      },
+                      expression: "allow_date",
+                    },
+                  },
+                  [_vm._v("Use date filter")]
+                ),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.contact_no))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.email))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.job_post.company.company))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.date_hired))]),
-              ])
+                _c("b-datepicker", {
+                  attrs: { placeholder: "Date Hired" },
+                  model: {
+                    value: _vm.date_hired,
+                    callback: function ($$v) {
+                      _vm.date_hired = $$v
+                    },
+                    expression: "date_hired",
+                  },
+                }),
+              ],
+              1
+            ),
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "column" },
+          [
+            _c("b-input", {
+              attrs: { type: "text", placeholder: "Barangay" },
+              model: {
+                value: _vm.search.barangay,
+                callback: function ($$v) {
+                  _vm.$set(_vm.search, "barangay", $$v)
+                },
+                expression: "search.barangay",
+              },
             }),
           ],
-          2
+          1
         ),
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "buttons" },
+        [
+          _c("b-button", {
+            attrs: { type: "is-primary", label: "Refresh" },
+            on: { click: _vm.loadReportData },
+          }),
+        ],
+        1
+      ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "printarea" }),
+    _vm._v(" "),
+    _c("div", { staticClass: "report-head" }, [
+      _vm._v("\n            LIST OF HIRED EMPLOYEES\n        "),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "report-body" }, [
+      _c(
+        "table",
+        { staticClass: "report-table", attrs: { border: "1" } },
+        [
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._l(_vm.data, function (item, index) {
+            return _c("tr", { key: index }, [
+              _c("td", [
+                _vm._v(
+                  _vm._s(item.emp_lname) +
+                    ", " +
+                    _vm._s(item.emp_fname) +
+                    " " +
+                    _vm._s(item.emp_mname)
+                ),
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.emp_sex))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.emp_contact_no))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.email))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.company))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.date_hired))]),
+            ])
+          }),
+        ],
+        2
+      ),
     ]),
   ])
 }
@@ -82873,6 +83576,38 @@ var render = function () {
                           "b-field",
                           { attrs: { label: "Search" } },
                           [
+                            _c(
+                              "b-select",
+                              {
+                                model: {
+                                  value: _vm.search.role,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.search, "role", $$v)
+                                  },
+                                  expression: "search.role",
+                                },
+                              },
+                              [
+                                _c("option", { attrs: { value: "" } }, [
+                                  _vm._v("SANA ALL"),
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "ADMINISTRATOR" } },
+                                  [_vm._v("ADMINISTRATOR")]
+                                ),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "EMPLOYEE" } }, [
+                                  _vm._v("EMPLOYEE"),
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "EMPLOYER" } }, [
+                                  _vm._v("EMPLOYER"),
+                                ]),
+                              ]
+                            ),
+                            _vm._v(" "),
                             _c("b-input", {
                               attrs: {
                                 type: "text",
@@ -83654,9 +84389,11 @@ var render = function () {
                                     [_vm._v("ADMINISTRATOR")]
                                   ),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "USER" } }, [
-                                    _vm._v("USER"),
-                                  ]),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "EMPLOYEE" } },
+                                    [_vm._v("EMPLOYEE")]
+                                  ),
                                   _vm._v(" "),
                                   _c(
                                     "option",
@@ -85447,6 +86184,560 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=template&id=cebb6712&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/ApplicantList.vue?vue&type=template&id=cebb6712&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "section" }, [
+        _c("div", { staticClass: "columns is-centered" }, [
+          _c("div", { staticClass: "column is-10" }, [
+            _c(
+              "div",
+              { staticClass: "box" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "is-flex is-justify-content-center mb-2",
+                    staticStyle: { "font-size": "20px", "font-weight": "bold" },
+                  },
+                  [_vm._v("CATEGORIES")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "level" }, [
+                  _c(
+                    "div",
+                    { staticClass: "level-left" },
+                    [
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Page" } },
+                        [
+                          _c(
+                            "b-select",
+                            {
+                              on: { input: _vm.setPerPage },
+                              model: {
+                                value: _vm.perPage,
+                                callback: function ($$v) {
+                                  _vm.perPage = $$v
+                                },
+                                expression: "perPage",
+                              },
+                            },
+                            [
+                              _c("option", { attrs: { value: "5" } }, [
+                                _vm._v("5 per page"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "10" } }, [
+                                _vm._v("10 per page"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "15" } }, [
+                                _vm._v("15 per page"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "20" } }, [
+                                _vm._v("20 per page"),
+                              ]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-select",
+                            {
+                              on: { input: _vm.loadAsyncData },
+                              model: {
+                                value: _vm.sortOrder,
+                                callback: function ($$v) {
+                                  _vm.sortOrder = $$v
+                                },
+                                expression: "sortOrder",
+                              },
+                            },
+                            [
+                              _c("option", { attrs: { value: "asc" } }, [
+                                _vm._v("ASC"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "desc" } }, [
+                                _vm._v("DESC"),
+                              ]),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "level-right" }, [
+                    _c(
+                      "div",
+                      { staticClass: "level-item" },
+                      [
+                        _c(
+                          "b-field",
+                          { attrs: { label: "Search" } },
+                          [
+                            _c("b-input", {
+                              attrs: {
+                                type: "text",
+                                placeholder: "Search Last Name",
+                              },
+                              nativeOn: {
+                                keyup: function ($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.loadAsyncData.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
+                              },
+                              model: {
+                                value: _vm.search.lname,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.search, "lname", $$v)
+                                },
+                                expression: "search.lname",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              { staticClass: "control" },
+                              [
+                                _c(
+                                  "b-tooltip",
+                                  {
+                                    attrs: {
+                                      label: "Search",
+                                      type: "is-success",
+                                    },
+                                  },
+                                  [
+                                    _c("b-button", {
+                                      attrs: {
+                                        type: "is-primary",
+                                        "icon-right": "account-filter",
+                                      },
+                                      on: { click: _vm.loadAsyncData },
+                                    }),
+                                  ],
+                                  1
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "b-table",
+                  {
+                    attrs: {
+                      data: _vm.data,
+                      loading: _vm.loading,
+                      paginated: "",
+                      "backend-pagination": "",
+                      total: _vm.total,
+                      "per-page": _vm.perPage,
+                      "aria-next-label": "Next page",
+                      "aria-previous-label": "Previous page",
+                      "aria-page-label": "Page",
+                      "aria-current-label": "Current page",
+                      "backend-sorting": "",
+                      "default-sort-direction": _vm.defaultSortDirection,
+                    },
+                    on: { "page-change": _vm.onPageChange, sort: _vm.onSort },
+                  },
+                  [
+                    _c("b-table-column", {
+                      attrs: { field: "applicant_id", label: "ID" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(props.row.applicant_id) +
+                                  "\n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { field: "company", label: "Company Name" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(props.row.company) +
+                                  "\n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: {
+                        field: "applicant_name",
+                        label: "Applicant Name",
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(props.row.lname) +
+                                  ", " +
+                                  _vm._s(props.row.fname) +
+                                  " " +
+                                  _vm._s(props.row.mname) +
+                                  "\n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { field: "applicant_name", label: "Title" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(props.row.title) +
+                                  "\n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { field: "applicant_name", label: "Status" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              props.row.is_accepted === 1
+                                ? _c(
+                                    "span",
+                                    { staticClass: "status accepted" },
+                                    [_vm._v("Hired")]
+                                  )
+                                : _c(
+                                    "span",
+                                    { staticClass: "status pending" },
+                                    [_vm._v("Pending")]
+                                  ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { field: "applicant_name", label: "Contract" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              props.row.is_end_contract === 1
+                                ? _c("span", { staticClass: "ended" }, [
+                                    _vm._v("Ended"),
+                                  ])
+                                : _vm._e(),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: { label: "Action" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _c(
+                                "div",
+                                { staticClass: "is-flex" },
+                                [
+                                  _c(
+                                    "b-tooltip",
+                                    {
+                                      attrs: {
+                                        label: "End Contract",
+                                        type: "is-info",
+                                      },
+                                    },
+                                    [
+                                      props.row.is_end_contract === 0
+                                        ? _c("b-button", {
+                                            staticClass:
+                                              "button is-small is-warning mr-1",
+                                            attrs: {
+                                              tag: "a",
+                                              "icon-right": "pencil",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.endContract(
+                                                  props.row.applicant_id
+                                                )
+                                              },
+                                            },
+                                          })
+                                        : _vm._e(),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tooltip",
+                                    {
+                                      attrs: {
+                                        label: "Go to job post",
+                                        type: "is-info",
+                                      },
+                                    },
+                                    [
+                                      _c("b-button", {
+                                        staticClass:
+                                          "button is-small is-info mr-1",
+                                        attrs: {
+                                          tag: "a",
+                                          "icon-right": "arrow-right",
+                                          href:
+                                            "/employer/applicants/" +
+                                            props.row.job_post_id,
+                                        },
+                                      }),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "buttons mt-3" },
+                  [
+                    _c(
+                      "b-button",
+                      {
+                        staticClass: "is-success",
+                        attrs: { "icon-right": "account-arrow-up-outline" },
+                        on: { click: _vm.openModal },
+                      },
+                      [_vm._v("NEW")]
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+            type: "is-link",
+          },
+          model: {
+            value: _vm.isModalCreate,
+            callback: function ($$v) {
+              _vm.isModalCreate = $$v
+            },
+            expression: "isModalCreate",
+          },
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.submit.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "modal-card" }, [
+                _c("header", { staticClass: "modal-card-head" }, [
+                  _c("p", { staticClass: "modal-card-title" }, [
+                    _vm._v("New/Update Category"),
+                  ]),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "delete",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        _vm.isModalCreate = false
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("section", { staticClass: "modal-card-body" }, [
+                  _c("div", {}, [
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Category",
+                                type: this.errors.category ? "is-danger" : "",
+                                message: this.errors.category
+                                  ? this.errors.category[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c("b-input", {
+                                attrs: {
+                                  type: "text",
+                                  placeholder: "Category",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.fields.category,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "category", $$v)
+                                  },
+                                  expression: "fields.category",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  { staticClass: "modal-card-foot" },
+                  [
+                    _c("b-button", {
+                      attrs: { label: "Close" },
+                      on: {
+                        click: function ($event) {
+                          _vm.isModalCreate = false
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        class: _vm.btnClass,
+                        attrs: { label: "Save", type: "is-success" },
+                      },
+                      [_vm._v("SAVE")]
+                    ),
+                  ],
+                  1
+                ),
+              ]),
+            ]
+          ),
+        ]
+      ),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/Applicants.vue?vue&type=template&id=464d990a&scoped=true&":
 /*!*******************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Employer/Applicants.vue?vue&type=template&id=464d990a&scoped=true& ***!
@@ -85470,7 +86761,7 @@ var render = function () {
         _c("div", { staticClass: "columns is-centered" }, [
           _c(
             "div",
-            { staticClass: "column is-10" },
+            { staticClass: "column is-6" },
             _vm._l(_vm.applicants, function (applicant, index) {
               return _c("div", { key: index, staticClass: "box-container" }, [
                 _c("div", { staticClass: "box" }, [
@@ -85499,6 +86790,11 @@ var render = function () {
                           _c("strong", [_vm._v("Rate: ")]),
                           _vm._v(" "),
                           _c("b-rate", {
+                            attrs: {
+                              readonly: "",
+                              "show-score": "",
+                              spaced: "",
+                            },
                             model: {
                               value: applicant.user_total_rating,
                               callback: function ($$v) {
@@ -85508,14 +86804,16 @@ var render = function () {
                             },
                           }),
                           _vm._v(" "),
-                          _c("b-button", {
-                            attrs: { label: "Rate" },
-                            on: {
-                              click: function ($event) {
-                                return _vm.openRateModal(applicant)
-                              },
-                            },
-                          }),
+                          applicant.is_end_contract === 1
+                            ? _c("b-button", {
+                                attrs: { label: "Rate" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.openRateModal(applicant)
+                                  },
+                                },
+                              })
+                            : _vm._e(),
                         ],
                         1
                       ),
@@ -85613,21 +86911,6 @@ var render = function () {
                             },
                           },
                           [_vm._v("Accept")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    applicant.is_accepted === 1
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "button is-danger",
-                            on: {
-                              click: function ($event) {
-                                return _vm.cancelAccept(applicant.applicant_id)
-                              },
-                            },
-                          },
-                          [_vm._v("Cancel")]
                         )
                       : _vm._e(),
                   ]),
@@ -87514,6 +88797,12 @@ var render = function () {
                   [_vm._v("\n                Home\n            ")]
                 ),
                 _vm._v(" "),
+                _c(
+                  "b-navbar-item",
+                  { attrs: { href: "/employer/applicant-list" } },
+                  [_vm._v("\n                Applicants\n            ")]
+                ),
+                _vm._v(" "),
                 _c("b-navbar-item", { attrs: { tag: "div" } }, [
                   _c(
                     "div",
@@ -88371,7 +89660,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticStyle: { "text-align": "center" } }, [
-      _c("a", { attrs: { href: "/sign-up" } }, [_vm._v("Registere here")]),
+      _c("a", { attrs: { href: "/sign-up" } }, [_vm._v("Register here")]),
     ])
   },
 ]
@@ -89327,6 +90616,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("b-navbar", {
+    attrs: { "fixed-top": "" },
     scopedSlots: _vm._u([
       {
         key: "brand",
@@ -90414,12 +91704,21 @@ var render = function () {
                 ),
               ]),
               _vm._v(" "),
+              _c("div", { staticClass: "company-rate" }, [
+                _vm._v(
+                  "\n                            Company Name: " +
+                    _vm._s(item.company.company) +
+                    "\n                        "
+                ),
+              ]),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "company-rate" },
                 [
                   _vm._v("\n                            Company rate: "),
                   _c("b-rate", {
+                    attrs: { "show-score": "", spaced: "", disabled: "" },
                     model: {
                       value: item.company_rate,
                       callback: function ($$v) {
@@ -90516,7 +91815,9 @@ var render = function () {
                       _vm._v(
                         _vm._s(item.province.provDesc) +
                           ", " +
-                          _vm._s(item.city.citymunDesc)
+                          _vm._s(item.city.citymunDesc) +
+                          ", " +
+                          _vm._s(item.barangay.brgyDesc)
                       ),
                     ]),
                   ],
@@ -102831,6 +104132,7 @@ var map = {
 	"./components/Employee/EmployeeDashboard.vue": "./resources/js/components/Employee/EmployeeDashboard.vue",
 	"./components/Employee/EmployeeProfile.vue": "./resources/js/components/Employee/EmployeeProfile.vue",
 	"./components/Employee/MyApplication.vue": "./resources/js/components/Employee/MyApplication.vue",
+	"./components/Employer/ApplicantList.vue": "./resources/js/components/Employer/ApplicantList.vue",
 	"./components/Employer/Applicants.vue": "./resources/js/components/Employer/Applicants.vue",
 	"./components/Employer/EmployerCompanyAddEdit.vue": "./resources/js/components/Employer/EmployerCompanyAddEdit.vue",
 	"./components/Employer/EmployerDashboard.vue": "./resources/js/components/Employer/EmployerDashboard.vue",

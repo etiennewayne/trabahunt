@@ -2,7 +2,7 @@
     <div>
         <div class="section">
             <div class="columns is-centered">
-                <div class="column is-10">
+                <div class="column is-6">
 
                     <div class="box-container" v-for="(applicant, index) in applicants" :key="index">
                         <div class="box">
@@ -15,8 +15,16 @@
                                 </div>
 
                                 <div>
-                                    <strong>Rate: </strong> <b-rate v-model="applicant.user_total_rating"></b-rate>
-                                    <b-button label="Rate" @click="openRateModal(applicant)"></b-button>
+                                    <strong>Rate: </strong>
+                                    <b-rate 
+                                        v-model="applicant.user_total_rating"
+                                        readonly show-score spaced
+                                    >
+                                    </b-rate>
+                                    <b-button
+                                        v-if="applicant.is_end_contract === 1" 
+                                        label="Rate" @click="openRateModal(applicant)">
+                                    </b-button>
                                 </div>
 
                                 <div>
@@ -46,7 +54,7 @@
                             </div> <!--applicant info -->
                             <div class="buttons mt-5">
                                 <button v-if="applicant.is_accepted === 0" class="button is-primary" @click="acceptApplicant(applicant.applicant_id)">Accept</button>
-                                <button v-if="applicant.is_accepted === 1" class="button is-danger" @click="cancelAccept(applicant.applicant_id)">Cancel</button>
+                                <!-- <button v-if="applicant.is_accepted === 1" class="button is-danger" @click="cancelAccept(applicant.applicant_id)">Cancel</button> -->
 
                             </div>
                         </div>
@@ -54,7 +62,6 @@
                 </div>
             </div>
         </div> <!--section -->
-
          <!--modal create-->
          <b-modal v-model="rateModal" has-modal-card
                  trap-focus
@@ -79,7 +86,10 @@
 
                             <div class="columns">
                                 <div class="column">
-                                    <b-rate custom-text="Rate here" v-model="fields.rating"></b-rate>
+                                    <b-rate 
+                                        custom-text="Rate here" 
+                                        v-model="fields.rating">
+                                    </b-rate>
                                 </div>
                             </div>
                         </div>

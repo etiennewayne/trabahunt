@@ -60,4 +60,6 @@ class EmployerApplicantController extends Controller
             'status' => 'canceled'
         ], 200);
     }
+
+
 }

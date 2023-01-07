@@ -25,7 +25,7 @@
 
                         </div>
                         <div style="text-align: center;">
-                            <a href="/sign-up">Registere here</a>
+                            <a href="/sign-up">Register here</a>
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,10 @@
                 <b-navbar-item href="/employer/dashboard">
                     Home
                 </b-navbar-item>
+                <b-navbar-item href="/employer/applicant-list">
+                    Applicants
+                </b-navbar-item>
+                
                 <!-- <b-navbar-item href="/employer/my-company">
                     My Company
                 </b-navbar-item> -->
