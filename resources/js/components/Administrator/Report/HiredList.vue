@@ -26,7 +26,7 @@
             </div>
 
             <div class="buttons">
-                <b-button type="is-primary" label="Refresh" @click="loadReportData"></b-button>
+                <b-button type="is-primary" label="Generate" @click="loadReportData"></b-button>
             </div>
         </div>
         <div class="printarea"></div>

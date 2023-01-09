@@ -82361,7 +82361,7 @@ var render = function () {
         { staticClass: "buttons" },
         [
           _c("b-button", {
-            attrs: { type: "is-primary", label: "Refresh" },
+            attrs: { type: "is-primary", label: "Generate" },
             on: { click: _vm.loadReportData },
           }),
         ],
@@ -84831,12 +84831,7 @@ var render = function () {
                   [
                     _c(
                       "b-field",
-                      {
-                        attrs: {
-                          label:
-                            "Pitch yourself by writing something about yourself...",
-                        },
-                      },
+                      { attrs: { label: "Tell something about yourself..." } },
                       [
                         _c("b-input", {
                           attrs: { type: "textarea" },
