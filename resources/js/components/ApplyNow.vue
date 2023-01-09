@@ -11,7 +11,7 @@
                         <div>
                             <div class="colums">
                                 <div class="column">
-                                    <b-field label="Pitch yourself by writing something about yourself...">
+                                    <b-field label="Tell something about yourself...">
                                         <b-input type="textarea" v-model="pitch"></b-input>
                                     </b-field>
                                 </div>
