@@ -18,6 +18,8 @@ class EmployerJobPostController extends Controller
     //
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('verified');
+
     }
 
     public function index($companyId){
@@ -197,4 +199,20 @@ class EmployerJobPostController extends Controller
         ], 200);
 
     }
+
+
+    public function hideJobPost($id){
+        $data = JobPost::find($id);
+        $data->active = 0;
+        $data->save();
+    }
+
+    public function publishJobPost($id){
+        $data = JobPost::find($id);
+        $data->active = 1;
+        $data->save();
+    }
+
+
+
 }

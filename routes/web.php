@@ -159,10 +159,16 @@ Route::delete('/employer/job-post-skill-delete/{skill}/{job_post_id}', [App\Http
 Route::get('/employer/get-job-post/{id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'show']);
 Route::get('/employer/get-job-posts', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'getJobPosts']); //get job post per company
 
+Route::post('/employer/job-post-hide/{id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'hideJobPost']); //get job post per company
+Route::post('/employer/job-post-publish/{id}', [App\Http\Controllers\Employer\EmployerJobPostController::class, 'publishJobPost']); //get job post per company
+
+
 Route::get('/employer/applicants/{job_post_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'index']); //get job post per company
 Route::get('/employer/get-applicants/{job_post_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'getApplicants']); //get job post per company
 Route::post('/employer/accept-applicant/{applicant_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'acceptApplicant']); //get job post per company
 Route::post('/employer/cancel-applicant/{applicant_id}', [App\Http\Controllers\Employer\EmployerApplicantController::class, 'cancelApplicant']); //get job post per company
+
+Route::get('/employer/applicant-profile/{id}', [App\Http\Controllers\Employer\ApplicantProfileController::class, 'index']); //get job post per company
 
 
 Route::get('/employer/applicant-list', [App\Http\Controllers\Employer\ApplicantListController::class, 'index']);
@@ -188,6 +194,11 @@ Route::put('/employer/company-add-edit/{id}', [App\Http\Controllers\Employer\Emp
 Route::get('/employer/company-add-edit/{id}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'edit']);
 Route::get('/employer/company-show/{cid}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'show']);
 Route::delete('/employer/company-delete/{id}', [App\Http\Controllers\Employer\EmployerCompanyController::class, 'destroy']);
+
+
+
+//Employer Type
+Route::get('/employer/get-employer-types', [App\Http\Controllers\Employer\EmployerTypeController::class, 'getEmployerTypes']);
 
 
 

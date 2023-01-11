@@ -19,11 +19,23 @@
                                             <b-input type="text" placeholder="Company Name" v-model="fields.company"  required></b-input>
                                         </b-field>
                                     </div>
+                                </div>
+
+                                <div class="columns">
                                     <div class="column">
-                                        <b-field label="Owner"
-                                            :type="this.errors.owner ? 'is-danger':''"
-                                            :message="this.errors.owner ? this.errors.owner[0] : ''">
-                                            <b-input type="text" placeholder="Owner" v-model="fields.owner" required></b-input>
+                                        <b-field label="Trade Name"
+                                            :type="this.errors.trade_name ? 'is-danger':''"
+                                            :message="this.errors.trade_name ? this.errors.trade_name[0] : ''">
+                                            <b-input type="text" placeholder="Trade Name" v-model="fields.trade_name" ></b-input>
+                                        </b-field>
+                                    </div>
+                                    <div class="column">
+                                        <b-field label="Accronym/Abbreviation"
+                                            :type="this.errors.accronym ? 'is-danger':''"
+                                            :message="this.errors.accronym ? this.errors.accronym[0] : ''">
+                                            <b-input type="text" placeholder="Accronym/Abbreviation" 
+                                                v-model="fields.accronym" 
+                                            ></b-input>
                                         </b-field>
                                     </div>
                                 </div>
@@ -40,8 +52,58 @@
 
                                 <div class="columns">
                                     <div class="column">
-                                        <b-field label="Company Size">
-                                            <b-numberinput placeholder="Company Size" v-model="fields.company_size" controls-alignment="right" controls-position="compact"></b-numberinput>
+                                        <b-field label="Main/Branch"
+                                            expanded
+                                            :type="this.errors.main_branch ? 'is-danger':''"
+                                            :message="this.errors.main_branch ? this.errors.main_branch[0] : ''">
+                                            <b-select placeholder="Main/Branch"
+                                                expanded 
+                                                v-model="fields.main_branch" required>
+                                                <option value="MAIN">MAIN</option>
+                                                <option value="BRANCH">BRANCH</option>
+                                            </b-select>
+                                        </b-field>
+                                    </div>
+                                    <div class="column">
+                                        <b-field label="Employer Type"
+                                            expanded
+                                            :type="this.errors.employer_type ? 'is-danger':''"
+                                            :message="this.errors.employer_type ? this.errors.employer_type[0] : ''">
+                                            <b-select placeholder="Employer Type"
+                                                expanded 
+                                                v-model="fields.employer_type" required>
+                                                <option v-for="(item, index) in employer_types" 
+                                                    :key="index" 
+                                                    :value="`${item.public_private} - ${item.employer_type}`">
+                                                    {{ item.public_private}} - {{  item.employer_type }}
+                                                </option>
+                                            </b-select>
+                                        </b-field>
+                                    </div>
+                                </div>
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Work Force"
+                                            expanded
+                                            :type="this.errors.total_work_force ? 'is-danger':''"
+                                            :message="this.errors.total_work_force ? this.errors.total_work_force[0] : ''">
+                                            <b-select placeholder="Employer Type"
+                                                expanded 
+                                                v-model="fields.total_work_force" required>
+
+                                                <option value="Micro (1-9)">Micro (1-9)</option>
+                                                <option value="Small (10-99)">Small (10-99)</option>
+                                                <option value="Medium (100-199)">Medium (100-199)</option>
+                                                <option value="Medium (200-Up)">Medium (200-Up)</option>
+                                            </b-select>
+                                        </b-field>
+                                    </div>
+                                    <div class="column">
+                                        <b-field label="Industry">
+                                            <b-input type="text" 
+                                                placeholder="Industry" 
+                                                v-model="fields.industry"></b-input>
                                         </b-field>
                                     </div>
                                 </div>
@@ -49,15 +111,58 @@
                                 <div class="columns">
                                     <div class="column">
                                         <b-field label="Benefits/Others">
-                                            <b-input type="text" placeholder="Benefits/Others" v-model="fields.benefits_others"></b-input>
+                                            <b-input type="text" 
+                                                placeholder="Benefits/Others" 
+                                                v-model="fields.benefits_others"></b-input>
+                                        </b-field>
+                                    </div>
+                                    <div class="column">
+                                        <b-field label="Tax Identification No."
+                                            :type="this.errors.tin ? 'is-danger':''"
+                                            :message="this.errors.tin ? this.errors.tin[0] : ''">
+                                            <b-input type="text" placeholder="TIN" 
+                                                v-model="fields.tin"></b-input>
                                         </b-field>
                                     </div>
                                 </div>
+
 
                                 <hr>
                                 <div class="form-section-title">
                                     Contact Information
                                 </div>
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Name of Owner/President(Fullname)"
+                                            :type="this.errors.owner ? 'is-danger':''"
+                                            :message="this.errors.owner ? this.errors.owner[0] : ''">
+                                            <b-input type="text" placeholder="Name of Owner/President(Fullname)" v-model="fields.owner" required></b-input>
+                                        </b-field>
+                                    </div>
+                                </div>
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Contact Person"
+                                            :type="this.errors.contact_person ? 'is-danger':''"
+                                            :message="this.errors.contact_person ? this.errors.contact_person[0] : ''">
+                                            <b-input type="text" 
+                                                placeholder="Contact Person" 
+                                                v-model="fields.contact_person"></b-input>
+                                        </b-field>
+                                    </div>
+                                    <div class="column">
+                                        <b-field label="Position"
+                                            :type="this.errors.contact_position ? 'is-danger':''"
+                                            :message="this.errors.contact_position ? this.errors.contact_position[0] : ''">
+                                            <b-input type="text" 
+                                                placeholder="Position" 
+                                                v-model="fields.contact_position"></b-input>
+                                        </b-field>
+                                    </div>
+                                </div>
+
                                 <div class="columns">
                                     <div class="column">
                                         <b-field label="Contact No.">
@@ -186,6 +291,8 @@ export default {
         
             id: 0,
 
+            employer_types: [],
+
         }
     },
 
@@ -207,6 +314,12 @@ export default {
         loadBarangay: function(){
             axios.get('/load-barangays?prov=' + this.fields.province + '&city_code='+this.fields.city).then(res=>{
                 this.barangays = res.data;
+            })
+        },
+
+        loadEmployerTypes(){
+            axios.get('/employer/get-employer-types').then(res=>{
+                this.employer_types = res.data;
             })
         },
 
@@ -252,7 +365,7 @@ export default {
 
         initData(){
             this.id = parseInt(this.propId);
-            
+            this.loadEmployerTypes()
             if(this.id > 0){
                 this.getData();
             }

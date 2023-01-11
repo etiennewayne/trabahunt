@@ -23,7 +23,7 @@
 
 <body>
     <div id="app">
-        <navbar-component></navbar-component>
+        <navbar-open></navbar-open>
 
         <div>
             <?php echo $__env->yieldContent('content'); ?>

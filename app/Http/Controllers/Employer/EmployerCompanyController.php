@@ -15,6 +15,8 @@ class EmployerCompanyController extends Controller
 
     public function __constructor(){
         $this->middleware('auth');
+        $this->middleware('verified');
+
     }
 
     public function index(){
@@ -46,7 +48,13 @@ class EmployerCompanyController extends Controller
         $id = Auth::user()->user_id;
 
         $validate = $req->validate([
-            'company' => ['required', 'string', 'max: 100'],
+            'company' => ['required'],
+           
+            'main_branch' => ['required'],
+            'employer_type' => ['required'],
+            'total_work_force' => ['required'],
+            'tin' => ['required'],
+
             'owner' => ['required'],
             //'company_logo' => ['required', 'mimes:jpg,png,bmp'],
             'overview' => ['required'],
@@ -72,14 +80,21 @@ class EmployerCompanyController extends Controller
         Company::create([
             'user_id' => $id,
             'company' => strtoupper($req->company),
-            'owner' => strtoupper($req->owner),
+            'trade_name' => strtoupper($req->trade_name),
+            'accronym' => $req->accronym,
+            'main_or_branch' => $req->main_or_branch,
+            'employer_type' => $req->employer_type,
             'overview' => $req->overview,
-            'company_size' => $req->company_size,
-            
+            'total_work_force' => $req->total_work_force,
+            'website' => $req->website,
+
             'industry' => strtoupper($req->industry),
             'benefits_others' => strtoupper($req->benefits_others),
+            'tin' => $req->tin,
 
-
+            'owner' => strtoupper($req->owner),
+            'contact_person' => strtoupper($req->contact_person),
+            'contact_position' => strtoupper($req->contact_position),
             'phone_contact' => $req->phone_contact,
             'fb_contact' => $req->fb_contact,
             'twitter_contact' => $req->twitter_contact,
@@ -104,8 +119,12 @@ class EmployerCompanyController extends Controller
 
     public function update(Request $req, $id){
         $validate = $req->validate([
-            'company' => ['required', 'string', 'max: 100', 'unique:companies,company,'. $id . ',company_id'],
-            'owner' => ['required'],
+            'company' => ['required'],
+           
+            'main_branch' => ['required'],
+            'employer_type' => ['required'],
+            'total_work_force' => ['required'],
+            'tin' => ['required'],
             //'company_logo' => ['required', 'mimes:jpg,png,bmp'],
             'overview' => ['required'],
             'email' => ['required'],
@@ -130,14 +149,22 @@ class EmployerCompanyController extends Controller
         $data = Company::find($id);
 
         $data->company = strtoupper($req->company);
-        $data->owner = strtoupper($req->owner);
+        $data->trade_name = strtoupper($req->trade_name);
+        $data->accronym = $req->accronym;
+        $data->main_or_branch = $req->main_or_branch;
+        $data->employer_type = $req->employer_type;
         $data->overview = $req->overview;
+        $data->total_work_force = $req->total_work_force;
+        $data->website = $req->website;
 
-        $data->company_size = $req->company_size;
+
         $data->industry = strtoupper($req->industry);
         $data->benefits_others = strtoupper($req->benefits_others);
+        $data->tin = $req->tin;
 
-
+        $data->owner = strtoupper($req->owner);
+        $data->contact_person = strtoupper($req->contact_person);
+        $data->contact_position = strtoupper($req->contact_position);
         $data->phone_contact = $req->phone_contact;
         $data->fb_contact = $req->fb_contact;
         $data->twitter_contact = $req->twitter_contact;

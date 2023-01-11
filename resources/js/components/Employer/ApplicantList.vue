@@ -5,7 +5,7 @@
             <div class="columns is-centered">
                 <div class="column is-10">
                     <div class="box">
-                        <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">CATEGORIES</div>
+                        <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">Applicants</div>
 
                         <div class="level">
                             <div class="level-left">
@@ -63,15 +63,23 @@
                             </b-table-column>
 
                             <b-table-column field="company" label="Company Name" v-slot="props">
-                                {{ props.row.company }}
+                                {{ props.row.job_post.company.company }}
                             </b-table-column>
 
                             <b-table-column field="applicant_name" label="Applicant Name" v-slot="props">
-                                {{ props.row.lname }}, {{ props.row.fname }} {{  props.row.mname }}
+                                {{ props.row.applicant.lname }}, {{ props.row.applicant.fname }} {{  props.row.applicant.mname }}
+                            </b-table-column>
+
+                            <b-table-column field="rating" label="Applicant Rating" v-slot="props">
+                                <b-rate v-model="props.row.total_rating"
+                                    show-score
+                                    :disabled="true"
+                                >
+                                </b-rate>
                             </b-table-column>
                             
                             <b-table-column field="applicant_name" label="Title" v-slot="props">
-                                {{ props.row.title }}
+                                {{ props.row.job_post.title }}
                             </b-table-column>
 
                             <b-table-column field="applicant_name" label="Status" v-slot="props">
@@ -94,6 +102,7 @@
                                             @click="endContract(props.row.applicant_id)">
                                         </b-button>
                                     </b-tooltip>
+
                                     <b-tooltip label="Go to job post" type="is-info">
                                         <b-button 
                                             class="button is-small is-info mr-1" 
@@ -102,8 +111,15 @@
                                             :href="`/employer/applicants/${props.row.job_post_id}`">
                                         </b-button>
                                     </b-tooltip>
-                                    
-                                  
+
+                                    <b-tooltip label="Go to profile" type="is-info">
+                                        <b-button 
+                                            class="button is-small is-warning mr-1" 
+                                            tag="a" 
+                                            icon-right="account" 
+                                            :href="`/employer/applicant-profile/${props.row.applicant.user_id}`">
+                                        </b-button>
+                                    </b-tooltip>
                                 </div>
                             </b-table-column>
 

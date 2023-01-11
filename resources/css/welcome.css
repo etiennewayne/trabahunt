@@ -169,6 +169,14 @@
         margin: 15px 0 0 0;
     }
 
+    .no-result{
+        padding: 25px;
+        text-align: center;
+        font-weight: bold;
+        color: #a7a7a7;
+       
+    }
+
 
     /* Card Reult
         CSS for result card when job click

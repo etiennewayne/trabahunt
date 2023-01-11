@@ -14,9 +14,14 @@ class Company extends Model
 
     protected $fillable = [
         'user_id', 'company',
-        'owner', 'overview',
-        'company_size', 'industry',
-        'benefits_others', 'phone_contact',
+        'trade_name', 'accronym',
+        'main_or_branch', 'employer_type',
+        'overview',
+        'total_work_force',
+        'webiste', 'industry',
+        'benefits_others', 'tin', 
+        'owner', 'contact_person',
+        'contact_position', 'phone_contact',
         'fb_contact', 'twitter_contact', 'insta_contact',
         'viber_contact', 'whatsapp_contact', 'email', 'province',
         'city', 'barangay', 'street', 'company_logo'

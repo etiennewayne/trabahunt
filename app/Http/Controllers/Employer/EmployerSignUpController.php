@@ -21,6 +21,7 @@ class EmployerSignUpController extends Controller
     }
 
     public function store(Request $req){
+    
         $validate = $req->validate([
             'username' => ['required', 'string', 'unique:users'],
             'lname' => ['required', 'string', 'max:100'],

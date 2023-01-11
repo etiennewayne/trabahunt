@@ -22,11 +22,13 @@
         </template>
 
         <template #end>
-            <!-- <b-navbar-item href="/">
-                FAQ
-            </b-navbar-item> -->
+            
           
             <b-navbar-item v-if="currentLogin && user.role == 'EMPLOYEE'" href="/">
+                Home
+            </b-navbar-item>
+
+            <b-navbar-item v-if="currentLogin && user.role == 'EMPLOYER'" href="/employer/dashboard">
                 Home
             </b-navbar-item>
             

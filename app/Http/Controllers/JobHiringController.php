@@ -47,8 +47,8 @@ class JobHiringController extends Controller
             ->whereHas('jobtype', function($q) use ($req){
                 $q->where('jobtype', 'like', $req->jobtype . '%');
             })
+            ->where('active', 1)
             ->orderBy('job_post_id', 'desc');
-
         return $data->get();
     }
 }

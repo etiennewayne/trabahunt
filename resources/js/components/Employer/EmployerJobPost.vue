@@ -36,6 +36,9 @@
                     <div class="box-post" v-for="(item, index) in jobPosts" :key="index">
                         <div class="box-post-heading">
                             <div class="has-text-weight-bold">{{ item.title }}</div>
+                            <div class="post-publish" v-if="item.active">Publish</div>
+                            <div class="post-hide" v-else>Hidden</div>
+
                             <div class="box-post-heading-item-left">
                                 <b-dropdown aria-role="list">
                                     <template #trigger="{ active }">
@@ -45,6 +48,14 @@
                                     <b-dropdown-item aria-role="listitem" :href="`/employer/applicants/${item.job_post_id}`">Applicants</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="jobPostModal(item.job_post_id)">Update</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="confirmDelete(item.job_post_id)">Delete</b-dropdown-item>
+                                    
+                                    <b-dropdown-item aria-role="listitem"
+                                        v-if="item.active === 1"
+                                        @click="hidePost(item.job_post_id)">Hide Post</b-dropdown-item>
+                                    <b-dropdown-item 
+                                        aria-role="listitem" 
+                                        v-if="item.active === 0"
+                                        @click="publishPost(item.job_post_id)">Publish Post</b-dropdown-item>
                                  
                                 </b-dropdown>
                             </div>
@@ -290,6 +301,7 @@
 
 <script>
 import templateBuilder from '@babel/template';
+import { assertExpression } from '@babel/types';
 
 
 export default {
@@ -479,6 +491,8 @@ export default {
 
         },
 
+        
+
         jobPostModal(jobPostId){
             
             this.fields.company_id = this.companyId;
@@ -606,6 +620,28 @@ export default {
             })
         },
 
+
+        hidePost(postId){
+            axios.post('/employer/job-post-hide/' + postId).then(res=>{
+                this.$buefy.toast.open({
+                    message: 'Post hide in feeds',
+                    type: 'is-success'
+                })
+                this.loadJobPosts()
+            })
+        },
+
+        publishPost(postId){
+            axios.post('/employer/job-post-publish/' + postId).then(res=>{
+                this.$buefy.toast.open({
+                    message: 'Post publish in feeds',
+                    type: 'is-success'
+                })
+
+                this.loadJobPosts()
+            })
+        },
+
     },
 
     mounted(){
@@ -660,5 +696,25 @@ export default {
         font-weight: bold;
         font-size: 1.8em;
         cursor: pointer;
+    }
+
+    .post-publish{
+        padding: 5px;
+        background-color: green;
+        color: white;
+        font-weight: bold;
+        font-size: .8em;
+        margin: 0 0 0 15px;
+        text-align: center;
+    }
+
+    .post-hide{
+        padding: 5px;
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        font-size: .8em;
+        margin: 0 0 0 15px;
+        text-align: center;
     }
 </style>

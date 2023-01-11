@@ -20,6 +20,8 @@ class EmployeeProfileController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('employee');
+        $this->middleware('verified');
+
     }
 
     public function index(){
