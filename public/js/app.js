@@ -38538,6 +38538,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUserId'],
   data: function data() {
@@ -38560,7 +38563,8 @@ __webpack_require__.r(__webpack_exports__);
         'is-success': true,
         'button': true,
         'is-loading': false
-      }
+      },
+      rating: 0
     };
   },
   methods: {
@@ -38672,6 +38676,7 @@ __webpack_require__.r(__webpack_exports__);
     initData: function initData() {
       this.id = this.propUserId;
       this.getData();
+      this.getRating();
     },
     openModalChangePassword: function openModalChangePassword() {
       this.modalChangePassword = true;
@@ -38697,6 +38702,14 @@ __webpack_require__.r(__webpack_exports__);
         if (err.response.status === 422) {
           _this7.changePassErrors = err.response.data.errors;
         }
+      });
+    },
+    getRating: function getRating() {
+      var _this8 = this;
+
+      axios.get('/employee/get-my-rating').then(function (res) {
+        console.log(res.data);
+        _this8.rating = res.data.user_total_rating;
       });
     }
   },
@@ -86057,6 +86070,30 @@ var render = function () {
                           ]
                         )
                       : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "mt-5",
+                        staticStyle: {
+                          display: "flex",
+                          "justify-content": "center",
+                        },
+                      },
+                      [
+                        _c("b-rate", {
+                          attrs: { disabled: "", "show-score": "" },
+                          model: {
+                            value: _vm.rating,
+                            callback: function ($$v) {
+                              _vm.rating = $$v
+                            },
+                            expression: "rating",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
                   ],
                   1
                 ),

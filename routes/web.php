@@ -101,6 +101,9 @@ Route::get('/employee/get-my-applications', [App\Http\Controllers\Employee\Emplo
 Route::post('/employee/submit-rating', [App\Http\Controllers\Employee\CompanyRatingController::class, 'store']);
 Route::get('/employee/get-employee-rating/{user_id}', [App\Http\Controllers\Employee\EmployeeRatingController::class, 'getEmployeeRating']);
 
+Route::get('/employee/get-my-rating', [App\Http\Controllers\Employee\EmployeeRatingController::class, 'getMyRating']);
+
+
 
 
 

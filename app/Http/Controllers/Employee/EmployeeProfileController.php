@@ -31,8 +31,14 @@ class EmployeeProfileController extends Controller
     }
 
     public function getUser($id){
+
         return User::with(['province', 'city', 'barangay', 'inline_categories'])
-            ->where('user_id', $id)->first();
+            ->where('user_id', $id)
+            ->first();
+    }
+
+    public function getRating(){
+
     }
 
     public function update(Request $req, $id){

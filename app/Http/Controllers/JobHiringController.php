@@ -21,7 +21,7 @@ class JobHiringController extends Controller
         //     ->join('provinces as e', 'a.province', 'e.provCode')
         //     ->join('cities as f', 'a.city', 'f.citymunCode')
         //     ->join('barangays as g', 'a.barangay', 'g.brgyCode')
-            
+
         //     ->where(function ($query) use ($req) {
         //         $query->where('d.company', 'like', $req->key . '%')
         //             ->orWhere('a.title', 'like', '%' . $req->key . '%');
@@ -47,6 +47,10 @@ class JobHiringController extends Controller
             ->whereHas('jobtype', function($q) use ($req){
                 $q->where('jobtype', 'like', $req->jobtype . '%');
             })
+            ->whereHas('company', function($q) use ($req){
+                $q->where('company', 'like', '%'. $req->key . '%');
+            })
+            ->orWhere('title', 'like', '%'. $req->key . '%')
             ->where('active', 1)
             ->orderBy('job_post_id', 'desc');
         return $data->get();

@@ -36,6 +36,9 @@
                                 <div class="file-name" expanded v-if="fields.file">
                                     {{ fields.file.name }}
                                 </div>
+                                <div class="mt-5" style="display: flex; justify-content: center;">
+                                    <b-rate v-model="rating" disabled show-score></b-rate>
+                                </div>
 
                                 <!-- <div class="buttons">
                                     <b-button class="button is-success is-outlined is-fullwidth">Upload Avatar</b-button>
@@ -281,6 +284,7 @@ export default {
                 'is-loading':false,
             },
 
+            rating: 0,
         }
     },
 
@@ -324,7 +328,7 @@ export default {
                  //nested axios for getting the address 1 by 1 or request by request
 
             axios.get('/employee/get-user/'+ this.id).then(res=>{
-
+                
                 this.fields.bdate = new Date(res.data.bdate);
                 //this.fields = res.data;
                 this.fields.lname = res.data.lname;
@@ -408,6 +412,7 @@ export default {
         initData: function(){
             this.id = this.propUserId;
             this.getData();
+            this.getRating()
         },
 
         openModalChangePassword(){
@@ -432,6 +437,13 @@ export default {
                 if(err.response.status === 422){
                     this.changePassErrors = err.response.data.errors;
                 }
+            })
+        },
+
+        getRating(){
+            axios.get('/employee/get-my-rating').then(res=>{
+                console.log(res.data);
+                this.rating = res.data.user_total_rating
             })
         }
     },
