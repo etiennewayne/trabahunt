@@ -8,6 +8,10 @@
                         <div class="box">
                             <div class="applicant-info">
 
+                                <div>
+
+                                </div>
+
                                 <b-tag v-if="applicant.is_accepted === 1" type="is-success">Accepted</b-tag>
 
                                 <div>
@@ -18,7 +22,7 @@
                                     <strong>Rate: </strong>
                                     <b-rate 
                                         v-model="applicant.user_total_rating"
-                                        readonly show-score spaced
+                                        disabled show-score spaced
                                     >
                                     </b-rate>
                                     <b-button

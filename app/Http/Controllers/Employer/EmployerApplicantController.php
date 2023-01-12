@@ -37,6 +37,7 @@ class EmployerApplicantController extends Controller
             }])
             ->selectRaw('(select(total_rating) / (select count(*) from employee_ratings where user_id = applicants.user_id)) as user_total_rating')
             ->where('job_post_id', $job_post_id)
+            
             ->get();
 
         return $data;

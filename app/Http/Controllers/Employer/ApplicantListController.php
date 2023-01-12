@@ -23,6 +23,7 @@ class ApplicantListController extends Controller
     }
 
     public function getApplicantList(Request $req){
+     
         $user = Auth::user();
        
         $sort = explode('.', $req->sort_by);
@@ -49,9 +50,10 @@ class ApplicantListController extends Controller
                 ->whereColumn('user_id', 'applicants.user_id');
             }])
             ->selectRaw('(select(total_rating) / (select count(*) from employee_ratings where user_id = applicants.user_id)) as user_total_rating')
-            //->where('job_post_id', $job_post_id)
+            ->where('employer_id', $user->user_id)
             ->orderBy('applicant_id', 'desc')
             ->paginate($req->perpage);
+
 
         return $data;
 

@@ -71,7 +71,7 @@
                             </b-table-column>
 
                             <b-table-column field="rating" label="Applicant Rating" v-slot="props">
-                                <b-rate v-model="props.row.total_rating"
+                                <b-rate v-model="props.row.user_total_rating"
                                     show-score
                                     :disabled="true"
                                 >
@@ -98,7 +98,7 @@
                                             class="button is-small is-warning mr-1" 
                                             tag="a" 
                                             icon-right="pencil" 
-                                            v-if="props.row.is_end_contract === 0"
+                                            v-if="props.row.is_end_contract === 0 && props.row.is_accepted == 1"
                                             @click="endContract(props.row.applicant_id)">
                                         </b-button>
                                     </b-tooltip>

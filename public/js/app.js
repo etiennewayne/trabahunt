@@ -39526,6 +39526,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propJobPostId'],
   data: function data() {
@@ -87330,11 +87334,15 @@ var render = function () {
                               _c("b-rate", {
                                 attrs: { "show-score": "", disabled: true },
                                 model: {
-                                  value: props.row.total_rating,
+                                  value: props.row.user_total_rating,
                                   callback: function ($$v) {
-                                    _vm.$set(props.row, "total_rating", $$v)
+                                    _vm.$set(
+                                      props.row,
+                                      "user_total_rating",
+                                      $$v
+                                    )
                                   },
-                                  expression: "props.row.total_rating",
+                                  expression: "props.row.user_total_rating",
                                 },
                               }),
                             ]
@@ -87423,7 +87431,8 @@ var render = function () {
                                       },
                                     },
                                     [
-                                      props.row.is_end_contract === 0
+                                      props.row.is_end_contract === 0 &&
+                                      props.row.is_accepted == 1
                                         ? _c("b-button", {
                                             staticClass:
                                               "button is-small is-warning mr-1",
@@ -87861,6 +87870,8 @@ var render = function () {
                     "div",
                     { staticClass: "applicant-info" },
                     [
+                      _c("div"),
+                      _vm._v(" "),
                       applicant.is_accepted === 1
                         ? _c("b-tag", { attrs: { type: "is-success" } }, [
                             _vm._v("Accepted"),
@@ -87883,7 +87894,7 @@ var render = function () {
                           _vm._v(" "),
                           _c("b-rate", {
                             attrs: {
-                              readonly: "",
+                              disabled: "",
                               "show-score": "",
                               spaced: "",
                             },

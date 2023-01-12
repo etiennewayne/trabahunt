@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Applicant;
 use Auth;
-
+use App\Models\JobPost;
 
 class ApplyNowController extends Controller
 {
@@ -23,10 +23,15 @@ class ApplyNowController extends Controller
     }
 
     public function store(Request $req){
+        //return $req;
 
         $id = Auth::user()->user_id;
         $pdfPath = $req->file('dropFiles');
         $path = '';
+
+        $employer = JobPost::with('company')
+            ->find($req->job_post_id);
+        $employer_id = $employer->company->user_id; //get user id of the employer
 
         if($pdfPath){
             $validate = $req->validate([
@@ -55,6 +60,7 @@ class ApplyNowController extends Controller
             'pitch' => $req->pitch,
             'job_post_id' => $req->job_post_id,
             'user_id' => $id,
+            'employer_id' => $employer_id,
             'resume_path' => $path,
         ]);
 

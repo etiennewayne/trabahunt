@@ -16,7 +16,7 @@ class Applicant extends Model
         'pitch', 'job_post_id',
         'user_id', 'resume_path', 
         'is_accepted', 'is_end_contract',
-        'date_hired'
+        'date_hired', 'employer_id'
     ];
 
     public function applicant(){
